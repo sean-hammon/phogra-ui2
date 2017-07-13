@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ViewportComponent } from './viewport/viewport.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewportComponent
+    ViewportComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
