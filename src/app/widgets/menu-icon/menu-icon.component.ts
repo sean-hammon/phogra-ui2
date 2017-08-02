@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'app-menu-icon',
@@ -7,10 +7,18 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MenuIconComponent implements OnInit {
 
+    @Output() menuToggled = new EventEmitter();
+    menuOpen = false;
+
     constructor() {
     }
 
     ngOnInit() {
+    }
+
+    toggleMenu() {
+        this.menuOpen = !this.menuOpen;
+        this.menuToggled.emit(this.menuOpen);
     }
 
 }

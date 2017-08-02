@@ -9,20 +9,11 @@ import "rxjs/add/operator/filter";
 })
 export class TopBarComponent implements OnInit {
 
-    @Output() menuToggled = new EventEmitter();
-    menuOpen = false;
-
     constructor(private router: Router) {}
 
 
     ngOnInit() {
-
     }
 
-
-    toggleMenu() {
-        this.menuOpen = !this.menuOpen;
-        this.menuToggled.emit(this.menuOpen);
-    }
 }
 
