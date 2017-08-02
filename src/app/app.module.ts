@@ -7,6 +7,7 @@ import { SpinnerComponent } from './widgets/spinner/spinner.component';
 import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     SpinnerComponent,
     MenuIconComponent,
     ViewportComponent,
-    TopBarComponent
+    TopBarComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
