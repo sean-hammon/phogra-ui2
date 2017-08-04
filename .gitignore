@@ -41,3 +41,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Dummy image that will eventually go away.
+# Tired of seeing it in my change list.
+/src/static/DSC20160903-003-Pano_hifi_l.jpg
