@@ -1,9 +1,7 @@
-export class MenuState
+export interface MenuState
 {
-    constructor (
-        public menuOpen: boolean,
-        public activeGallery: any
-    ) { }
+	menuOpen: boolean,
+	activeGallery: any
 }
 
 export const initialMenu: MenuState = {
