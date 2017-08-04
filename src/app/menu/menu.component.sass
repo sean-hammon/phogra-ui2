@@ -1,0 +1,37 @@
+app-menu:host
+    position: absolute
+    top: 3.07em
+    bottom: 2px
+    left: -201px
+    width: 200px
+    background-color: rgba(0, 0, 0, .6)
+    transition: left 0.75s ease-out
+
+app-menu:host.open
+    left: 0
+
+.gallery-menu
+    ul
+        margin: 0
+        padding: 0 0 0.3em 1em
+        list-style: none
+    > ul
+        margin: 0.5em
+        padding: 0
+    li
+        padding-bottom: .3em
+    li:first-of-type
+        padding-top: .3em
+    li:last-of-type
+        padding-bottom: 0
+    li.active
+        font-size: 1.1em
+        font-weight: bold
+    li.active:before
+        font-family: Wingdings
+        font-size: 0.8em
+        content: "\76"
+        margin: 0 0.25em 0 -1.25em
+        position: relative
+        top: -1px
+
