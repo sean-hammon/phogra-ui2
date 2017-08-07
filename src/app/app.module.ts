@@ -8,6 +8,7 @@ import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MenuComponent } from './menu/menu.component';
+import { StateService } from "./state.service";
 import { PhograModule } from "../phogra/phogra.module";
 
 @NgModule({
@@ -25,7 +26,8 @@ import { PhograModule } from "../phogra/phogra.module";
         PhograModule
     ],
     providers: [
-        Title
+        Title,
+        StateService
     ],
     bootstrap: [AppComponent]
 })
