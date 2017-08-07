@@ -1,24 +1,19 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component } from '@angular/core';
+import { StateService } from "../../state.service";
 
 @Component({
     selector: 'app-menu-icon',
     templateUrl: './menu-icon.component.html',
     styleUrls: ['./menu-icon.component.sass']
 })
-export class MenuIconComponent implements OnInit {
+export class MenuIconComponent {
 
-    @Output() menuToggled = new EventEmitter();
-    menuOpen = false;
-
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
+    constructor(
+        private state: StateService
+    ) { }
 
     toggleMenu() {
-        this.menuOpen = !this.menuOpen;
-        this.menuToggled.emit(this.menuOpen);
+        this.state.toggleMenu();
     }
 
 }
