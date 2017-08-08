@@ -8,6 +8,7 @@ import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MenuComponent } from './menu/menu.component';
+import { PhograModule } from "../phogra/phogra.module";
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { MenuComponent } from './menu/menu.component';
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        PhograModule
     ],
     providers: [
         Title
