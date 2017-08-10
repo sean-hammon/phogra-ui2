@@ -11,7 +11,7 @@ import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MenuComponent } from './menu/menu.component';
-import { menuReducer } from "./store/menu.reducer";
+import { appReducer } from "./store/app.reducer";
 
 @NgModule({
     declarations: [
@@ -26,7 +26,7 @@ import { menuReducer } from "./store/menu.reducer";
         BrowserModule,
         AppRoutingModule,
         StoreModule.forRoot({
-            menuState: menuReducer
+            appState: appReducer
         }),
         PhograModule
     ],

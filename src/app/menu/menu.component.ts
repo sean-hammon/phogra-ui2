@@ -15,7 +15,7 @@ export class MenuComponent {
 
     constructor(private store: Store<any>)
     {
-        store.select('menuState')
+        store.select('appState')
             .subscribe(state => {
                 this.menuOpen = state.menuOpen;
             });
