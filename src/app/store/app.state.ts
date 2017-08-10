@@ -4,6 +4,7 @@ export interface AppState
 {
 	loading: boolean;
 	error: string;
+	menuOpen: boolean;
 	breadcrumbs: any[];
 	current_photo: any;
 	current_gallery: any;
@@ -15,6 +16,7 @@ export interface AppState
 export const initialState: AppState = {
     loading: true,
     error: null,
+    menuOpen: false,
     breadcrumbs: [],
     current_photo: {},
     current_gallery: {},

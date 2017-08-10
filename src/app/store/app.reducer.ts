@@ -8,6 +8,11 @@ export const appReducer = (
 
     switch (action.type) {
 
+        case Actions.TOGGLE_MENU:
+            return Object.assign({}, state, {
+                menuOpen: !state.menuOpen
+            });
+
         default:
             return state;
     }

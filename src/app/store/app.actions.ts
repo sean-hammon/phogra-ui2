@@ -4,3 +4,5 @@ export interface ReducerAction
     payload?: any;
 }
 
+export const TOGGLE_MENU = 'TOGGLE_MENU';
+
