@@ -11,6 +11,8 @@ import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MenuComponent } from './menu/menu.component';
+import { EffectsModule } from "@ngrx/effects";
+import { GalleryEffects } from "./store/gallery.effects";
 import { appReducer } from "./store/app.reducer";
 
 @NgModule({
@@ -28,6 +30,9 @@ import { appReducer } from "./store/app.reducer";
         StoreModule.forRoot({
             appState: appReducer
         }),
+        EffectsModule.forRoot([
+            GalleryEffects
+        ]),
         PhograModule
     ],
     providers: [
