@@ -11,6 +11,7 @@ import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MenuComponent } from './menu/menu.component';
+import { GalleryMenuDirective } from "./menu/menu.directive";
 import { EffectsModule } from "@ngrx/effects";
 import { GalleryEffects } from "./store/gallery.effects";
 import { appReducer } from "./store/app.reducer";
@@ -22,7 +23,8 @@ import { appReducer } from "./store/app.reducer";
         MenuIconComponent,
         ViewportComponent,
         TopBarComponent,
-        MenuComponent
+        MenuComponent,
+        GalleryMenuDirective
     ],
     imports: [
         BrowserModule,
