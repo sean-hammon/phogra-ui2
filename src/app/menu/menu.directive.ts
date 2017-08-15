@@ -2,6 +2,7 @@ import { Directive, ElementRef, Renderer2 } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Gallery } from "../../phogra/galleries/gallery";
 import { GalleryProvider } from "../../phogra/galleries/gallery.provider";
+import { galleryState } from "../store/app.state";
 
 @Directive({
     selector: '[gallery-menu]'
@@ -14,9 +15,9 @@ export class GalleryMenuDirective {
         private store: Store<any>,
         private provider: GalleryProvider
     ) {
-        store.select('appState')
-            .subscribe(state => {
-                this.buildMenu(state.galleries);
+        store.select(galleryState)
+            .subscribe(galleries => {
+                this.buildMenu(galleries);
             });
     }
 
@@ -26,7 +27,6 @@ export class GalleryMenuDirective {
         if (galleries.length === 0) {
             return;
         }
-
         let parent = this.element.nativeElement.parentNode;
         let menu = this.renderer.createElement('ul');
 

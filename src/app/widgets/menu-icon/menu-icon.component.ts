@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {TOGGLE_MENU} from "../../store/app.actions";
+import { menuState } from "../../store/app.state";
 
 @Component({
     selector: 'app-menu-icon',
@@ -13,9 +14,9 @@ export class MenuIconComponent {
 
     constructor(private store: Store<any>)
     {
-        store.select('appState')
-            .subscribe(state => {
-                this.menuOpen = state.menuOpen;
+        store.select(menuState)
+            .subscribe(open => {
+                this.menuOpen = open;
             });
     }
 
