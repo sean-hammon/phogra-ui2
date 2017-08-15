@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ViewportComponent } from './viewport/viewport.component'
+import { PhotoComponent } from './photo/photo.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: ViewportComponent
+    component: PhotoComponent
   }
 ];
 
