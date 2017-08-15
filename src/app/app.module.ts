@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './widgets/spinner/spinner.component';
 import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
-import { ViewportComponent } from './viewport/viewport.component';
+import { PhotoComponent } from './photo/photo.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { MenuComponent } from './menu/menu.component';
 import { GalleryMenuDirective } from "./menu/menu.directive";
@@ -21,7 +21,7 @@ import { appReducer } from "./store/app.reducer";
         AppComponent,
         SpinnerComponent,
         MenuIconComponent,
-        ViewportComponent,
+        PhotoComponent,
         TopBarComponent,
         MenuComponent,
         GalleryMenuDirective
