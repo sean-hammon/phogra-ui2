@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { HttpModule } from "@angular/http";
 import { GalleryService } from "./galleries/gallery.service";
+import { GalleryProvider } from "./galleries/gallery.provider";
 
 @NgModule({
     declarations: [
@@ -9,7 +10,8 @@ import { GalleryService } from "./galleries/gallery.service";
         HttpModule
     ],
     providers: [
-        GalleryService
+        GalleryService,
+        GalleryProvider
     ]
 })
 export class PhograModule{}

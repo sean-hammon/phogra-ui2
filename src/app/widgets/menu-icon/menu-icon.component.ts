@@ -1,24 +1,30 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component} from '@angular/core';
+import {Store} from "@ngrx/store";
+import {TOGGLE_MENU} from "../../store/app.actions";
+import { menuState } from "../../store/app.state";
 
 @Component({
     selector: 'app-menu-icon',
     templateUrl: './menu-icon.component.html',
     styleUrls: ['./menu-icon.component.sass']
 })
-export class MenuIconComponent implements OnInit {
+export class MenuIconComponent {
 
-    @Output() menuToggled = new EventEmitter();
-    menuOpen = false;
+    menuOpen: boolean;
 
-    constructor() {
+    constructor(private store: Store<any>)
+    {
+        store.select(menuState)
+            .subscribe(open => {
+                this.menuOpen = open;
+            });
     }
 
-    ngOnInit() {
-    }
-
-    toggleMenu() {
-        this.menuOpen = !this.menuOpen;
-        this.menuToggled.emit(this.menuOpen);
+    toggleMenu()
+    {
+        this.store.dispatch({
+            type: TOGGLE_MENU
+        });
     }
 
 }

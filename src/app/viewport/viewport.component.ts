@@ -1,4 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { AppState } from "../store/app.state";
+import { GET_GALLERIES } from "../store/app.actions";
 
 @Component({
     selector: 'app-viewport',
@@ -10,10 +13,16 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ViewportComponent implements OnInit {
 
-    constructor() {
-    }
+    constructor(
+        private store: Store<AppState>
+    ) { }
 
     ngOnInit() {
+
+        this.store.dispatch({
+            type: GET_GALLERIES
+        });
+
     }
 
 }
