@@ -23,3 +23,10 @@ export const initialState: AppState = {
     galleries: [],
     photos: []
 };
+
+interface AppStore {
+    appState: AppState;
+}
+
+export const galleryState = (state: AppStore) => state.appState.galleries;
+export const menuState = (state: AppStore) => state.appState.menuOpen;
