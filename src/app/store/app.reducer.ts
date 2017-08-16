@@ -30,6 +30,11 @@ export function appReducer (
                 error: "Error"
             });
 
+        case Actions.SET_CURRENT_GALLERY:
+            return Object.assign({}, state, {
+                current_gallery: action.payload
+            });
+
         default:
             return state;
     }
