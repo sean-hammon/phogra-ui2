@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { GalleryService } from "./gallery.service";
 import { Store } from "@ngrx/store";
 import { Gallery } from "./gallery";
 
@@ -24,6 +23,15 @@ export class GalleryProvider {
             return item.parent_id === null;
         });
 
+    }
+
+
+    fetchDefaultGallery(): Gallery {
+        let result =  this.galleries.filter((item: Gallery) => {
+            return item.featured === 1;
+        });
+
+        return result[0];
     }
 
 
