@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Store } from "@ngrx/store";
-import { currentGallery, galleryState } from "./store/app.state";
-import { FETCH_GALLERIES, SET_CURRENT_GALLERY, FETCH_GALLERY_PHOTOS } from "./store/app.actions";
+import { currentGallery, galleryState, photosState } from "./store/app.state";
+import { FETCH_GALLERIES, SET_CURRENT_GALLERY, FETCH_GALLERY_PHOTOS, SET_CURRENT_PHOTO } from "./store/app.actions";
 import { GalleryProvider } from "../phogra/galleries/gallery.provider";
 import "rxjs/add/operator/skip";
 
@@ -38,6 +38,16 @@ export class AppComponent implements OnInit {
                     payload: gallery
                 })
             });
+
+        store.select(photosState).skip(1)
+            .subscribe(photos => {
+                let currentPhoto = photos[0];
+                store.dispatch({
+                    type: SET_CURRENT_PHOTO,
+                    payload: currentPhoto
+                })
+            });
+    }
 
     ngOnInit() {
         this.title.setTitle(this.pageTitle);
