@@ -29,4 +29,5 @@ interface AppStore {
 }
 
 export const galleryState = (state: AppStore) => state.appState.galleries;
+export const currentGallery = (state: AppStore) => state.appState.current_gallery;
 export const menuState = (state: AppStore) => state.appState.menuOpen;
