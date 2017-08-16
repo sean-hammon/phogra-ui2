@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Store } from "@ngrx/store";
 import { AppState } from "./store/app.state";
-import { GET_GALLERIES } from "./store/app.actions";
+import { FETCH_GALLERIES } from "./store/app.actions";
 
 @Component({
     selector: 'app-root',
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         this.title.setTitle(this.pageTitle);
         this.store.dispatch({
-            type: GET_GALLERIES
+            type: FETCH_GALLERIES
         });
     }
 }

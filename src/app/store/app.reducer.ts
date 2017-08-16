@@ -13,18 +13,18 @@ export function appReducer (
                 menuOpen: !state.menuOpen
             });
 
-        case Actions.GET_GALLERIES:
+        case Actions.FETCH_GALLERIES:
             return Object.assign({}, state, {
                 loading: true,
                 error: null
             });
 
-        case Actions.GET_GALLERIES_SUCCESS:
+        case Actions.FETCH_GALLERIES_SUCCESS:
             return Object.assign({}, state, {
                 galleries: action.payload
             });
 
-        case Actions.GET_GALLERIES_ERROR:
+        case Actions.FETCH_GALLERIES_ERROR:
             return Object.assign({}, state, {
                 loading: false,
                 error: "Error"

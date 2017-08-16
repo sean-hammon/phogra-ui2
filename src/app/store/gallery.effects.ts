@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
 import { Observable } from "rxjs/Observable";
 import { GalleryService } from "../../phogra/galleries/gallery.service";
-import { GET_GALLERIES, GET_GALLERIES_ERROR, GET_GALLERIES_SUCCESS } from "./app.actions";
+import { FETCH_GALLERIES, FETCH_GALLERIES_ERROR, FETCH_GALLERIES_SUCCESS } from "./app.actions";
 import "rxjs/add/operator/switchMap";
 import "rxjs/add/operator/catch";
 import "rxjs/add/observable/of";
@@ -16,11 +16,13 @@ export class GalleryEffects {
     ) {}
 
     @Effect()
-    getGalleries$ = this.actions$
-        .ofType(GET_GALLERIES)
+    fetchGalleries$ = this.actions$
+        .ofType(FETCH_GALLERIES)
         .switchMap(
-            action => this.api.fetchGalleries()
-                .map(galleries => ({type: GET_GALLERIES_SUCCESS, payload: galleries}))
-                .catch(() => Observable.of({type: GET_GALLERIES_ERROR}))
-        )
+            action => {
+                return this.api.fetchGalleries()
+                    .map(galleries => ({type: FETCH_GALLERIES_SUCCESS, payload: galleries}))
+                    .catch(() => Observable.of({type: FETCH_GALLERIES_ERROR}))
+            }
+        );
 }
