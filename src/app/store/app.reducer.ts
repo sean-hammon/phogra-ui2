@@ -40,6 +40,11 @@ export function appReducer (
                 current_gallery: action.payload
             });
 
+        case Actions.SET_CURRENT_PHOTO:
+            return Object.assign({}, state, {
+                current_photo: action.payload
+            });
+
         default:
             return state;
     }
