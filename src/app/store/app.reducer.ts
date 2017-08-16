@@ -1,7 +1,7 @@
-import {AppState, initialState} from "./app.state";
+import { AppState, initialState } from "./app.state";
 import * as Actions from "./app.actions";
 
-export function appReducer (
+export function appReducer(
     state: AppState = initialState,
     action: Actions.ReducerAction
 ) {
