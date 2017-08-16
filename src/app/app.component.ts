@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Store } from "@ngrx/store";
-import { galleryState } from "./store/app.state";
-import { FETCH_GALLERIES, SET_CURRENT_GALLERY } from "./store/app.actions";
+import { currentGallery, galleryState } from "./store/app.state";
+import { FETCH_GALLERIES, SET_CURRENT_GALLERY, FETCH_GALLERY_PHOTOS } from "./store/app.actions";
 import { GalleryProvider } from "../phogra/galleries/gallery.provider";
 import "rxjs/add/operator/skip";
 
@@ -28,6 +28,14 @@ export class AppComponent implements OnInit {
                 store.dispatch({
                     type: SET_CURRENT_GALLERY,
                     payload: currentGallery
+                })
+            });
+
+        store.select(currentGallery).skip(1)
+            .subscribe(gallery => {
+                store.dispatch({
+                    type: FETCH_GALLERY_PHOTOS,
+                    payload: gallery
                 })
             });
 
