@@ -40,7 +40,8 @@ import { MenuItemComponent } from './menu/menu-item/menu-item.component';
         PhograModule
     ],
     providers: [
-        Title
+        Title,
+        RouteResolver
     ],
     bootstrap: [AppComponent]
 })
