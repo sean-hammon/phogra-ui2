@@ -15,6 +15,8 @@ import { GalleryMenuDirective } from "./menu/menu.directive";
 import { EffectsModule } from "@ngrx/effects";
 import { GalleryEffects } from "./store/gallery.effects";
 import { appReducer } from "./store/app.reducer";
+import { RouteResolver } from "./routing/route.resolver";
+import { GalleryComponent } from './gallery/gallery.component';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 
 @NgModule({
@@ -26,6 +28,7 @@ import { MenuItemComponent } from './menu/menu-item/menu-item.component';
         TopBarComponent,
         MenuComponent,
         GalleryMenuDirective,
+        GalleryComponent,
         MenuItemComponent
     ],
     imports: [
