@@ -4,7 +4,7 @@ import { StoreModule} from "@ngrx/store";
 
 import { PhograModule } from "../phogra/phogra.module";
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './routing/routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './widgets/spinner/spinner.component';
 import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
