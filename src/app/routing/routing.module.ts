@@ -3,14 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { PhotoComponent } from '../photo/photo.component'
 
 const routes: Routes = [
-  {
-    path: '',
-    component: PhotoComponent
-  }
+    {
+        path: '',
+        component: PhotoComponent
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
