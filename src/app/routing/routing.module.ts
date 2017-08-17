@@ -5,6 +5,7 @@ import { PhotoComponent } from '../photo/photo.component'
 const routes: Routes = [
     {
         path: '',
+        pathMatch: 'full',
         component: PhotoComponent
     }
 ];
