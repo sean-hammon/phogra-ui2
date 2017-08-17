@@ -7,6 +7,10 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: PhotoComponent
+    },
+    {
+        path: '**',
+        redirectTo: '/'
     }
 ];
 
