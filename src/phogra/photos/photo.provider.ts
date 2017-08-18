@@ -1,27 +1,38 @@
 import { Store } from "@ngrx/store";
 import { Injectable } from "@angular/core";
 import {Photo} from "./photo";
-import { photosState } from "../../app/store/app.state";
+import { SET_CURRENT_PHOTO, SET_PHOTOS } from "../../app/store/app.actions";
 
 @Injectable()
 export class PhotoProvider {
 
     public currentTag: string;
     public currentIndex: number = 0;
-    public currentPhoto: Photo;
 
     private photos: Photo[];
 
     constructor(
         private store: Store<any>
-    ){
-        store.select(photosState)
-            .subscribe(photos => { this.photos = photos });
+    ){}
+
+
+    setPhotos (photos: Photo[]): void {
+
+            this.photos = photos;
+            this.store.dispatch({
+                type: SET_PHOTOS,
+                payload: photos
+            });
+
     }
 
 
     fetch(index: number): Photo {
 
+        this.store.dispatch({
+            type: SET_CURRENT_PHOTO,
+            payload: this.photos[index]
+        });
         return this.photos[index];
 
     }
