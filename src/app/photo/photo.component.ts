@@ -30,7 +30,6 @@ export class PhotoComponent implements OnInit {
     ) {
         store.select(currentPhoto)
             .subscribe(photo => {
-                console.log(photo);
                 this.photo = photo;
                 this.coverScreen();
             });
