@@ -20,7 +20,10 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        component: PhotoComponent
+        component: PhotoComponent,
+        resolve: {
+            success: RouteResolver
+        }
     },
     {
         path: '**',
