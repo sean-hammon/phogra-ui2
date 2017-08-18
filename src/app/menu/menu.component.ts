@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from "@ngrx/store";
+import { menuState } from "../store/app.state";
 
 @Component({
     selector: 'app-menu',
@@ -15,11 +16,10 @@ export class MenuComponent {
 
     constructor(private store: Store<any>)
     {
-        store.select('appState')
-            .subscribe(state => {
-                this.menuOpen = state.menuOpen;
+        store.select(menuState)
+            .subscribe(open => {
+                this.menuOpen = open;
             });
-
     }
 
 }
