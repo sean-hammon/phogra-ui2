@@ -10,7 +10,9 @@ import { GalleryProvider } from "../../../phogra/galleries/gallery.provider";
 export class MenuItemComponent implements OnInit {
 
     @Input()
-    gallery: Gallery;
+        gallery: Gallery;
+    @Input()
+        parent: Gallery;
 
     children: Gallery[];
 
@@ -19,6 +21,14 @@ export class MenuItemComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.gallery.links.ui = "/gallery/" + this.gallery.slug;
+        this.gallery.path = '';
+        if (this.parent) {
+            this.gallery.links.ui += "/in" + this.parent.path;
+            this.gallery.path = this.parent.path;
+        }
+        this.gallery.path += '/' + this.gallery.slug;
+        this.gallery.links.ui += "/" + this.gallery.id;
         this.children = this.galleries.fetchByParentId(this.gallery.id);
     }
 
