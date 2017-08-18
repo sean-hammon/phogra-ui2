@@ -8,7 +8,6 @@ import { Gallery } from "../../phogra/galleries/gallery";
 import { GalleryService } from "../../phogra/galleries/gallery.service";
 import { GalleryProvider } from "../../phogra/galleries/gallery.provider";
 import { PhotoProvider } from "../../phogra/photos/photo.provider";
-import { FETCH_GALLERY_PHOTOS_SUCCESS, SET_CURRENT_GALLERY, SET_CURRENT_PHOTO } from "../store/app.actions";
 
 import "rxjs/add/operator/mergeMap";
 
@@ -44,21 +43,12 @@ export class RouteResolver implements Resolve<boolean>{
                         gallery = this.galleries.fetchDefaultGallery();
                 }
 
-                this.store.dispatch({
-                    type: SET_CURRENT_GALLERY,
-                    payload: gallery
-                });
-
                 return gallery;
             })
             .mergeMap(gallery => this.galleryApi.fetchGalleryPhotos(gallery))
             .map(photos => {
 
-
-                this.store.dispatch({
-                    type: FETCH_GALLERY_PHOTOS_SUCCESS,
-                    payload: photos
-                });
+                this.photos.setPhotos(photos);
 
                 let photo: Photo;
                 switch (baseUrl) {
@@ -69,10 +59,6 @@ export class RouteResolver implements Resolve<boolean>{
 
                     default:
                         photo = this.photos.random();
-                        this.store.dispatch({
-                            type: SET_CURRENT_PHOTO,
-                            payload: photo
-                        });
                 }
 
 
