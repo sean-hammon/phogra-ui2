@@ -26,7 +26,7 @@ export class MenuComponent {
             .subscribe(open => {
                 this.menuOpen = open;
             });
-        store.select(galleryState)
+        store.select(galleryState).skip(1)
             .subscribe(galleries => {
                 this.rootGalleries = this.galleries.fetchRootGalleries();
             })
