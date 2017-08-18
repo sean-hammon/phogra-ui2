@@ -19,6 +19,7 @@ export function appReducer(
                 error: null
             });
 
+        case Actions.SET_GALLERIES:
         case Actions.FETCH_GALLERIES_SUCCESS:
             return Object.assign({}, state, {
                 galleries: action.payload

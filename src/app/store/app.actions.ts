@@ -6,6 +6,7 @@ export interface ReducerAction
 
 export const TOGGLE_MENU = 'TOGGLE_MENU';
 
+export const SET_GALLERIES = 'SET_GALLERIES';
 export const FETCH_GALLERIES = 'FETCH_GALLERIES';
 export const FETCH_GALLERIES_SUCCESS = 'FETCH_GALLERIES_SUCCESS';
 export const FETCH_GALLERIES_ERROR = 'FETCH_GALLERIES_ERROR';
