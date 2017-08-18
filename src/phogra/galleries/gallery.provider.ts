@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Gallery } from "./gallery";
+import { SET_CURRENT_GALLERY, SET_GALLERIES } from "../../app/store/app.actions";
 
 @Injectable()
 export class GalleryProvider {
@@ -9,11 +10,27 @@ export class GalleryProvider {
 
     constructor (
         private store: Store<any>
-    ) {
-        store.select('appState')
-            .subscribe(state => {
-                this.galleries = state.galleries;
-            });
+    ) { }
+
+
+    setGalleries (galleries) {
+
+        this.galleries = galleries;
+        this.store.dispatch({
+            type: SET_GALLERIES,
+            payload: galleries
+        });
+
+    }
+
+
+    setCurrent (gallery: Gallery): void {
+
+        this.store.dispatch({
+            type: SET_CURRENT_GALLERY,
+            payload: gallery
+        });
+
     }
 
 
@@ -31,11 +48,24 @@ export class GalleryProvider {
             return item.featured === 1;
         });
 
+        this.setCurrent(result[0]);
         return result[0];
     }
 
 
-    fetchByParentId(parent_id: string) {
+    fetchById(id: string): Gallery {
+
+        let result = this.galleries.filter((item: Gallery) => {
+            return item.id === id;
+        });
+
+        this.setCurrent(result[0]);
+        return result[0];
+
+    }
+
+
+    fetchByParentId(parent_id: string): Gallery[] {
 
         return this.galleries.filter((item: Gallery) => {
             return item.parent_id === parent_id;

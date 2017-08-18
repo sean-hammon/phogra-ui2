@@ -4,7 +4,7 @@ import { StoreModule} from "@ngrx/store";
 
 import { PhograModule } from "../phogra/phogra.module";
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './routing/routing.module';
 import { AppComponent } from './app.component';
 import { SpinnerComponent } from './widgets/spinner/spinner.component';
 import { MenuIconComponent } from './widgets/menu-icon/menu-icon.component';
@@ -15,6 +15,8 @@ import { GalleryMenuDirective } from "./menu/menu.directive";
 import { EffectsModule } from "@ngrx/effects";
 import { GalleryEffects } from "./store/gallery.effects";
 import { appReducer } from "./store/app.reducer";
+import { RouteResolver } from "./routing/route.resolver";
+import { GalleryComponent } from './gallery/gallery.component';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 
 @NgModule({
@@ -26,6 +28,7 @@ import { MenuItemComponent } from './menu/menu-item/menu-item.component';
         TopBarComponent,
         MenuComponent,
         GalleryMenuDirective,
+        GalleryComponent,
         MenuItemComponent
     ],
     imports: [
@@ -40,7 +43,8 @@ import { MenuItemComponent } from './menu/menu-item/menu-item.component';
         PhograModule
     ],
     providers: [
-        Title
+        Title,
+        RouteResolver
     ],
     bootstrap: [AppComponent]
 })
