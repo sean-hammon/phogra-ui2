@@ -35,20 +35,24 @@ export class GalleryProvider {
     }
 
 
-    fetchById(id: string) {
+    fetchById(id: string): Gallery {
 
-        return this.galleries.filter((item: Gallery) => {
+        let result = this.galleries.filter((item: Gallery) => {
             return item.id === id;
         });
+
+        return result[0];
 
     }
 
 
-    fetchByParentId(parent_id: string) {
+    fetchByParentId(parent_id: string): Gallery {
 
-        return this.galleries.filter((item: Gallery) => {
+        let result = this.galleries.filter((item: Gallery) => {
             return item.parent_id === parent_id;
         });
+
+        return result[0];
 
     }
 }
