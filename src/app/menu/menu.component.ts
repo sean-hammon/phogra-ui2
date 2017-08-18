@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { menuState } from "../store/app.state";
+import { galleryState, menuState } from "../store/app.state";
+import { Gallery } from "../../phogra/galleries/gallery";
+import { GalleryProvider } from "../../phogra/galleries/gallery.provider";
 
 @Component({
     selector: 'app-menu',
@@ -13,13 +15,21 @@ import { menuState } from "../store/app.state";
 export class MenuComponent {
 
     menuOpen: boolean;
+    rootGalleries: Gallery[];
 
-    constructor(private store: Store<any>)
+    constructor(
+        private store: Store<any>,
+        private galleries: GalleryProvider
+    )
     {
         store.select(menuState)
             .subscribe(open => {
                 this.menuOpen = open;
             });
+        store.select(galleryState)
+            .subscribe(galleries => {
+                this.rootGalleries = this.galleries.fetchRootGalleries();
+            })
     }
 
 }
