@@ -6,6 +6,7 @@ import { Photo } from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
 import { GalleryService } from '../../phogra/galleries/gallery.service';
 import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
+import { PhotoService } from '../../phogra/photos/photo.service';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
 
 import 'rxjs/add/operator/mergeMap';
@@ -17,6 +18,7 @@ export class RouteResolver implements Resolve<boolean> {
     constructor(
         private galleryApi: GalleryService,
         private galleries: GalleryProvider,
+        private photoApi: PhotoService,
         private photos: PhotoProvider
     ) { }
 
@@ -44,7 +46,7 @@ export class RouteResolver implements Resolve<boolean> {
                 return gallery;
             })
             .mergeMap(gallery => this.galleryApi.fetchGalleryPhotos(gallery))
-            .map(photos => {
+            .switchMap(photos => {
 
                 this.photos.setPhotos(photos);
 
@@ -57,10 +59,8 @@ export class RouteResolver implements Resolve<boolean> {
 
                     default:
                         photo = this.photos.random();
+                        return this.photoApi.preloadFile(photo, 'hifi');
                 }
-
-
-                return photo;
 
             })
 
