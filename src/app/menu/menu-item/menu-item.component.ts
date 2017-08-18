@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Gallery } from "../../../phogra/galleries/gallery";
+import { GalleryProvider } from "../../../phogra/galleries/gallery.provider";
 
 @Component({
     selector: 'app-menu-item',
@@ -7,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuItemComponent implements OnInit {
 
-    constructor() {
-    }
+    @Input()
+    gallery: Gallery;
+
+    children: Gallery[];
+
+    constructor(
+        private galleries: GalleryProvider
+    ) { }
 
     ngOnInit() {
+        this.children = this.galleries.fetchByParentId(this.gallery.id);
     }
 
 }
