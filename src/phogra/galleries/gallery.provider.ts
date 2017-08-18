@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Gallery } from "./gallery";
+import { SET_GALLERIES } from "../../app/store/app.actions";
 
 @Injectable()
 export class GalleryProvider {
@@ -9,11 +10,17 @@ export class GalleryProvider {
 
     constructor (
         private store: Store<any>
-    ) {
-        store.select('appState')
-            .subscribe(state => {
-                this.galleries = state.galleries;
-            });
+    ) { }
+
+
+    setGalleries (galleries) {
+
+        this.galleries = galleries;
+        this.store.dispatch({
+            type: SET_GALLERIES,
+            payload: galleries
+        });
+
     }
 
 
