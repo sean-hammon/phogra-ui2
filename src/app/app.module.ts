@@ -15,6 +15,7 @@ import { GalleryMenuDirective } from "./menu/menu.directive";
 import { EffectsModule } from "@ngrx/effects";
 import { GalleryEffects } from "./store/gallery.effects";
 import { appReducer } from "./store/app.reducer";
+import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { appReducer } from "./store/app.reducer";
         PhotoComponent,
         TopBarComponent,
         MenuComponent,
-        GalleryMenuDirective
+        GalleryMenuDirective,
+        MenuItemComponent
     ],
     imports: [
         BrowserModule,
