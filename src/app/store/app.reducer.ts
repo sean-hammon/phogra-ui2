@@ -31,6 +31,7 @@ export function appReducer(
                 error: "Error"
             });
 
+        case Actions.SET_PHOTOS:
         case Actions.FETCH_GALLERY_PHOTOS_SUCCESS:
             return Object.assign({}, state, {
                 photos: action.payload
