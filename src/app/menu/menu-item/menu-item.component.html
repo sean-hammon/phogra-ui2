@@ -1,3 +1,6 @@
-<p>
-    menu-item works!
-</p>
+<div class='item-title'><a [routerLink]="gallery.links.ui">{{gallery.title}}</a></div>
+<app-menu-item
+    *ngFor="let child of children"
+    [gallery]="child"
+    [parent]="gallery"
+></app-menu-item>

@@ -1,3 +1,7 @@
 <nav class="gallery-menu">
-    <div *gallery-menu></div>
+    <app-menu-item
+        *ngFor="let gallery of rootGalleries"
+        [gallery]="gallery"
+        [parent]="null">
+    </app-menu-item>
 </nav>
