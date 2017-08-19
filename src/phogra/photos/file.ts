@@ -40,25 +40,6 @@ export class File implements IFile {
     bytes: number;
     links: IFileLinks;
 
-    constructor(data: IFileProperties) {
-        this.id = data.id || '';
-        this.photo_id = data.photo_id || '';
-        this.type = data.type || '';
-        this.height = data.height || 0;
-        this.width = data.width || 0;
-        this.top = data.top;
-        this.left = data.left;
-        this.bytes = data.bytes || 0;
-        this.links = data.links || new FileLinks();
-    }
-
-    cssUrl(): string {
-        return 'url("' + (this.links.src || this.links.image) + '")';
-    }
-
-    imgSrc(): string {
-        return this.links.src || this.links.image;
-    }
 
     static transformRest(data: IRestFileData): IFile {
         let xform: IFileProperties;
@@ -80,4 +61,26 @@ export class File implements IFile {
 
         return new File(xform);
     }
+
+
+    constructor(data: IFileProperties) {
+        this.id = data.id || '';
+        this.photo_id = data.photo_id || '';
+        this.type = data.type || '';
+        this.height = data.height || 0;
+        this.width = data.width || 0;
+        this.top = data.top;
+        this.left = data.left;
+        this.bytes = data.bytes || 0;
+        this.links = data.links || new FileLinks();
+    }
+
+    cssUrl(): string {
+        return 'url("' + (this.links.src || this.links.image) + '")';
+    }
+
+    imgSrc(): string {
+        return this.links.src || this.links.image;
+    }
+
 }

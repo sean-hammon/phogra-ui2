@@ -63,19 +63,6 @@ export class Photo implements IPhoto {
     links: IPhotoLinks;
     files: IPhotoFiles;
 
-    constructor(data?: IPhoto) {
-        this.id = data.id || '';
-        this.title = data.title || '';
-        this.slug = data.slug || '';
-        this.short_desc = data.short_desc || '';
-        this.long_desc = data.long_desc || '';
-        this.file_types = data.file_types || [];
-        this.created_at = data.created_at || null;
-        this.updated_at = data.updated_at || null;
-        this.links = data.links || new PhotoLinks();
-        this.files = data.files || new PhotoFiles();
-    }
-
     static transformRest(data: IRestPhotoData): IPhoto {
         let xform: IPhoto;
         xform = {
@@ -103,4 +90,18 @@ export class Photo implements IPhoto {
 
         return photo;
     }
+
+    constructor(data?: IPhoto) {
+        this.id = data.id || '';
+        this.title = data.title || '';
+        this.slug = data.slug || '';
+        this.short_desc = data.short_desc || '';
+        this.long_desc = data.long_desc || '';
+        this.file_types = data.file_types || [];
+        this.created_at = data.created_at || null;
+        this.updated_at = data.updated_at || null;
+        this.links = data.links || new PhotoLinks();
+        this.files = data.files || new PhotoFiles();
+    }
+
 }

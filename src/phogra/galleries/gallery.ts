@@ -37,21 +37,6 @@ export class Gallery {
     created_at: Date;
     updated_at: Date;
 
-    constructor(data?: Gallery) {
-        this.id = (data && data.id) || '';
-        this.parent_id = (data && data.parent_id) || null;
-        this.title = (data && data.title) || null;
-        this.slug = (data && data.slug) || null;
-        this.node = (data && data.node) || null;
-        this.description = (data && data.description) || null;
-        this.restricted = (data && data.restricted) || false;
-        this.featured = (data && data.featured) || 0;
-        this.created_at = (data && data.created_at) || null;
-        this.updated_at = (data && data.updated_at) || null;
-        this.links = (data && data.links) || new GalleryLinks();
-        this.relationships = (data && data.relationships) || new GalleryRelationships();
-    }
-
     static transformRest(data: IRestGalleryData): Gallery {
         let xform: Gallery;
         xform = <Gallery>{
@@ -77,4 +62,21 @@ export class Gallery {
 
         return new Gallery(xform);
     }
+
+
+    constructor(data?: Gallery) {
+        this.id = (data && data.id) || '';
+        this.parent_id = (data && data.parent_id) || null;
+        this.title = (data && data.title) || null;
+        this.slug = (data && data.slug) || null;
+        this.node = (data && data.node) || null;
+        this.description = (data && data.description) || null;
+        this.restricted = (data && data.restricted) || false;
+        this.featured = (data && data.featured) || 0;
+        this.created_at = (data && data.created_at) || null;
+        this.updated_at = (data && data.updated_at) || null;
+        this.links = (data && data.links) || new GalleryLinks();
+        this.relationships = (data && data.relationships) || new GalleryRelationships();
+    }
+
 }

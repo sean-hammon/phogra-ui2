@@ -13,11 +13,6 @@ import 'rxjs/add/observable/of';
 @Injectable()
 export class GalleryEffects {
 
-    constructor (
-        private actions$: Actions,
-        private api: GalleryService
-    ) {}
-
     @Effect()
     fetchGalleries$ = this.actions$
         .ofType(FETCH_GALLERIES)
@@ -41,4 +36,11 @@ export class GalleryEffects {
                     .catch(() => Observable.of({type: FETCH_GALLERY_PHOTOS_ERROR}))
             }
         );
+
+
+    constructor (
+        private actions$: Actions,
+        private api: GalleryService
+    ) {}
+
 }
