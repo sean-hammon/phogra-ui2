@@ -6,8 +6,8 @@ import { SET_CURRENT_PHOTO, SET_PHOTOS } from '../../app/store/app.actions';
 @Injectable()
 export class PhotoProvider {
 
-    public currentTag: string;
-    public currentIndex: number = 0;
+    public currentTag = '';
+    public currentIndex = 0;
 
     private photos: Photo[];
 

@@ -24,13 +24,13 @@ export interface IFile extends IFileProperties {
 }
 
 class FileLinks implements IFileLinks {
-    self: string = '';
-    src: string = '';
-    image: string = '';
+    self = '';
+    src = '';
+    image = '';
 }
 
 export class File implements IFile {
-    id: string = '';
+    id = '';
     photo_id: string;
     type: string;
     height: number;

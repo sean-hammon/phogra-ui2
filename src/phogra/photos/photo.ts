@@ -52,6 +52,7 @@ class PhotoFiles implements IPhotoFiles {
 }
 
 export class Photo implements IPhoto {
+
     id: string;
     title: string;
     slug: string;

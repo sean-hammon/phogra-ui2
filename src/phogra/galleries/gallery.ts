@@ -12,10 +12,10 @@ export interface IGalleryLinks {
 }
 
 class GalleryLinks implements IGalleryLinks {
-    self: string = '';
-    photos: string = '';
-    children: string = '';
-    ui: string = '';
+    self = '';
+    photos = '';
+    children = '';
+    ui = '';
 }
 
 class GalleryRelationships implements IGalleryRelationships {
