@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-	production: false,
+    production: false,
     license: 'Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)',
     apiBase: 'http://papi.dev',
     jwtCookie: 'X-PHOGRA-JWT'

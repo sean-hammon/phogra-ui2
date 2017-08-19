@@ -13,7 +13,7 @@ export class PhotoProvider {
 
     constructor(
         private store: Store<any>
-    ){}
+    ) {}
 
 
     setPhotos (photos: Photo[]): void {

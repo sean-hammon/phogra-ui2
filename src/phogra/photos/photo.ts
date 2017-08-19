@@ -63,7 +63,7 @@ export class Photo implements IPhoto {
     links: IPhotoLinks;
     files: IPhotoFiles;
 
-    constructor(data?:IPhoto) {
+    constructor(data?: Photo) {
         this.id = data.id || '';
         this.title = data.title || '';
         this.slug = data.slug || '';

@@ -23,7 +23,7 @@ export class RouteResolver implements Resolve<boolean> {
     ) { }
 
 
-    resolve(route:ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
         let baseUrl = route.parent.url[0] ? route.parent.url[0].path : 'default';
 
@@ -54,7 +54,7 @@ export class RouteResolver implements Resolve<boolean> {
                 switch (baseUrl) {
 
                     case 'photo':
-                        //eventually
+                        // eventually
                         break;
 
                     default:
