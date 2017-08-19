@@ -23,7 +23,7 @@ export class GalleryService {
 
             this.galleryResults = this.http.get(environment.apiBase + this.apiEndpoint)
                 .map(response => {
-                    let data = response.json().data;
+                    const data = response.json().data;
                     return data.map(item => Gallery.transformRest(item));
                 })
                 .publishReplay(1)
@@ -46,7 +46,7 @@ export class GalleryService {
 
         return this.http.get(gallery.links.photos + '?include=files')
             .map(response => {
-                let data = response.json().data;
+                const data = response.json().data;
                 return data.map(item => Photo.transformRest(item));
             });
     }

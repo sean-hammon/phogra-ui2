@@ -25,7 +25,7 @@ export class RouteResolver implements Resolve<boolean> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
 
-        let baseUrl = route.parent.url[0] ? route.parent.url[0].path : 'default';
+        const baseUrl = route.parent.url[0] ? route.parent.url[0].path : 'default';
 
         return this.galleryApi.fetchGalleries()
             .map(galleries => {

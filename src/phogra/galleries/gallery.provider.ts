@@ -44,7 +44,7 @@ export class GalleryProvider {
 
 
     fetchDefaultGallery(): Gallery {
-        let result =  this.galleries.filter((item: Gallery) => {
+        const result =  this.galleries.filter((item: Gallery) => {
             return item.featured === 1;
         });
 
@@ -55,7 +55,7 @@ export class GalleryProvider {
 
     fetchById(id: string): Gallery {
 
-        let result = this.galleries.filter((item: Gallery) => {
+        const result = this.galleries.filter((item: Gallery) => {
             return item.id === id;
         });
 

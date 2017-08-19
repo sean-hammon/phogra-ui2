@@ -47,7 +47,7 @@ export class PhotoComponent implements OnInit {
 
         let imgH, imgW, imgRatio, viewRatio, top, left;
         //  This will be dynamic later
-        let size = 'hifi';
+        const size = 'hifi';
 
         imgH = this.photo.files[size].height;
         imgW = this.photo.files[size].width;
@@ -81,7 +81,7 @@ export class PhotoComponent implements OnInit {
             left = -1 * this.photo.files[size].left;
         }
 
-        var styles = [
+        const styles = [
             'background-image:' + this.photo.files[size].cssUrl(),
             `height:${imgH}px`,
             `width:${imgW}px`,

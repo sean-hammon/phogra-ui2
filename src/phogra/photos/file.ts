@@ -62,7 +62,7 @@ export class File implements IFile {
 
     static transformRest(data: IRestFileData): IFile {
         let xform: IFileProperties;
-        let links: IFileLinks = new FileLinks();
+        const links: IFileLinks = new FileLinks();
         links.self = data.links.self || undefined;
         links.src = data.links.src || undefined;
         links.image = data.links.image || undefined;

@@ -63,7 +63,7 @@ export class Photo implements IPhoto {
     links: IPhotoLinks;
     files: IPhotoFiles;
 
-    constructor(data?: Photo) {
+    constructor(data?: IPhoto) {
         this.id = data.id || '';
         this.title = data.title || '';
         this.slug = data.slug || '';
@@ -93,7 +93,7 @@ export class Photo implements IPhoto {
             updated_at: new Date(data.attributes.updated_at)
         };
 
-        let photo = new Photo(xform);
+        const photo = new Photo(xform);
 
         if (data.included) {
             data.included.forEach((item: IRestFileData) => {
