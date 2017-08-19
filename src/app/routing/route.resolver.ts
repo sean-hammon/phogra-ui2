@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
 
 import { Photo } from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
@@ -16,7 +15,6 @@ import 'rxjs/add/operator/mergeMap';
 export class RouteResolver implements Resolve<boolean> {
 
     constructor(
-        private store: Store<any>,
         private galleryApi: GalleryService,
         private galleries: GalleryProvider,
         private photos: PhotoProvider
