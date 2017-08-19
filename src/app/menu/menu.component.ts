@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { galleryState, menuState } from '../store/app.state';
@@ -9,12 +9,14 @@ import { TOGGLE_MENU } from '../store/app.actions';
 @Component({
     selector: 'app-menu',
     templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.sass'],
-    host: {
-        '[class.open]': 'menuOpen'
-    }
+    styleUrls: ['./menu.component.sass']
 })
 export class MenuComponent implements OnInit {
+
+    @HostBinding('class.open')
+    public get isOpen() {
+        return this.menuOpen;
+    }
 
     menuOpen: boolean;
     rootGalleries: Gallery[];

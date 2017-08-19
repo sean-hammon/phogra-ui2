@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { currentPhoto } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
@@ -7,12 +7,14 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 @Component({
     selector: 'app-photo',
     templateUrl: './photo.component.html',
-    styleUrls: ['./photo.component.sass'],
-    host: {
-        class: 'full-frame'
-    }
+    styleUrls: ['./photo.component.sass']
 })
 export class PhotoComponent implements OnInit {
+
+    @HostBinding('class')
+    public get getClass() {
+        return 'full-frame';
+    }
 
     photo: Photo;
     inlineStyles: SafeStyle;
