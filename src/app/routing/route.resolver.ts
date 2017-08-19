@@ -21,7 +21,7 @@ export class RouteResolver implements Resolve<boolean> {
     ) { }
 
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    resolve(route: ActivatedRouteSnapshot): Observable<any> {
 
         const baseUrl = route.parent.url[0] ? route.parent.url[0].path : 'default';
 
