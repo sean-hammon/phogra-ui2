@@ -1,7 +1,7 @@
-import { Store } from "@ngrx/store";
-import { Injectable } from "@angular/core";
-import {Photo} from "./photo";
-import { SET_CURRENT_PHOTO, SET_PHOTOS } from "../../app/store/app.actions";
+import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core';
+import {Photo} from './photo';
+import { SET_CURRENT_PHOTO, SET_PHOTOS } from '../../app/store/app.actions';
 
 @Injectable()
 export class PhotoProvider {

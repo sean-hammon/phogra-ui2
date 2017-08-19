@@ -1,4 +1,4 @@
-import { Gallery } from "../../phogra/galleries/gallery";
+import { Gallery } from '../../phogra/galleries/gallery';
 
 export interface AppState
 {

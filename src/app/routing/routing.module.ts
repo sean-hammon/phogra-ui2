@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PhotoComponent } from '../photo/photo.component'
-import { RouteResolver } from "./route.resolver";
-import { GalleryComponent } from "../gallery/gallery.component";
+import { RouteResolver } from './route.resolver';
+import { GalleryComponent } from '../gallery/gallery.component';
 
 const routes: Routes = [
     {
         path: 'gallery/:slug',
         children: [
             {
-                path: "**",
+                path: '**',
                 component: GalleryComponent,
                 resolve: {
                     success: RouteResolver

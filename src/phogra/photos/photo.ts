@@ -1,7 +1,7 @@
-import {IFile} from "./file";
-import {IRestPhotoData} from "../rest/rest.photos";
-import {IRestFileData} from "../rest/rest.files";
-import {File} from "./file";
+import {IFile} from './file';
+import {IRestPhotoData} from '../rest/rest.photos';
+import {IRestFileData} from '../rest/rest.files';
+import {File} from './file';
 
 export interface IPhotoLinks {
     self: string;

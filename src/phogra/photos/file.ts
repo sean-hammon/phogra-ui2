@@ -1,4 +1,4 @@
-import {IRestFileData} from "../rest/rest.files";
+import {IRestFileData} from '../rest/rest.files';
 
 export interface IFileLinks {
     self: string;
@@ -53,7 +53,7 @@ export class File implements IFile {
     }
 
     cssUrl(): string {
-        return "url('" + (this.links.src || this.links.image) + "')";
+        return 'url("' + (this.links.src || this.links.image) + '")';
     }
 
     imgSrc(): string {

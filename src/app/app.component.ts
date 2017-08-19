@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import "rxjs/add/operator/skip";
+import 'rxjs/add/operator/skip';
 
 @Component({
     selector: 'app-root',

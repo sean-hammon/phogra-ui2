@@ -1,4 +1,4 @@
-import { IRestGalleryData } from "../rest/rest.galleries";
+import { IRestGalleryData } from '../rest/rest.galleries';
 
 export interface IGalleryRelationships {
     children: string[];

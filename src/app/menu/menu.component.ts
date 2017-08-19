@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationStart } from "@angular/router";
-import { Store } from "@ngrx/store";
-import { galleryState, menuState } from "../store/app.state";
-import { Gallery } from "../../phogra/galleries/gallery";
-import { GalleryProvider } from "../../phogra/galleries/gallery.provider";
-import { TOGGLE_MENU } from "../store/app.actions";
+import { Router, NavigationStart } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { galleryState, menuState } from '../store/app.state';
+import { Gallery } from '../../phogra/galleries/gallery';
+import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
+import { TOGGLE_MENU } from '../store/app.actions';
 
 @Component({
     selector: 'app-menu',

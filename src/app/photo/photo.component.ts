@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from "@ngrx/store";
-import { currentPhoto } from "../store/app.state";
-import { Photo } from "../../phogra/photos/photo";
-import { DomSanitizer, SafeStyle } from "@angular/platform-browser";
+import { Store } from '@ngrx/store';
+import { currentPhoto } from '../store/app.state';
+import { Photo } from '../../phogra/photos/photo';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-photo',
@@ -87,7 +87,7 @@ export class PhotoComponent implements OnInit {
             `left:${left}px`,
         ];
 
-        this.inlineStyles =  this.sanitzer.bypassSecurityTrustStyle(styles.join(";"));
+        this.inlineStyles =  this.sanitzer.bypassSecurityTrustStyle(styles.join(';'));
         this.zoomState = 'cover';
 
     }

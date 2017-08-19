@@ -1,9 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
-import "rxjs/add/operator/filter";
-import "rxjs/add/operator/skip";
-import { Store } from "@ngrx/store";
-import { currentPhoto } from "../store/app.state";
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/skip';
+import { Store } from '@ngrx/store';
+import { currentPhoto } from '../store/app.state';
 
 @Component({
     selector: 'app-topbar',

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {TOGGLE_MENU} from "../../store/app.actions";
-import { menuState } from "../../store/app.state";
+import {Store} from '@ngrx/store';
+import {TOGGLE_MENU} from '../../store/app.actions';
+import { menuState } from '../../store/app.state';
 
 @Component({
     selector: 'app-menu-icon',

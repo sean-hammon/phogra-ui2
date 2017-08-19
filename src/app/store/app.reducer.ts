@@ -1,5 +1,5 @@
-import { AppState, initialState } from "./app.state";
-import * as Actions from "./app.actions";
+import { AppState, initialState } from './app.state';
+import * as Actions from './app.actions';
 
 export function appReducer(
     state: AppState = initialState,
@@ -28,7 +28,7 @@ export function appReducer(
         case Actions.FETCH_GALLERIES_ERROR:
             return Object.assign({}, state, {
                 loading: false,
-                error: "Error"
+                error: 'Error'
             });
 
         case Actions.SET_PHOTOS:

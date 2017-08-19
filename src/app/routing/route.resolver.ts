@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
-import { Observable } from "rxjs/Observable";
-import { Store } from "@ngrx/store";
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 
-import { Photo } from "../../phogra/photos/photo";
-import { Gallery } from "../../phogra/galleries/gallery";
-import { GalleryService } from "../../phogra/galleries/gallery.service";
-import { GalleryProvider } from "../../phogra/galleries/gallery.provider";
-import { PhotoProvider } from "../../phogra/photos/photo.provider";
+import { Photo } from '../../phogra/photos/photo';
+import { Gallery } from '../../phogra/galleries/gallery';
+import { GalleryService } from '../../phogra/galleries/gallery.service';
+import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
+import { PhotoProvider } from '../../phogra/photos/photo.provider';
 
-import "rxjs/add/operator/mergeMap";
+import 'rxjs/add/operator/mergeMap';
 
 
 @Injectable()

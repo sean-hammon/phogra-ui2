@@ -1,4 +1,4 @@
-import {IRestFileData} from "./rest.files";
+import {IRestFileData} from './rest.files';
 
 export interface IRestPhotoRelations {
     files?: any;
