@@ -31,7 +31,9 @@ export class MenuComponent implements OnInit {
                 this.menuOpen = open;
             });
         store.select(galleryState).skip(1)
-            .subscribe(galleries => {
+            .subscribe(() => {
+                // Don't need the value from the store. We just want to
+                // know when it changes from empty to not.
                 this.rootGalleries = this.galleries.fetchRootGalleries();
             })
     }
@@ -41,7 +43,7 @@ export class MenuComponent implements OnInit {
 
         this.router.events
             .filter(event => event instanceof NavigationStart && this.menuOpen)
-            .subscribe(event => {
+            .subscribe(() => {
                 this.store.dispatch({
                     type: TOGGLE_MENU
                 });
