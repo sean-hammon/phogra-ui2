@@ -16,4 +16,4 @@ import { PhotoProvider } from './photos/photo.provider';
         PhotoProvider
     ]
 })
-export class PhograModule{}
+export class PhograModule {}

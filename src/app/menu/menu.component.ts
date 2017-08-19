@@ -25,8 +25,7 @@ export class MenuComponent implements OnInit {
         private store: Store<any>,
         private router: Router,
         private galleries: GalleryProvider
-    )
-    {
+    ) {
         store.select(menuState)
             .subscribe(open => {
                 this.menuOpen = open;

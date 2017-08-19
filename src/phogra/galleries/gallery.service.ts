@@ -15,7 +15,7 @@ export class GalleryService {
 
     constructor (
         private http: Http
-    ){}
+    ) {}
 
     fetchGalleries(): Observable<Gallery[]> {
 

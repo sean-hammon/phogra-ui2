@@ -12,16 +12,14 @@ export class MenuIconComponent {
 
     menuOpen: boolean;
 
-    constructor(private store: Store<any>)
-    {
+    constructor(private store: Store<any>) {
         store.select(menuState)
             .subscribe(open => {
                 this.menuOpen = open;
             });
     }
 
-    toggleMenu()
-    {
+    toggleMenu() {
         this.store.dispatch({
             type: TOGGLE_MENU
         });

@@ -1,7 +1,6 @@
 import { Gallery } from '../../phogra/galleries/gallery';
 
-export interface AppState
-{
+export interface AppState {
 	loading: boolean;
 	error: string;
 	menuOpen: boolean;
@@ -10,7 +9,6 @@ export interface AppState
 	current_gallery: any;
 	galleries: Gallery[];
 	photos: any;
-
 }
 
 export const initialState: AppState = {

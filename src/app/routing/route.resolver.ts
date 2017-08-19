@@ -13,7 +13,7 @@ import 'rxjs/add/operator/mergeMap';
 
 
 @Injectable()
-export class RouteResolver implements Resolve<boolean>{
+export class RouteResolver implements Resolve<boolean> {
 
     constructor(
         private store: Store<any>,
