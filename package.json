@@ -5,10 +5,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 192.168.56.102",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "pub-start": "ng serve --app public --host 192.168.56.102",
+    "pub-build": "ng build --app public",
+    "pub-test": "ng test --app public",
+    "pub-lint": "ng lint --app public",
+    "pub-e2e": "ng e2e --app public"
   },
   "private": true,
   "dependencies": {
