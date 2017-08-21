@@ -28,7 +28,7 @@ export class PhotoComponent implements OnInit {
         private store: Store<any>,
         private sanitzer: DomSanitizer
     ) {
-        store.select(currentPhoto).skip(1)
+        store.select(currentPhoto)
             .subscribe(photo => {
                 console.log(photo);
                 this.photo = photo;
