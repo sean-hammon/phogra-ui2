@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Store } from "@ngrx/store";
 
 import { Photo } from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
 import { GalleryService } from '../../phogra/galleries/gallery.service';
 import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
+import { PhotoService } from '../../phogra/photos/photo.service';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
 
+import { SET_CURRENT_PHOTO, TOGGLE_SPINNER } from '../store/app.actions';
+
 import 'rxjs/add/operator/mergeMap';
+import "rxjs/add/operator/first";
 
 
 @Injectable()
 export class RouteResolver implements Resolve<boolean> {
 
     constructor(
+        private store: Store<any>,
         private galleryApi: GalleryService,
         private galleries: GalleryProvider,
+        private photoApi: PhotoService,
         private photos: PhotoProvider
     ) { }
 
@@ -44,7 +51,7 @@ export class RouteResolver implements Resolve<boolean> {
                 return gallery;
             })
             .mergeMap(gallery => this.galleryApi.fetchGalleryPhotos(gallery))
-            .map(photos => {
+            .switchMap(photos => {
 
                 this.photos.setPhotos(photos);
 
@@ -57,12 +64,26 @@ export class RouteResolver implements Resolve<boolean> {
 
                     default:
                         photo = this.photos.random();
+                        return this.photoApi.preloadFile(photo, 'hifi');
                 }
 
-
-                return photo;
-
             })
+            .map(value => {
+
+                if (value instanceof Photo) {
+                    console.log('chained');
+                    this.store.dispatch({
+                        type: SET_CURRENT_PHOTO,
+                        payload: value
+                    });
+                    this.store.dispatch({
+                        type: TOGGLE_SPINNER
+                    });
+                }
+
+                return true;
+            })
+            .first();
 
     }
 }

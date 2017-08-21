@@ -4,6 +4,7 @@ export interface ReducerAction {
 }
 
 export const TOGGLE_MENU = 'TOGGLE_MENU';
+export const TOGGLE_SPINNER = 'TOGGLE_SPINNER';
 
 export const SET_GALLERIES = 'SET_GALLERIES';
 export const FETCH_GALLERIES = 'FETCH_GALLERIES';

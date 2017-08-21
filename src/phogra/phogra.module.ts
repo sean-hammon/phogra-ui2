@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { GalleryService } from './galleries/gallery.service';
 import { GalleryProvider } from './galleries/gallery.provider';
+import { PhotoService } from './photos/photo.service';
 import { PhotoProvider } from './photos/photo.provider';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { PhotoProvider } from './photos/photo.provider';
     providers: [
         GalleryService,
         GalleryProvider,
+        PhotoService,
         PhotoProvider
     ]
 })

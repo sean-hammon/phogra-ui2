@@ -13,6 +13,11 @@ export function appReducer(
                 menuOpen: !state.menuOpen
             });
 
+        case Actions.TOGGLE_SPINNER:
+            return Object.assign({}, state, {
+                loading: !state.loading
+            });
+
         case Actions.FETCH_GALLERIES:
             return Object.assign({}, state, {
                 loading: true,
