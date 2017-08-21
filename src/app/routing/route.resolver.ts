@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Store } from "@ngrx/store";
 
 import { Photo } from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
@@ -9,13 +10,17 @@ import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
 import { PhotoService } from '../../phogra/photos/photo.service';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
 
+import { SET_CURRENT_PHOTO } from '../store/app.actions';
+
 import 'rxjs/add/operator/mergeMap';
+import "rxjs/add/operator/first";
 
 
 @Injectable()
 export class RouteResolver implements Resolve<boolean> {
 
     constructor(
+        private store: Store<any>,
         private galleryApi: GalleryService,
         private galleries: GalleryProvider,
         private photoApi: PhotoService,
@@ -63,6 +68,19 @@ export class RouteResolver implements Resolve<boolean> {
                 }
 
             })
+            .map(value => {
+
+                if (value instanceof Photo) {
+                    console.log('chained');
+                    this.store.dispatch({
+                        type: SET_CURRENT_PHOTO,
+                        payload: value
+                    });
+                }
+
+                return true;
+            })
+            .first();
 
     }
 }
