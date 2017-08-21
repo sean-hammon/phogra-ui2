@@ -31,3 +31,4 @@ export const currentGallery = (state: AppStore) => state.appState.current_galler
 export const photosState = (state: AppStore) => state.appState.photos;
 export const currentPhoto = (state: AppStore) => state.appState.current_photo;
 export const menuState = (state: AppStore) => state.appState.menuOpen;
+export const loadingState = (state: AppStore) => state.appState.loading;

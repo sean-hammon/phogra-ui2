@@ -1,16 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
+import { Store } from "@ngrx/store";
+import { loadingState } from "../../store/app.state";
 
 @Component({
     selector: 'app-spinner',
     templateUrl: './spinner.component.html',
     styleUrls: ['./spinner.component.sass']
 })
-export class SpinnerComponent implements OnInit {
+export class SpinnerComponent {
 
-    constructor() {
+    @HostBinding('class')
+    public get getClass() {
+        return this.loading ? 'full-frame' : '';
     }
 
-    ngOnInit() {
+    loading: boolean;
+
+    constructor(
+        private store: Store<any>
+    ){
+        store.select(loadingState)
+            .subscribe(loading => {
+                this.loading = loading
+            });
     }
 
 }

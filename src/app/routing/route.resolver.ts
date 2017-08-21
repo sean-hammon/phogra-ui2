@@ -10,7 +10,7 @@ import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
 import { PhotoService } from '../../phogra/photos/photo.service';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
 
-import { SET_CURRENT_PHOTO } from '../store/app.actions';
+import { SET_CURRENT_PHOTO, TOGGLE_SPINNER } from '../store/app.actions';
 
 import 'rxjs/add/operator/mergeMap';
 import "rxjs/add/operator/first";
@@ -75,6 +75,9 @@ export class RouteResolver implements Resolve<boolean> {
                     this.store.dispatch({
                         type: SET_CURRENT_PHOTO,
                         payload: value
+                    });
+                    this.store.dispatch({
+                        type: TOGGLE_SPINNER
                     });
                 }
 
