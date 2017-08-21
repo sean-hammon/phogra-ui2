@@ -3,6 +3,8 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { FileException } from "../exceptions/file.exception";
 
+import isEmpty from 'lodash/isEmpty';
+
 @Injectable()
 export class PhotoService {
 
@@ -22,7 +24,7 @@ export class PhotoService {
         return Observable.create(observer => {
 
             let image = new Image();
-            if (_.isEmpty(photo.files[type])){
+            if (isEmpty(photo.files[type])){
 
                 let exception = new FileException(`Photo ${photo.id} does not have a file with type '${type}'`);
                 observer.error(exception);
