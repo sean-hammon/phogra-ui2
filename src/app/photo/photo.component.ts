@@ -17,6 +17,7 @@ export class PhotoComponent implements OnInit {
     }
 
     photo: Photo;
+    visible: boolean;
     inlineStyles: SafeStyle;
     zoomState: string;
 
@@ -28,6 +29,7 @@ export class PhotoComponent implements OnInit {
         private store: Store<any>,
         private sanitzer: DomSanitizer
     ) {
+        this.visible = false;
         store.select(currentPhoto)
             .subscribe(photo => {
                 this.photo = photo;
@@ -90,6 +92,17 @@ export class PhotoComponent implements OnInit {
 
         this.inlineStyles =  this.sanitzer.bypassSecurityTrustStyle(styles.join(';'));
         this.zoomState = 'cover';
+
+        //  This feels really hacky, but lifecycle hooks and the animation
+        //  module don't wait for the component to be fully initialized in
+        //  in the DOM before running the animations. As far as I can tell, router
+        //  animations only work on host elements paired with router-outlet.
+        //  That won't work here. Not sure how I would implement a cross fade
+        //  based on routing.
+
+        setTimeout(() => {
+            this.visible = true;
+        }, 500);
 
     }
 
