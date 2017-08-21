@@ -32,13 +32,11 @@ export class PhotoService {
             } else {
                 //  Define these before setting the src attribute.
                 image.onload = function imageLoaded() {
-                    observer.onNext(photo);
-                    observer.onCompleted();
+                    observer.next(photo);
                 };
                 image.onerror = function imageError() {
                     let exception = new FileException(photo.files[type].links.image + " did not load.");
                     observer.error(exception);
-                    observer.onCompleted();
                 };
 
                 //  Pre-load
