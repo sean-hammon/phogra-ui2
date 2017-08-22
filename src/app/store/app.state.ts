@@ -1,18 +1,21 @@
 import { Gallery } from '../../phogra/galleries/gallery';
+import { Photo } from "../../phogra/photos/photo";
 
 export interface AppState {
     loading: boolean;
+    load_complete: boolean;
     error: string;
     menuOpen: boolean;
     breadcrumbs: any[];
     current_photo: any;
     current_gallery: any;
     galleries: Gallery[];
-    photos: any;
+    photos: Photo[];
 }
 
 export const initialState: AppState = {
     loading: true,
+    load_complete: false,
     error: null,
     menuOpen: false,
     breadcrumbs: [],
@@ -32,3 +35,4 @@ export const photosState = (state: AppStore) => state.appState.photos;
 export const currentPhoto = (state: AppStore) => state.appState.current_photo;
 export const menuState = (state: AppStore) => state.appState.menuOpen;
 export const loadingState = (state: AppStore) => state.appState.loading;
+export const loadComplete = (state: AppStore) => state.appState.load_complete;
