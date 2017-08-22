@@ -1,4 +1,5 @@
 import { Gallery } from '../../phogra/galleries/gallery';
+import { Photo } from "../../phogra/photos/photo";
 
 export interface AppState {
     loading: boolean;
@@ -9,7 +10,7 @@ export interface AppState {
     current_photo: any;
     current_gallery: any;
     galleries: Gallery[];
-    photos: any;
+    photos: Photo[];
 }
 
 export const initialState: AppState = {
