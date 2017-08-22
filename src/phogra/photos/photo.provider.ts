@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import {Photo} from './photo';
-import { SET_CURRENT_PHOTO, SET_PHOTOS } from '../../app/store/app.actions';
+import { APPEND_THUMBS, RESET_THUMBS, SET_CURRENT_PHOTO, SET_PHOTOS } from '../../app/store/app.actions';
 
 @Injectable()
 export class PhotoProvider {
@@ -45,4 +45,23 @@ export class PhotoProvider {
 
     }
 
+
+    fetchThumbs(start, end): Photo[] {
+
+        const batch = this.limit(start, end);
+        const action = start === 0 ? RESET_THUMBS : APPEND_THUMBS;
+
+        this.store.dispatch({
+            type: action,
+            payload: batch
+        });
+
+        return batch;
+
+    }
+
+
+    limit(offset:number, length:number): Photo[] {
+        return this.photos.slice(offset, offset+length);
+    }
 }

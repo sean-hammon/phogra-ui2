@@ -19,6 +19,7 @@ import { appReducer } from './store/app.reducer';
 import { RouteResolver } from './routing/route.resolver';
 import { GalleryComponent } from './gallery/gallery.component';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
+import { ThumbComponent } from './gallery/thumb/thumb.component';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,8 @@ import { MenuItemComponent } from './menu/menu-item/menu-item.component';
         MenuComponent,
         GalleryMenuDirective,
         GalleryComponent,
-        MenuItemComponent
+        MenuItemComponent,
+        ThumbComponent
     ],
     imports: [
         BrowserModule,

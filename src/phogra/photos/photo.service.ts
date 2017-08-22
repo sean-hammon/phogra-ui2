@@ -5,6 +5,8 @@ import { FileException } from "../exceptions/file.exception";
 
 import isEmpty from 'lodash/isEmpty';
 
+import "rxjs/add/observable/forkJoin";
+
 @Injectable()
 export class PhotoService {
 
@@ -19,7 +21,7 @@ export class PhotoService {
      *
      * @returns {any}
      */
-    preloadFile(photo:Photo, type: string): Observable<Photo> {
+    preloadFile(photo: Photo, type: string): Observable<Photo> {
 
         return Observable.create(observer => {
 
@@ -44,5 +46,19 @@ export class PhotoService {
             }
 
         });
+    }
+
+
+    preloadThumbs(photos: Photo[]) {
+
+        let collection: Observable<Photo>[];
+
+        collection = [];
+        photos.forEach((photo: Photo) => {
+            collection.push(this.preloadFile(photo, 'thumb').first());
+        });
+
+        return Observable.forkJoin(collection);
+
     }
 }

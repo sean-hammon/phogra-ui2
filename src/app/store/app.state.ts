@@ -11,6 +11,7 @@ export interface AppState {
     current_gallery: any;
     galleries: Gallery[];
     photos: Photo[];
+    thumbs: Photo[];
 }
 
 export const initialState: AppState = {
@@ -22,7 +23,8 @@ export const initialState: AppState = {
     current_photo: {},
     current_gallery: {},
     galleries: [],
-    photos: []
+    photos: [],
+    thumbs: []
 };
 
 interface AppStore {
