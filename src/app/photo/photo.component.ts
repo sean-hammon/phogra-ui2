@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { currentPhoto } from '../store/app.state';
+import { currentPhoto, loadComplete } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
@@ -30,11 +30,12 @@ export class PhotoComponent implements OnInit {
         private sanitzer: DomSanitizer
     ) {
         this.visible = false;
+
         store.select(currentPhoto)
-            .subscribe(photo => {
-                this.photo = photo;
-                this.coverScreen();
-            });
+            .subscribe(photo => this.photo = photo);
+
+        store.select(loadComplete)
+            .subscribe(() => this.coverScreen());
     }
 
     ngOnInit() {
