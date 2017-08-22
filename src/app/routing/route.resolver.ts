@@ -62,6 +62,10 @@ export class RouteResolver implements Resolve<boolean> {
                 let photo: Photo;
                 switch (baseUrl) {
 
+                    case 'gallery':
+                        let thumbs = this.photos.fetchThumbs(0, 12);
+                        return this.photoApi.preloadThumbs(thumbs);
+
                     case 'photo':
                         // eventually
                         break;
