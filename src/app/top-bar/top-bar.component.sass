@@ -6,15 +6,16 @@ app-topbar:host
     height: $top-bar-height
     width: 100%
     background-color: rgba(0, 0, 0, .6)
+    border-bottom: 1px solid #202020
 
 .site-title
-    float: right
     text-transform: uppercase
     height: $top-bar-height
-    line-height: $top-bar-height
-    margin-right: 1em
     font-weight: bold
     letter-spacing: 0.12em
+    position: absolute
+    top: 10px
+    right: 1rem
 
 \:host-context(.wf-passionone-n4-active) .site-title
     font-family: $secondary-font
@@ -22,14 +23,20 @@ app-topbar:host
     font-weight: 400
     letter-spacing: 0
 
-.photo-title
+.page-title
     position: absolute
     top: .25em
     left: 4.5rem
     font-size: 1.5em
 
-.breadcrumbs
+.photo-description
     position: absolute
     bottom: 2px
     left: 4.5rem
+    font-size: .85em
+
+.breadcrumbs
+    position: absolute
+    bottom: 4px
+    right: 1rem
     font-size: .85em

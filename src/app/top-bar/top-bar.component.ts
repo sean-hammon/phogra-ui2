@@ -12,7 +12,8 @@ import { currentPhoto } from '../store/app.state';
 })
 export class TopBarComponent implements OnInit {
 
-    photoTitle: string;
+    page_title: string;
+    photo_description: string;
 
     constructor(
         private store: Store<any>,
@@ -20,13 +21,20 @@ export class TopBarComponent implements OnInit {
     ) {
         store.select(currentPhoto).skip(1)
             .subscribe(photo => {
-                this.photoTitle = photo.title;
+                this.page_title = photo.title;
+                this.photo_description = photo.short_desc;
             });
 
     }
 
 
     ngOnInit() {
+        this.router.events
+            .filter(event => event instanceof NavigationStart)
+            .subscribe(() => {
+                this.page_title = '';
+                this.photo_description = '';
+            });
     }
 
 }
