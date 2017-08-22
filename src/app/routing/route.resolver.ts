@@ -55,7 +55,7 @@ export class RouteResolver implements Resolve<boolean> {
                 return gallery;
             })
             .mergeMap(gallery => this.galleryApi.fetchGalleryPhotos(gallery))
-            .switchMap(photos => {
+            .switchMap((photos): Observable<Photo | Photo[]> => {
 
                 this.photos.setPhotos(photos);
 
