@@ -15,8 +15,8 @@ export interface AppState {
 }
 
 export const initialState: AppState = {
-    loading: true,
-    load_complete: false,
+    loading: false,
+    load_complete: true,
     error: null,
     menuOpen: false,
     breadcrumbs: [],
@@ -38,3 +38,4 @@ export const currentPhoto = (state: AppStore) => state.appState.current_photo;
 export const menuState = (state: AppStore) => state.appState.menuOpen;
 export const loadingState = (state: AppStore) => state.appState.loading;
 export const loadComplete = (state: AppStore) => state.appState.load_complete;
+export const thumbsState = (state: AppStore) => state.appState.thumbs;
