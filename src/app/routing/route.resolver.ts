@@ -10,7 +10,7 @@ import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
 import { PhotoService } from '../../phogra/photos/photo.service';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
 
-import { PRELOAD_COMPLETE } from '../store/app.actions';
+import { PRELOAD_BEGIN, PRELOAD_COMPLETE } from '../store/app.actions';
 
 import 'rxjs/add/operator/mergeMap';
 import "rxjs/add/operator/first";
@@ -31,6 +31,10 @@ export class RouteResolver implements Resolve<boolean> {
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
 
         const baseUrl = route.parent.url[0] ? route.parent.url[0].path : 'default';
+
+        this.store.dispatch({
+            type: PRELOAD_BEGIN
+        });
 
         return this.galleryApi.fetchGalleries()
             .map(galleries => {
