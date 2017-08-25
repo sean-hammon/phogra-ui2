@@ -3,9 +3,14 @@ a
     margin: 0 1rem 1rem 0
     padding: 7px
     border: 1px solid #555
+    overflow: hidden
 
 img
     display: block
     height: 320px
     width: 320px
     border: 1px solid #888
+    transition: opacity .5s ease-out, transform .5s ease-out
+
+img:hover
+    transform: scale(1.15)
