@@ -36,6 +36,7 @@ import { ThumbComponent } from './gallery/thumb/thumb.component';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         StoreModule.forRoot({
             appState: appReducer
