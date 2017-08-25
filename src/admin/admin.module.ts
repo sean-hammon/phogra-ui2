@@ -1,13 +1,18 @@
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {AdminComponent} from './admin.component';
+
+import { PhograModule } from '../phogra/phogra.module';
+
+import { AdminComponent } from './admin.component';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [
-      AdminComponent
-  ]
+    imports: [
+        BrowserModule,
+        PhograModule
+    ],
+    declarations: [
+        AdminComponent
+    ],
+    bootstrap: [AdminComponent]
 })
-export class AdminModule { }
+export class AdminModule {}
