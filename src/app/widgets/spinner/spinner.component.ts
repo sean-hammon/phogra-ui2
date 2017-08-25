@@ -33,7 +33,13 @@ export class SpinnerComponent {
         store.select(loadingState)
             .subscribe(loading => {
                 this.loading = loading ? 'visible' : 'hidden';
+                this.display = true;
             });
+    }
+
+
+    animationDone($event) {
+        this.display = this.loading !== 'hidden';
     }
 
 }
