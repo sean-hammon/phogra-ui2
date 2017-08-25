@@ -23,11 +23,6 @@ import { loadingState } from "../../store/app.state";
 })
 export class SpinnerComponent {
 
-    @HostBinding('class')
-    public get getClass() {
-        return this.loading ? 'full-frame' : '';
-    }
-
     loading: string;
     display: boolean;
 
