@@ -9,7 +9,8 @@
     "pub-build": "ng build --app public",
     "pub-test": "ng test --app public",
     "pub-lint": "ng lint --app public",
-    "pub-e2e": "ng e2e --app public"
+    "pub-e2e": "ng e2e --app public",
+    "admin-start": "ng serve --app admin"
   },
   "private": true,
   "dependencies": {
