@@ -4,11 +4,13 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 192.168.56.102",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "ng serve",
+    "pub-start": "ng serve --app public",
+    "pub-build": "ng build --app public",
+    "pub-test": "ng test --app public",
+    "pub-lint": "ng lint --app public",
+    "pub-e2e": "ng e2e --app public",
+    "admin-start": "ng serve --app admin"
   },
   "private": true,
   "dependencies": {
