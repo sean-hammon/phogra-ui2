@@ -1,4 +1,7 @@
-<div class='ng-cloak spinner' [ngClass]="{'visible': loading, 'hidden': !loading}">
+<div class='spinner'
+     [ngClass]="{'display-block': display, 'display-none': !display}"
+     [@spinnerState]="loading"
+     (@spinnerState.done)="animationDone($event)">
     <div class="sk-folding-cube gallery">
         <div class="sk-cube1 sk-cube"></div>
         <div class="sk-cube2 sk-cube"></div>
