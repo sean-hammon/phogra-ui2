@@ -46,6 +46,15 @@ export class PhotoProvider {
     }
 
 
+    fetchById(photo_id: string): Photo {
+        const photo = this.photos.filter(function(item){
+            return item.id = photo_id;
+        });
+
+        return photo[0];
+    }
+
+
     fetchThumbs(start, end): Photo[] {
 
         const batch = this.limit(start, end);
