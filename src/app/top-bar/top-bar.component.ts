@@ -3,7 +3,7 @@ import { Router, NavigationStart } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/skip';
 import { Store } from '@ngrx/store';
-import { currentGallery, currentPhoto } from '../store/app.state';
+import { currentGallery, currentPhoto, initialStats, topBarStats } from '../store/app.state';
 import { Photo } from "../../phogra/photos/photo";
 import { Gallery } from "../../phogra/galleries/gallery";
 
@@ -17,14 +17,14 @@ export class TopBarComponent implements OnInit {
     page_title: string;
     description: string;
     current_view: string;
-    total_photos: number;
+    gallery_stats: any;
 
     constructor(
         private store: Store<any>,
         private router: Router
     ) {
         this.current_view = 'photo';
-        this.total_photos = 0;
+        this.gallery_stats = initialStats;
 
         store.select(currentPhoto).skip(1)
             .subscribe(photo => {
@@ -36,6 +36,12 @@ export class TopBarComponent implements OnInit {
             .subscribe(gallery => {
                 if (this.current_view === 'gallery') {
                     this.updateWithGalleryInfo(gallery);
+                }
+            });
+        store.select(topBarStats).skip(1)
+            .subscribe(stats => {
+                if (this.current_view === 'gallery' && stats.photo_count > 0 && stats.thumb_count > 0) {
+                    this.description = `${stats.thumb_count} of ${stats.photo_count} photos displayed.`;
                 }
             });
 

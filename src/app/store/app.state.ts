@@ -27,6 +27,11 @@ export const initialState: AppState = {
     thumbs: []
 };
 
+export const initialStats = {
+    photo_count: 0,
+    thumb_count: 0
+};
+
 interface AppStore {
     appState: AppState;
 }
@@ -39,3 +44,9 @@ export const menuState = (state: AppStore) => state.appState.menuOpen;
 export const loadingState = (state: AppStore) => state.appState.loading;
 export const loadComplete = (state: AppStore) => state.appState.load_complete;
 export const thumbsState = (state: AppStore) => state.appState.thumbs;
+export const topBarStats = (state: AppStore) => {
+    return {
+        "photo_count": state.appState.photos.length,
+        "thumb_count": state.appState.thumbs.length,
+    }
+};
