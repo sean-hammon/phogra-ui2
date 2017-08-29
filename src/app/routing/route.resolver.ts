@@ -67,8 +67,8 @@ export class RouteResolver implements Resolve<boolean> {
                         return this.photoApi.preloadThumbs(thumbs);
 
                     case 'photo':
-                        // eventually
-                        break;
+                        photo = this.photos.fetchById(route.url.pop().path);
+                        return this.photoApi.preloadFile(photo, 'hifi');
 
                     default:
                         photo = this.photos.random();
