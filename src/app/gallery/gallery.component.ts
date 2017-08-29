@@ -1,7 +1,8 @@
 import {Component, HostBinding } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { loadComplete, thumbsState } from "../store/app.state";
+import { currentGallery, loadComplete, thumbsState } from "../store/app.state";
 import { Photo } from "../../phogra/photos/photo";
+import { Gallery } from "../../phogra/galleries/gallery";
 
 @Component({
     selector: 'app-gallery',
@@ -10,6 +11,7 @@ import { Photo } from "../../phogra/photos/photo";
 })
 export class GalleryComponent {
 
+    gallery: Gallery;
     thumbs: Photo[];
     thumbs_loaded: boolean;
 
@@ -24,9 +26,10 @@ export class GalleryComponent {
         this.thumbs_loaded = false;
         store.select(thumbsState)
             .subscribe(thumbs => this.thumbs = thumbs);
-
         store.select(loadComplete)
-            .subscribe(() => this.thumbs_loaded = true)
+            .subscribe(() => this.thumbs_loaded = true);
+        store.select(currentGallery)
+            .subscribe((gallery) => this.gallery = gallery);
     }
 
 }
