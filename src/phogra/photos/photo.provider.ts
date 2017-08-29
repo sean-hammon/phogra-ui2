@@ -61,7 +61,7 @@ export class PhotoProvider {
     }
 
 
-    limit(offset:number, length:number): Photo[] {
-        return this.photos.slice(offset, offset+length);
+    limit(offset: number, length: number): Photo[] {
+        return this.photos.slice(offset, offset + length);
     }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 
 import { Photo } from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
@@ -13,7 +13,7 @@ import { PhotoProvider } from '../../phogra/photos/photo.provider';
 import { PRELOAD_BEGIN, PRELOAD_COMPLETE } from '../store/app.actions';
 
 import 'rxjs/add/operator/mergeMap';
-import "rxjs/add/operator/first";
+import 'rxjs/add/operator/first';
 
 
 @Injectable()
@@ -63,7 +63,7 @@ export class RouteResolver implements Resolve<boolean> {
                 switch (baseUrl) {
 
                     case 'gallery':
-                        let thumbs = this.photos.fetchThumbs(0, 12);
+                        const thumbs = this.photos.fetchThumbs(0, 12);
                         return this.photoApi.preloadThumbs(thumbs);
 
                     case 'photo':
