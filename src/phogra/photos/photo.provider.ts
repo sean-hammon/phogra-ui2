@@ -47,11 +47,10 @@ export class PhotoProvider {
 
 
     fetchById(photo_id: string): Photo {
-        const photo = this.photos.filter(function(item){
-            return item.id = photo_id;
-        });
 
-        return photo[0];
+        const index = this.photos.findIndex(item => item.id === photo_id);
+        return this.fetch(index);
+
     }
 
 
