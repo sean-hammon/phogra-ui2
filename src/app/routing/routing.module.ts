@@ -18,6 +18,18 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'photo/:slug',
+        children: [
+            {
+                path: '**',
+                component: PhotoComponent,
+                resolve: {
+                    success: RouteResolver
+                }
+            }
+        ]
+    },
+    {
         path: '',
         pathMatch: 'full',
         component: PhotoComponent,
