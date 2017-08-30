@@ -45,11 +45,11 @@ export class RouteResolver implements Resolve<boolean> {
                 switch (baseUrl) {
 
                     case 'gallery':
-                        gallery = this.galleries.fetchById(route.url.pop().path);
+                        gallery = this.galleries.setById(route.url.pop().path);
                         break;
 
                     default:
-                        gallery = this.galleries.fetchDefaultGallery();
+                        gallery = this.galleries.setDefaultGallery();
                 }
 
                 return gallery;

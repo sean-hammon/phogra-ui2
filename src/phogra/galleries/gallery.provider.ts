@@ -43,7 +43,7 @@ export class GalleryProvider {
     }
 
 
-    fetchDefaultGallery(): Gallery {
+    setDefaultGallery(): Gallery {
         const result =  this.galleries.filter((item: Gallery) => {
             return item.featured === 1;
         });
@@ -53,13 +53,22 @@ export class GalleryProvider {
     }
 
 
+    setById(id: string): Gallery {
+
+        const gallery = this.fetchById(id);
+        this.setCurrent(gallery);
+
+        return gallery;
+
+    }
+
+
     fetchById(id: string): Gallery {
 
         const result = this.galleries.filter((item: Gallery) => {
             return item.id === id;
         });
 
-        this.setCurrent(result[0]);
         return result[0];
 
     }
