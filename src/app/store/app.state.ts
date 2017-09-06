@@ -1,5 +1,5 @@
 import { Gallery } from '../../phogra/galleries/gallery';
-import { Photo } from "../../phogra/photos/photo";
+import { Photo } from '../../phogra/photos/photo';
 
 export interface AppState {
     loading: boolean;
@@ -46,7 +46,7 @@ export const loadComplete = (state: AppStore) => state.appState.load_complete;
 export const thumbsState = (state: AppStore) => state.appState.thumbs;
 export const topBarStats = (state: AppStore) => {
     return {
-        "photo_count": state.appState.photos.length,
-        "thumb_count": state.appState.thumbs.length,
+        'photo_count': state.appState.photos.length,
+        'thumb_count': state.appState.thumbs.length,
     }
 };
