@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-viewport',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./viewport.component.sass']
 })
 export class ViewportComponent implements OnInit {
+
+    @HostBinding('class')
+    public get host_class() { return 'full-frame'; }
 
     constructor() {
     }
