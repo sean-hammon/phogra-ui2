@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
-import 'rxjs/add/operator/filter';
 import { Store } from '@ngrx/store';
-import { currentGallery, currentPhoto, initialStats, topBarStats } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
+import { currentGallery, currentPhoto, initialStats, topBarStats } from '../store/app.state';
+import 'rxjs/add/operator/filter';
 
 @Component({
     selector: 'app-topbar',
