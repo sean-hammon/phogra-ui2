@@ -3,8 +3,8 @@ import { Router, NavigationStart } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { Store } from '@ngrx/store';
 import { currentGallery, currentPhoto, initialStats, topBarStats } from '../store/app.state';
-import { Photo } from "../../phogra/photos/photo";
-import { Gallery } from "../../phogra/galleries/gallery";
+import { Photo } from '../../phogra/photos/photo';
+import { Gallery } from '../../phogra/galleries/gallery';
 
 @Component({
     selector: 'app-topbar',
