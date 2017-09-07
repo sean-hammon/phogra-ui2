@@ -20,6 +20,7 @@ import { RouteResolver } from './routing/route.resolver';
 import { GalleryComponent } from './gallery/gallery.component';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { ThumbComponent } from './gallery/thumb/thumb.component';
+import { ViewportComponent } from './viewport/viewport.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { ThumbComponent } from './gallery/thumb/thumb.component';
         GalleryMenuDirective,
         GalleryComponent,
         MenuItemComponent,
-        ThumbComponent
+        ThumbComponent,
+        ViewportComponent
     ],
     imports: [
         BrowserModule,
