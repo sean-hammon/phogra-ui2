@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/skip';
 import { Store } from '@ngrx/store';
 import { currentGallery, currentPhoto, initialStats, topBarStats } from '../store/app.state';
 import { Photo } from "../../phogra/photos/photo";
@@ -26,19 +25,19 @@ export class TopBarComponent implements OnInit {
         this.current_view = 'photo';
         this.gallery_stats = initialStats;
 
-        store.select(currentPhoto).skip(1)
+        store.select(currentPhoto)
             .subscribe(photo => {
                 if (this.current_view === 'photo') {
                     this.updateWithPhotoInfo(photo);
                 }
             });
-        store.select(currentGallery).skip(1)
+        store.select(currentGallery)
             .subscribe(gallery => {
                 if (this.current_view === 'gallery') {
                     this.updateWithGalleryInfo(gallery);
                 }
             });
-        store.select(topBarStats).skip(1)
+        store.select(topBarStats)
             .subscribe(stats => {
                 if (this.current_view === 'gallery' && stats.photo_count > 0 && stats.thumb_count > 0) {
                     this.description = `${stats.thumb_count} of ${stats.photo_count} photos displayed.`;
