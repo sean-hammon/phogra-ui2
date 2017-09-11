@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { PhograModule } from '../phogra/phogra.module';
 
 import { AdminComponent } from './admin.component';
+import {AdminRoutingModule} from "./routing/routing.module";
 
 @NgModule({
     imports: [
         BrowserModule,
-        PhograModule
+        PhograModule,
+        AdminRoutingModule,
     ],
     declarations: [
         AdminComponent
