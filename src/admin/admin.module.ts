@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PhograModule } from '../phogra/phogra.module';
 
 import { AdminComponent } from './admin.component';
+import { LoginComponent } from '../admin/login/login.component';
 import {AdminRoutingModule} from "./routing/routing.module";
 
 @NgModule({
@@ -13,7 +14,8 @@ import {AdminRoutingModule} from "./routing/routing.module";
         AdminRoutingModule,
     ],
     declarations: [
-        AdminComponent
+        AdminComponent,
+        LoginComponent,
     ],
     bootstrap: [AdminComponent]
 })
