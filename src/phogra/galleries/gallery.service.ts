@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { Gallery } from './gallery';
 import { Photo } from '../photos/photo';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/publishReplay';
+import { IRestGalleryResponse } from '../rest/rest.galleries';
+import { IRestPhotosResponse } from '../rest/rest.photos';
 
 @Injectable()
 export class GalleryService {
@@ -14,17 +16,16 @@ export class GalleryService {
     private galleryResults: Observable<Gallery[]>;
 
     constructor (
-        private http: Http
+        private http: HttpClient
     ) {}
 
     fetchGalleries(): Observable<Gallery[]> {
 
         if (!this.galleryResults) {
 
-            this.galleryResults = this.http.get(environment.apiBase + this.apiEndpoint)
-                .map(response => {
-                    const data = response.json().data;
-                    return data.map(item => Gallery.transformRest(item));
+            this.galleryResults = this.http.get<IRestGalleryResponse>(environment.apiBase + this.apiEndpoint)
+                .map((galleries: IRestGalleryResponse) => {
+                    return galleries.data.map(item => Gallery.transformRest(item));
                 })
                 .publishReplay(1)
                 .refCount();
@@ -44,10 +45,9 @@ export class GalleryService {
      */
     fetchGalleryPhotos(gallery: Gallery): Observable<Photo[]> {
 
-        return this.http.get(gallery.links.photos + '?include=files')
-            .map(response => {
-                const data = response.json().data;
-                return data.map(item => Photo.transformRest(item));
+        return this.http.get<IRestPhotosResponse>(gallery.links.photos + '?include=files')
+            .map((response: IRestPhotosResponse) => {
+                return response.data.map(item => Photo.transformRest(item));
             });
     }
 }

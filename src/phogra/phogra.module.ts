@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { GalleryService } from './galleries/gallery.service';
 import { GalleryProvider } from './galleries/gallery.provider';
 import { PhotoService } from './photos/photo.service';
@@ -9,7 +9,7 @@ import { PhotoProvider } from './photos/photo.provider';
     declarations: [
     ],
     imports: [
-        HttpModule
+        HttpClientModule
     ],
     providers: [
         GalleryService,
