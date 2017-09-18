@@ -30,18 +30,19 @@ export class PhotoComponent implements OnInit {
         private sanitzer: DomSanitizer
     ) {
         this.visible = false;
-
-        store.select(currentPhoto)
-            .subscribe(photo => this.photo = photo);
-
-        store.select(loadComplete)
-            .subscribe(() => this.coverScreen());
     }
 
     ngOnInit() {
         this.winH = document.documentElement.clientHeight;
         this.winW = document.documentElement.clientWidth;
         // this.viewH = this.winH - this.menuH - (this.thumbGutter * 2);
+
+        this.store.select(currentPhoto)
+            .subscribe(photo => this.photo = photo);
+
+        this.store.select(loadComplete)
+            .subscribe(() => this.coverScreen());
+
     }
 
 
