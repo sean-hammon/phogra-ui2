@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
             .subscribe(open => {
                 this.menuOpen = open;
             });
-        store.select(galleryState).skip(1)
+        store.select(galleryState)
             .subscribe(() => {
                 // Don't need the value from the store. We just want to
                 // know when it changes from empty to not.
