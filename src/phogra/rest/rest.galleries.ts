@@ -1,3 +1,5 @@
+import { IRestResponse } from './rest.response';
+
 export interface IRestGalleryRelations {
     children?: any;
     photos?: any;
@@ -21,4 +23,8 @@ export interface IRestGalleryData {
     attributes: IRestGalleryAttributes;
     relationships: IRestGalleryRelations;
     links: any;
+}
+
+export interface IRestGalleryResponse extends IRestResponse{
+    data: IRestGalleryData[]
 }

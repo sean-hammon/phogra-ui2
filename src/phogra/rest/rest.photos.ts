@@ -1,4 +1,5 @@
 import {IRestFileData} from './rest.files';
+import { IRestResponse } from './rest.response';
 
 export interface IRestPhotoRelations {
     files?: any;
@@ -20,4 +21,8 @@ export interface IRestPhotoData {
     relationships: IRestPhotoRelations;
     links: any;
     included?: IRestFileData[];
+}
+
+export interface IRestPhotosResponse extends IRestResponse {
+    data: IRestPhotoData[]
 }
