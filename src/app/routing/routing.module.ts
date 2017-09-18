@@ -4,6 +4,8 @@ import { PhotoComponent } from '../photo/photo.component'
 import { RouteResolver } from './route.resolver';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { ViewportComponent } from '../viewport/viewport.component';
+import { GalleryResolver } from './gallery.resolver';
+import { PhotoResolver } from './photo.resolver';
 
 const routes: Routes = [
     {
@@ -19,6 +21,9 @@ const routes: Routes = [
                     {
                         path: '**',
                         component: GalleryComponent,
+                        resolve: {
+                            gallery: GalleryResolver
+                        }
                     }
                 ]
             },
@@ -28,6 +33,9 @@ const routes: Routes = [
                     {
                         path: '**',
                         component: PhotoComponent,
+                        resolve: {
+                            photo: PhotoResolver
+                        }
                     }
                 ]
             },

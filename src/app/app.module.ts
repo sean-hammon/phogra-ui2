@@ -21,6 +21,8 @@ import { GalleryComponent } from './gallery/gallery.component';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { ThumbComponent } from './gallery/thumb/thumb.component';
 import { ViewportComponent } from './viewport/viewport.component';
+import { GalleryResolver } from './routing/gallery.resolver';
+import { PhotoResolver } from './routing/photo.resolver';
 
 @NgModule({
     declarations: [
@@ -51,6 +53,8 @@ import { ViewportComponent } from './viewport/viewport.component';
     providers: [
         Title,
         RouteResolver
+        GalleryResolver,
+        PhotoResolver
     ],
     bootstrap: [AppComponent]
 })
