@@ -16,7 +16,7 @@ import { GalleryMenuDirective } from './menu/menu.directive';
 import { EffectsModule } from '@ngrx/effects';
 import { GalleryEffects } from './store/gallery.effects';
 import { appReducer } from './store/app.reducer';
-import { RouteResolver } from './routing/route.resolver';
+import { AppResolver } from './routing/app.resolver';
 import { GalleryComponent } from './gallery/gallery.component';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { ThumbComponent } from './gallery/thumb/thumb.component';
@@ -52,7 +52,7 @@ import { PhotoResolver } from './routing/photo.resolver';
     ],
     providers: [
         Title,
-        RouteResolver
+        AppResolver,
         GalleryResolver,
         PhotoResolver
     ],

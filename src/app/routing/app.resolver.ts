@@ -17,7 +17,7 @@ import 'rxjs/add/operator/first';
 
 
 @Injectable()
-export class RouteResolver implements Resolve<boolean> {
+export class AppResolver implements Resolve<boolean> {
 
     constructor(
         private store: Store<any>,
@@ -29,8 +29,10 @@ export class RouteResolver implements Resolve<boolean> {
 
 
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-
-        const baseUrl = route.parent.url[0] ? route.parent.url[0].path : 'default';
+console.log(route);
+        console.log(route.firstChild);
+console.log(route.children.length);
+        const baseUrl = route.children.length === 1 ? 'default' : route.children[0].url[0].path;
 
         this.store.dispatch({
             type: PRELOAD_BEGIN

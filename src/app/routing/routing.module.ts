@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PhotoComponent } from '../photo/photo.component'
-import { RouteResolver } from './route.resolver';
+import { AppResolver } from './app.resolver';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { ViewportComponent } from '../viewport/viewport.component';
 import { GalleryResolver } from './gallery.resolver';
@@ -12,7 +12,7 @@ const routes: Routes = [
         path: '',
         component: ViewportComponent,
         resolve: {
-            success: RouteResolver
+            success: AppResolver
         },
         children: [
             {
