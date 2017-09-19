@@ -29,10 +29,6 @@ export class AppResolver implements Resolve<boolean> {
 
 
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-console.log(route);
-        console.log(route.firstChild);
-console.log(route.children.length);
-        const baseUrl = route.children.length === 1 ? 'default' : route.children[0].url[0].path;
 
         this.store.dispatch({
             type: PRELOAD_BEGIN
@@ -42,51 +38,10 @@ console.log(route.children.length);
             .map(galleries => {
 
                 this.galleries.setGalleries(galleries);
-
-                let gallery: Gallery;
-                switch (baseUrl) {
-
-                    case 'gallery':
-                        gallery = this.galleries.setById(route.url.pop().path);
-                        break;
-
-                    default:
-                        gallery = this.galleries.setDefaultGallery();
-                }
-
-                return gallery;
-            })
-            .mergeMap(gallery => this.galleryApi.fetchGalleryPhotos(gallery))
-            .switchMap((photos): Observable<Photo | Photo[]> => {
-
-                this.photos.setPhotos(photos);
-
-                let photo: Photo;
-                switch (baseUrl) {
-
-                    case 'gallery':
-                        const thumbs = this.photos.fetchThumbs(0, 12);
-                        return this.photoApi.preloadThumbs(thumbs);
-
-                    case 'photo':
-                        photo = this.photos.fetchById(route.url.pop().path);
-                        return this.photoApi.preloadFile(photo, 'hifi');
-
-                    default:
-                        photo = this.photos.random();
-                        return this.photoApi.preloadFile(photo, 'hifi');
-                }
-
-            })
-            .map(value => {
-
-                this.store.dispatch({
-                    type: PRELOAD_COMPLETE
-                });
-
                 return true;
-            })
-            .first();
+
+            });
+
 
     }
 }
