@@ -41,7 +41,10 @@ const routes: Routes = [
             },
             {
                 path: '',
-                component: PhotoComponent
+                component: PhotoComponent,
+                resolve: {
+                    photo: PhotoResolver
+                }
             },
         ]
     },
