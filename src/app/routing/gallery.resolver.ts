@@ -38,14 +38,6 @@ export class GalleryResolver implements Resolve<Photo[]> {
                 return this.photoApi.preloadThumbs(thumbs);
 
             })
-            .map(thumbs => {
-
-                this.store.dispatch({
-                    type: PRELOAD_COMPLETE
-                });
-
-                return thumbs
-            })
             .first();
     }
 }
