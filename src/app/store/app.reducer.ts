@@ -14,10 +14,15 @@ export function appReducer(
             });
 
         case Actions.PRELOAD_BEGIN:
+            return Object.assign({}, state, {
+                loading: true,
+                load_complete: false
+            });
+
         case Actions.PRELOAD_COMPLETE:
             return Object.assign({}, state, {
-                loading: !state.loading,
-                load_complete: !state.load_complete
+                loading: false,
+                load_complete: true
             });
 
         case Actions.FETCH_GALLERIES:
