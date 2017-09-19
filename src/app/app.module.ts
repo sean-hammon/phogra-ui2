@@ -16,11 +16,13 @@ import { GalleryMenuDirective } from './menu/menu.directive';
 import { EffectsModule } from '@ngrx/effects';
 import { GalleryEffects } from './store/gallery.effects';
 import { appReducer } from './store/app.reducer';
-import { RouteResolver } from './routing/route.resolver';
+import { AppResolver } from './routing/app.resolver';
 import { GalleryComponent } from './gallery/gallery.component';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import { ThumbComponent } from './gallery/thumb/thumb.component';
 import { ViewportComponent } from './viewport/viewport.component';
+import { GalleryResolver } from './routing/gallery.resolver';
+import { PhotoResolver } from './routing/photo.resolver';
 
 @NgModule({
     declarations: [
@@ -50,7 +52,9 @@ import { ViewportComponent } from './viewport/viewport.component';
     ],
     providers: [
         Title,
-        RouteResolver
+        AppResolver,
+        GalleryResolver,
+        PhotoResolver
     ],
     bootstrap: [AppComponent]
 })
