@@ -62,11 +62,31 @@ export class GalleryProvider {
 
     }
 
+    setBySlug(slug: string): Gallery {
+
+        const gallery = this.fetchBySlug(slug);
+        this.setCurrent(gallery);
+
+        return gallery;
+
+    }
+
 
     fetchById(id: string): Gallery {
 
         const result = this.galleries.filter((item: Gallery) => {
             return item.id === id;
+        });
+
+        return result[0];
+
+    }
+
+
+    fetchBySlug(slug: string): Gallery {
+
+        const result = this.galleries.filter((item: Gallery) => {
+            return item.slug === slug;
         });
 
         return result[0];
