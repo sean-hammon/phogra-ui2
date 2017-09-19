@@ -63,13 +63,6 @@ export class PhotoResolver implements Resolve<boolean> {
                 return this.photoApi.preloadFile(photo, 'hifi');
 
             })
-            .map(photo => {
-                this.store.dispatch({
-                    type: PRELOAD_COMPLETE
-                });
-
-                return photo;
-            })
             .first();
 
     }

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { currentPhoto, loadComplete } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { PRELOAD_COMPLETE } from '../store/app.actions';
 
 @Component({
     selector: 'app-photo',
@@ -42,6 +43,10 @@ export class PhotoComponent implements OnInit {
 
         this.store.select(loadComplete)
             .subscribe(() => this.coverScreen());
+
+        this.store.dispatch({
+            type: PRELOAD_COMPLETE
+        });
 
     }
 
