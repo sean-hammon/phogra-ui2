@@ -6,6 +6,8 @@ import {File} from './file';
 export interface IPhotoLinks {
     self: string;
     ui: string;
+    next?: string;
+    previous?: string;
 }
 
 export interface IPhotoFiles {
@@ -33,12 +35,17 @@ export interface IPhoto {
 }
 
 class PhotoLinks implements IPhotoLinks {
+
     self: string;
     ui: string;
+    next: string;
+    previous: string;
 
     constructor(data?: IPhotoLinks) {
         this.self = data.self || '';
         this.ui = data.ui || '';
+        this.next = null;
+        this.previous = null;
     }
 }
 
@@ -75,7 +82,7 @@ export class Photo implements IPhoto {
             file_types: data.relationships.files.data,
             links: {
                 self: data.links.self,
-                ui: '/photo/' + data.attributes.slug
+                ui: '/photo/' + data.attributes.slug + "/" + data.id
             },
             created_at: new Date(data.attributes.created_at),
             updated_at: new Date(data.attributes.updated_at)
