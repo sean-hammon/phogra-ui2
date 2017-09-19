@@ -16,9 +16,10 @@ export class GalleryProvider {
     setGalleries (galleries) {
 
         this.galleries = galleries;
+        this.generateGalleryPaths();
         this.store.dispatch({
             type: SET_GALLERIES,
-            payload: galleries
+            payload: this.galleries
         });
 
     }
@@ -100,5 +101,36 @@ export class GalleryProvider {
             return item.parent_id === parent_id;
         });
 
+    }
+
+
+    private generateGalleryPaths() {
+
+        const rootGalleries = this.fetchRootGalleries();
+
+        rootGalleries.forEach((gallery: Gallery) => {
+            this.walkTree(gallery, null);
+        });
+
+    }
+
+
+    private walkTree(gallery: Gallery, parent: Gallery){
+
+        gallery.links.ui = '/gallery/' + gallery.slug;
+        gallery.path = '';
+        if (parent) {
+            gallery.links.ui += '/in' + parent.path;
+            gallery.path = parent.path;
+        }
+        gallery.path += '/' + gallery.slug;
+        gallery.links.ui += '/' + gallery.id;
+
+        if (gallery.relationships.children) {
+            let children = this.fetchByParentId(gallery.id);
+            children.forEach((child: Gallery) => {
+                this.walkTree(child, gallery);
+            })
+        }
     }
 }
