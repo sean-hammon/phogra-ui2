@@ -60,11 +60,31 @@ export class PhotoResolver implements Resolve<boolean> {
                     photo = this.photos.fetchById(photo_id);
                 }
 
+                this.updateLinks(photo, gallery);
+
                 return this.photoApi.preloadFile(photo, 'hifi');
 
             })
             .first();
 
+    }
+
+
+    private updateLinks(photo: Photo, gallery: Gallery) {
+
+        photo.links.ui = this.assembleLink(photo.links.ui, gallery.path);
+        photo.links.previous = this.assembleLink(photo.links.previous, gallery.path);
+        photo.links.next = this.assembleLink(photo.links.next, gallery.path);
+
+    }
+
+
+    private assembleLink(url, gallery_path): string {
+        let parts = url.split('/');
+        parts.splice(parts.length - 1, 0, "in");
+        parts.splice(parts.length - 1, 0, gallery_path.substr(1));
+
+        return parts.join('/');
     }
 
 }
