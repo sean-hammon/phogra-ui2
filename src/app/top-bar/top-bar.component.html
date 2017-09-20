@@ -1,8 +1,16 @@
 <div class="site-title">Sean Hammon Photography</div>
 <div class="info">
-    <div class="prev-icon"><img src="/static/chevron_left_1x.png"></div>
+    <div class="prev-icon">
+        <a href="" [routerLink]="previous_link">
+            <img src="/static/chevron_left_1x.png">
+        </a>
+    </div>
     <div class="page-title">{{page_title}}</div>
-    <div class="next-icon"><img src="/static/chevron_right_1x.png"></div>
+    <div class="next-icon">
+        <a href="" [routerLink]="next_link">
+            <img src="/static/chevron_right_1x.png">
+        </a>
+    </div>
     <div class="zoom-icon"><img src="/static/zoom_in_1x.png"></div>
 </div>
 <div class="photo-description">{{description}}</div>

@@ -15,6 +15,8 @@ export class TopBarComponent implements OnInit {
 
     page_title: string;
     description: string;
+    previous_link: string;
+    next_link: string;
     current_view: string;
     gallery_stats: any;
 
@@ -61,6 +63,8 @@ export class TopBarComponent implements OnInit {
     updateWithPhotoInfo(photo: Photo) {
         this.page_title = photo.title;
         this.description = photo.short_desc;
+        this.previous_link = photo.links.previous;
+        this.next_link = photo.links.next;
     }
 
 
