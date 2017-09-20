@@ -69,6 +69,8 @@ export class TopBarComponent implements OnInit {
 
 
     updateWithGalleryInfo(gallery: Gallery) {
+        this.previous_link = null;
+        this.next_link = null;
         this.page_title = gallery.title;
     }
 
