@@ -80,6 +80,11 @@ export class PhotoResolver implements Resolve<boolean> {
 
 
     private assembleLink(url, gallery_path): string {
+
+        if (!url) {
+            return url;
+        }
+
         let parts = url.split('/');
         parts.splice(parts.length - 1, 0, "in");
         parts.splice(parts.length - 1, 0, gallery_path.substr(1));
