@@ -29,6 +29,18 @@ export class PhotoProvider {
 
     fetch(index: number): Photo {
 
+        let previous: Photo = null;
+        let next: Photo = null;
+
+        if (index > 0) {
+            previous = this.photos[index - 1];
+            this.photos[index].links.previous = previous.links.ui;
+        }
+        if (index < this.photos.length - 1) {
+            next = this.photos[index + 1];
+            this.photos[index].links.next = next.links.ui;
+        }
+
         this.store.dispatch({
             type: SET_CURRENT_PHOTO,
             payload: this.photos[index]
