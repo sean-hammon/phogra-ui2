@@ -42,7 +42,11 @@ export class PhotoComponent implements OnInit {
             .subscribe(photo => this.photo = photo);
 
         this.store.select(loadComplete)
-            .subscribe(() => this.coverScreen());
+            .subscribe((completeIsTrue) => {
+                if (completeIsTrue) {
+                    this.coverScreen()
+                }
+            });
 
         this.store.dispatch({
             type: PRELOAD_COMPLETE
