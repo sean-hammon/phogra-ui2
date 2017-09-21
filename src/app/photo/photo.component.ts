@@ -4,7 +4,7 @@ import { currentPhoto, loadComplete } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { PRELOAD_COMPLETE } from '../store/app.actions';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 
 @Component({
     selector: 'app-photo',
@@ -58,6 +58,14 @@ export class PhotoComponent implements OnInit {
                 this.store.dispatch({
                     type: PRELOAD_COMPLETE
                 });
+
+            });
+
+        this.router.events
+            .filter(event => event instanceof NavigationStart)
+            .subscribe((event: NavigationStart) => {
+
+                this.visible = false;
 
             });
 
