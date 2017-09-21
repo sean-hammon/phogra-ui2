@@ -4,6 +4,7 @@ import { currentPhoto, loadComplete } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { PRELOAD_COMPLETE } from '../store/app.actions';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
     selector: 'app-photo',
@@ -28,7 +29,9 @@ export class PhotoComponent implements OnInit {
 
     constructor(
         private store: Store<any>,
-        private sanitzer: DomSanitizer
+        private sanitzer: DomSanitizer,
+        private router: Router
+
     ) {
         this.visible = false;
     }
@@ -48,15 +51,23 @@ export class PhotoComponent implements OnInit {
                 }
             });
 
+        this.router.events
+            .filter(event => event instanceof NavigationEnd)
+            .subscribe((event: NavigationEnd) => {
+
+                this.store.dispatch({
+                    type: PRELOAD_COMPLETE
+                });
+
+            });
+
         this.store.dispatch({
             type: PRELOAD_COMPLETE
         });
-
     }
 
 
     coverScreen() {
-
         let imgH, imgW, imgRatio, viewRatio, top, left;
         //  This will be dynamic later
         const size = 'hifi';
