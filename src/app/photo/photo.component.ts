@@ -76,7 +76,7 @@ export class PhotoComponent implements OnInit {
 
 
     coverScreen() {
-        let imgH, imgW, imgRatio, viewRatio, top, left;
+        let imgH, imgW, imgRatio, viewRatio, top, left, css_pointer, css_offset;
         //  This will be dynamic later
         const size = 'hifi';
 
@@ -85,9 +85,7 @@ export class PhotoComponent implements OnInit {
 
         imgRatio = imgW / imgH;
         viewRatio = this.winW / this.winH;
-
         if (imgRatio > viewRatio) {
-
             //  Screen is longer than the photo, relative to the height.
             imgH = this.winH;
             imgW = Math.round(this.winH * imgRatio);
@@ -99,27 +97,44 @@ export class PhotoComponent implements OnInit {
 
         }
 
-        top = Math.round((this.winH - imgH) / 2);
-        left = Math.round((this.winW - imgW) / 2);
-
-        //  Landscape
-        if ( viewRatio > 1 && this.photo.files[size].top != null) {
-            top = -1 * this.photo.files[size].top;
-        }
-
-        //  Portrait
-        if (viewRatio < 1 && this.photo.files[size].left != null) {
-            left = -1 * this.photo.files[size].left;
-        }
-
-        const styles = [
+        let styles = [
             'background-image:' + this.photo.files[size].cssUrl(),
             `height:${imgH}px`,
             `width:${imgW}px`,
-            `top:${top}px`,
-            `left:${left}px`,
         ];
+        //  Landscape
+        if ( imgRatio <= 1 ) {
 
+            top = Math.round((this.winH - imgH) / 2);
+            if (this.photo.files[size].offset != null) {
+                top =  -(imgH * this.photo.files[size].offset / 100);
+                if (top < this.winH - imgH) {
+                    top = this.winH - imgH;
+                }
+            }
+
+            css_offset = `top: ${top}px`;
+            css_pointer = 'cursor: ns-resize';
+        }
+
+        //  Portrait
+        if (imgRatio > 1 ) {
+
+            left = Math.round((this.winW - imgW) / 2);
+            if (this.photo.files[size].offset != null) {
+                left =  -(imgW * this.photo.files[size].offset / 100);
+                if (left > this.winW - imgW) {
+                    left = this.winW - imgW;
+                }
+            }
+
+            css_offset = `left: ${left}px`;
+            css_pointer = 'cursor: ew-resize';
+
+        }
+
+        styles.push(css_offset);
+        styles.push(css_pointer);
         this.inlineStyles =  this.sanitzer.bypassSecurityTrustStyle(styles.join(';'));
         this.zoomState = 'cover';
 
