@@ -54,7 +54,6 @@ export class TopBarComponent implements OnInit {
             .filter(event => event instanceof NavigationStart)
             .subscribe((event: NavigationStart) => {
                 this.current_view = event.url.split('/')[1] || 'photo';
-                this.page_title = '';
                 this.description = '';
             });
     }
