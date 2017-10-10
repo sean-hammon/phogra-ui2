@@ -2,6 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { currentPhoto, loadComplete } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
+import { File } from '../../phogra/photos/file';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { PRELOAD_COMPLETE } from '../store/app.actions';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
@@ -26,6 +27,7 @@ export class PhotoComponent implements OnInit {
     private winH: number;
     private winW: number;
     private viewH: number;
+    private file: File;
 
     constructor(
         private store: Store<any>,
@@ -42,7 +44,13 @@ export class PhotoComponent implements OnInit {
         // this.viewH = this.winH - this.menuH - (this.thumbGutter * 2);
 
         this.store.select(currentPhoto)
-            .subscribe(photo => this.photo = photo);
+            .subscribe(photo => {
+                this.photo = photo;
+                //  File size will be dynamic later
+                if (typeof this.photo.files['hifi'] !== 'undefined') {
+                    this.file = this.photo.files['hifi'];
+                }
+            });
 
         this.store.select(loadComplete)
             .subscribe((completeIsTrue) => {
@@ -77,11 +85,9 @@ export class PhotoComponent implements OnInit {
 
     coverScreen() {
         let imgH, imgW, imgRatio, viewRatio, top, left, css_pointer, css_offset;
-        //  This will be dynamic later
-        const size = 'hifi';
 
-        imgH = this.photo.files[size].height;
-        imgW = this.photo.files[size].width;
+        imgH = this.file.height;
+        imgW = this.file.width;
 
         imgRatio = imgW / imgH;
         viewRatio = this.winW / this.winH;
@@ -98,7 +104,7 @@ export class PhotoComponent implements OnInit {
         }
 
         let styles = [
-            'background-image:' + this.photo.files[size].cssUrl(),
+            'background-image:' + this.file.cssUrl(),
             `height:${imgH}px`,
             `width:${imgW}px`,
         ];
@@ -106,8 +112,8 @@ export class PhotoComponent implements OnInit {
         if ( imgRatio <= 1 ) {
 
             top = Math.round((this.winH - imgH) / 2);
-            if (this.photo.files[size].offset != null) {
-                top =  -(imgH * this.photo.files[size].offset / 100);
+            if (this.file.offset != null) {
+                top =  -(imgH * this.file.offset / 100);
                 if (top < this.winH - imgH) {
                     top = this.winH - imgH;
                 }
@@ -121,8 +127,8 @@ export class PhotoComponent implements OnInit {
         if (imgRatio > 1 ) {
 
             left = Math.round((this.winW - imgW) / 2);
-            if (this.photo.files[size].offset != null) {
-                left =  -(imgW * this.photo.files[size].offset / 100);
+            if (this.file.offset != null) {
+                left =  -(imgW * this.file.offset / 100);
                 if (left > this.winW - imgW) {
                     left = this.winW - imgW;
                 }
