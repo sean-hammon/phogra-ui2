@@ -12,8 +12,7 @@ export interface IFileProperties {
     type: string;
     height: number;
     width: number;
-    top: number;
-    left: number;
+    offset: number;
     bytes: number;
     links: IFileLinks;
 }
@@ -35,8 +34,7 @@ export class File implements IFile {
     type: string;
     height: number;
     width: number;
-    top: number;
-    left: number;
+    offset: number;
     bytes: number;
     links: IFileLinks;
 
@@ -53,8 +51,8 @@ export class File implements IFile {
             type: data.attributes.type,
             height: data.attributes.height,
             width: data.attributes.width,
-            top: data.attributes.top,
-            left: data.attributes.left,
+            //TODO: Update this value once the API catches up.
+            offset: data.attributes.top,
             bytes: data.attributes.bytes,
             links: links
         };
@@ -69,8 +67,7 @@ export class File implements IFile {
         this.type = data.type || '';
         this.height = data.height || 0;
         this.width = data.width || 0;
-        this.top = data.top;
-        this.left = data.left;
+        this.offset = data.offset;
         this.bytes = data.bytes || 0;
         this.links = data.links || new FileLinks();
     }
