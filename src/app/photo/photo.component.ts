@@ -157,4 +157,55 @@ export class PhotoComponent implements OnInit {
 
     }
 
+
+    private fitOnScreen(): void {
+
+        let top, left,
+            imgH, imgW,
+            viewH, menuH,
+            imgRatio, viewRatio,
+            gutter = 15;
+
+        if (typeof this.file === 'undefined') {
+            this.inlineStyles =  '';
+            return;
+        }
+
+        imgH = this.file.height;
+        imgW = this.file.width;
+        menuH = document.getElementsByTagName('app-topbar').item(0).getBoundingClientRect().height;
+
+        top = menuH + gutter;;
+        left = gutter;
+
+        viewH = this.winH - menuH - (gutter * 2);
+        imgRatio = imgW / imgH;
+        viewRatio = this.winW / viewH;
+
+        if (imgRatio > viewRatio) {
+
+            imgW = this.winW - (gutter * 2);
+            imgH = Math.round(imgW / imgRatio);
+            top = menuH + gutter - Math.round((imgH - viewH) / 2);
+
+        } else {
+
+            imgH = viewH;
+            imgW = Math.round(imgH * imgRatio);
+            top = menuH + gutter;
+            left = Math.round((this.winW - imgW) / 2);
+
+        }
+
+        var styles = [];
+        styles.push('background-image:' + this.file.cssUrl());
+        styles.push(`height:${imgH}px`);
+        styles.push(`width:${imgW}px`);
+        styles.push(`top:${top}px`);
+        styles.push(`left:${left}px`);
+        styles.push('cursor:auto');
+
+        this.inlineStyles =  this.sanitzer.bypassSecurityTrustStyle(styles.join(';'));
+    }
+
 }
