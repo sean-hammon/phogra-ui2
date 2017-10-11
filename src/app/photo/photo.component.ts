@@ -7,6 +7,7 @@ import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { PRELOAD_COMPLETE } from '../store/app.actions';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import 'rxjs/add/operator/skip';
+import { ConstrainedDrag } from 'app/photo/ConstrainedDrag';
 
 @Component({
     selector: 'app-photo',
@@ -29,6 +30,7 @@ export class PhotoComponent implements OnInit {
     private winW: number;
     private viewH: number;
     private file: File;
+    private DragManager: ConstrainedDrag;
 
     constructor(
         private store: Store<any>,
@@ -37,6 +39,7 @@ export class PhotoComponent implements OnInit {
 
     ) {
         this.visible = false;
+        this.DragManager = new ConstrainedDrag();
     }
 
     ngOnInit() {
@@ -90,6 +93,20 @@ export class PhotoComponent implements OnInit {
         this.store.dispatch({
             type: PRELOAD_COMPLETE
         });
+    }
+
+
+    dragPhoto(evt: MouseEvent): void {
+
+        //  Make vertical motion the default. ns is north/south,
+        //  like the cursor properties.
+        let direction = 'ns';
+        if ( this.file.width > this.file.height ) {
+            direction = 'ew';
+        }
+
+        this.DragManager.startDrag(direction, evt);
+
     }
 
 

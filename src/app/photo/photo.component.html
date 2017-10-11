@@ -1,1 +1,4 @@
-<div class='full-frame photo' [ngClass]="{'visible': visible}" [style]="inlineStyles"></div>
+<div class='full-frame photo'
+    [ngClass]="{'visible': visible}"
+    [style]="inlineStyles"
+    (mousedown)='dragPhoto($event)'></div>
