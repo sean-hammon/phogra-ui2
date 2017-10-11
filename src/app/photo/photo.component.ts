@@ -93,7 +93,7 @@ export class PhotoComponent implements OnInit {
     }
 
 
-    coverScreen() {
+    private coverScreen(): void {
         let imgH, imgW, imgRatio, viewRatio, top, left, css_pointer, css_offset;
 
         imgH = this.file.height;
