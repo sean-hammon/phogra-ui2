@@ -69,6 +69,20 @@ export function appReducer(
                 current_photo: action.payload
             });
 
+
+        case Actions.TOGGLE_ZOOM:
+
+            let new_state = '';
+            if (state.zoom_state === 'cover') {
+                new_state = 'fit';
+            } else {
+                new_state = 'cover';
+            }
+
+            return Object.assign({}, state, {
+                zoom_state: new_state
+            });
+
         default:
             return state;
     }

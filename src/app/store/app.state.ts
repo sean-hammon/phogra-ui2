@@ -6,6 +6,7 @@ export interface AppState {
     load_complete: boolean;
     error: string;
     menuOpen: boolean;
+    zoom_state: string;
     breadcrumbs: any[];
     current_photo: any;
     current_gallery: any;
@@ -19,6 +20,7 @@ export const initialState: AppState = {
     load_complete: true,
     error: null,
     menuOpen: false,
+    zoom_state: 'cover',
     breadcrumbs: [],
     current_photo: {},
     current_gallery: {},
@@ -44,6 +46,7 @@ export const menuState = (state: AppStore) => state.appState.menuOpen;
 export const loadingState = (state: AppStore) => state.appState.loading;
 export const loadComplete = (state: AppStore) => state.appState.load_complete;
 export const thumbsState = (state: AppStore) => state.appState.thumbs;
+export const zoomState = (state: AppStore) => state.appState.zoom_state;
 export const topBarStats = (state: AppStore) => {
     return {
         'photo_count': state.appState.photos.length,
