@@ -1,11 +1,12 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import { Store } from '@ngrx/store';
-import { currentPhoto, loadComplete } from '../store/app.state';
+import { currentPhoto, loadComplete, zoomState } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
 import { File } from '../../phogra/photos/file';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { PRELOAD_COMPLETE } from '../store/app.actions';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import 'rxjs/add/operator/skip';
 
 @Component({
     selector: 'app-photo',
@@ -56,6 +57,16 @@ export class PhotoComponent implements OnInit {
             .subscribe((completeIsTrue) => {
                 if (completeIsTrue) {
                     this.coverScreen()
+                }
+            });
+
+        this.store.select(zoomState)
+            .skip(1)
+            .subscribe(zoom_state => {
+                if (zoom_state === 'cover') {
+                    this.coverScreen();
+                } else {
+                    this.fitOnScreen();
                 }
             });
 
