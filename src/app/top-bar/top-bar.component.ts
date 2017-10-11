@@ -3,8 +3,14 @@ import { Router, NavigationStart } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Photo } from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
-import { currentGallery, currentPhoto, initialStats, topBarStats } from '../store/app.state';
+import { currentGallery, currentPhoto, initialStats, topBarStats, zoomState } from '../store/app.state';
+import { TOGGLE_ZOOM } from '../store/app.actions';
 import 'rxjs/add/operator/filter';
+
+interface IZoomIcons {
+    cover: string,
+    fit: string
+}
 
 @Component({
     selector: 'app-topbar',
@@ -19,6 +25,8 @@ export class TopBarComponent implements OnInit {
     next_link: string;
     current_view: string;
     gallery_stats: any;
+    zoom_state: string;
+    zoom_icons: IZoomIcons;
 
     constructor(
         private store: Store<any>,
@@ -26,25 +34,11 @@ export class TopBarComponent implements OnInit {
     ) {
         this.current_view = 'photo';
         this.gallery_stats = initialStats;
-
-        store.select(currentPhoto)
-            .subscribe(photo => {
-                if (this.current_view === 'photo') {
-                    this.updateWithPhotoInfo(photo);
-                }
-            });
-        store.select(currentGallery)
-            .subscribe(gallery => {
-                if (this.current_view === 'gallery') {
-                    this.updateWithGalleryInfo(gallery);
-                }
-            });
-        store.select(topBarStats)
-            .subscribe(stats => {
-                if (this.current_view === 'gallery' && stats.photo_count > 0 && stats.thumb_count > 0) {
-                    this.description = `${stats.thumb_count} of ${stats.photo_count} photos displayed.`;
-                }
-            });
+        this.zoom_state = 'cover';
+        this.zoom_icons = {
+            cover: '/static/zoom_out_1x.png',
+            fit: '/static/zoom_in_1x.png',
+        };
 
     }
 
@@ -56,6 +50,30 @@ export class TopBarComponent implements OnInit {
                 this.current_view = event.url.split('/')[1] || 'photo';
                 this.description = '';
             });
+
+        this.store.select(currentPhoto)
+            .subscribe(photo => {
+                if (this.current_view === 'photo') {
+                    this.updateWithPhotoInfo(photo);
+                }
+            });
+
+        this.store.select(currentGallery)
+            .subscribe(gallery => {
+                if (this.current_view === 'gallery') {
+                    this.updateWithGalleryInfo(gallery);
+                }
+            });
+
+        this.store.select(topBarStats)
+            .subscribe(stats => {
+                if (this.current_view === 'gallery' && stats.photo_count > 0 && stats.thumb_count > 0) {
+                    this.description = `${stats.thumb_count} of ${stats.photo_count} photos displayed.`;
+                }
+            });
+
+        this.store.select(zoomState)
+            .subscribe(zoom_state => this.zoom_state = zoom_state);
     }
 
 
@@ -71,6 +89,13 @@ export class TopBarComponent implements OnInit {
         this.previous_link = null;
         this.next_link = null;
         this.page_title = gallery.title;
+    }
+
+
+    toggleZoom() {
+        this.store.dispatch({
+            type: TOGGLE_ZOOM
+        });
     }
 
 }

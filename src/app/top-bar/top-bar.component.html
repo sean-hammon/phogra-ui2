@@ -11,7 +11,7 @@
             <img src="/static/chevron_right_1x.png">
         </a>
     </div>
-    <div class="zoom-icon"><img src="/static/zoom_in_1x.png"></div>
+    <div class="zoom-icon" (click)="toggleZoom()"><img [src]="zoom_icons[zoom_state]"></div>
 </div>
 <div class="photo-description">{{description}}</div>
 <div class="breadcrumbs">Outdoors > USA > Washington</div>
