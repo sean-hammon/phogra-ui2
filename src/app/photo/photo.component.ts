@@ -42,7 +42,6 @@ export class PhotoComponent implements OnInit {
     ngOnInit() {
         this.winH = document.documentElement.clientHeight;
         this.winW = document.documentElement.clientWidth;
-        // this.viewH = this.winH - this.menuH - (this.thumbGutter * 2);
 
         this.store.select(currentPhoto)
             .subscribe(photo => {
@@ -153,7 +152,6 @@ export class PhotoComponent implements OnInit {
         styles.push(css_offset);
         styles.push(css_pointer);
         this.inlineStyles =  this.sanitzer.bypassSecurityTrustStyle(styles.join(';'));
-        this.zoomState = 'cover';
 
         //  This feels really hacky, but lifecycle hooks and the animation
         //  module don't wait for the component to be fully initialized in
