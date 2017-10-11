@@ -37,6 +37,19 @@ export class ConstrainedDrag {
 
         if (this.dir == 'ns') {
 
+            const current_y = e.pageY || e.clientY;
+            const diff = this.initial_y - current_y;
+
+            let new_top = this.initial_top - diff;
+
+            if (new_top > 0) {
+                new_top = 0;
+            } else if (new_top < this.min_top) {
+                new_top = this. min_top;
+            }
+
+            this.target.style.top = new_top + "px";
+
         } else {
             const current_x = e.pageX || e.clientX;
             const diff = this.initial_x - current_x;
