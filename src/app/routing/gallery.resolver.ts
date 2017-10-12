@@ -8,6 +8,7 @@ import { PRELOAD_BEGIN, PRELOAD_COMPLETE } from '../store/app.actions';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
 import { PhotoService } from '../../phogra/photos/photo.service';
 import { Photo } from '../../phogra/photos/photo';
+import { ThumbCalculator } from '../gallery/thumb/ThumbCalculator';
 
 @Injectable()
 export class GalleryResolver implements Resolve<Photo[]> {
@@ -17,7 +18,8 @@ export class GalleryResolver implements Resolve<Photo[]> {
         private galleries: GalleryProvider,
         private galleryApi: GalleryService,
         private photos: PhotoProvider,
-        private photoApi: PhotoService
+        private photoApi: PhotoService,
+        private ThumbCalulator: ThumbCalculator
     ) { }
 
 
@@ -34,7 +36,7 @@ export class GalleryResolver implements Resolve<Photo[]> {
             .switchMap((photos): Observable<Photo[]> => {
 
                 this.photos.setPhotos(photos);
-                const thumbs = this.photos.fetchThumbs(0, 12);
+                const thumbs = this.ThumbCalulator.fetchSinglePage(0);
                 return this.photoApi.preloadThumbs(thumbs);
 
             })
