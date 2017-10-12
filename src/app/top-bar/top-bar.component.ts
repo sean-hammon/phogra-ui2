@@ -32,7 +32,6 @@ export class TopBarComponent implements OnInit {
         private store: Store<any>,
         private router: Router
     ) {
-        this.current_view = 'photo';
         this.gallery_stats = initialStats;
         this.zoom_state = 'cover';
         this.zoom_icons = {
@@ -47,20 +46,19 @@ export class TopBarComponent implements OnInit {
         this.router.events
             .filter(event => event instanceof NavigationStart)
             .subscribe((event: NavigationStart) => {
-                this.current_view = event.url.split('/')[1] || 'photo';
                 this.description = '';
             });
 
         this.store.select(currentPhoto)
             .subscribe(photo => {
-                if (this.current_view === 'photo') {
+                if (typeof photo.slug !== 'undefined') {
                     this.updateWithPhotoInfo(photo);
                 }
             });
 
         this.store.select(currentGallery)
             .subscribe(gallery => {
-                if (this.current_view === 'gallery') {
+                if (typeof gallery.slug !== 'undefined') {
                     this.updateWithGalleryInfo(gallery);
                 }
             });
