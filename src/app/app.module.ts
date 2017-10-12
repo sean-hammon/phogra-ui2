@@ -23,6 +23,7 @@ import { ThumbComponent } from './gallery/thumb/thumb.component';
 import { ViewportComponent } from './viewport/viewport.component';
 import { GalleryResolver } from './routing/gallery.resolver';
 import { PhotoResolver } from './routing/photo.resolver';
+import { ConstrainedDrag } from './photo/ConstrainedDrag';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { PhotoResolver } from './routing/photo.resolver';
         Title,
         AppResolver,
         GalleryResolver,
-        PhotoResolver
+        PhotoResolver,
+        ConstrainedDrag,
     ],
     bootstrap: [AppComponent]
 })

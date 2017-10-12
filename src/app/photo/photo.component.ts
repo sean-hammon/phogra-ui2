@@ -30,16 +30,14 @@ export class PhotoComponent implements OnInit {
     private winW: number;
     private viewH: number;
     private file: File;
-    private DragManager: ConstrainedDrag;
 
     constructor(
         private store: Store<any>,
         private sanitzer: DomSanitizer,
-        private router: Router
-
+        private router: Router,
+        private DragManager: ConstrainedDrag
     ) {
         this.visible = false;
-        this.DragManager = new ConstrainedDrag();
     }
 
     ngOnInit() {
