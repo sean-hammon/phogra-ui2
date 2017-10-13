@@ -1,6 +1,6 @@
 <div *ngIf="thumbs_loaded">
     <app-thumb *ngFor="let image of thumbs" [thumb]="image" [gallery]="gallery"></app-thumb>
-    <div class="show-next">
+    <div class="show-next" (click)="loadNextBatch()">
         <div class="next-box">
             <div class="center-vertical">
                 <div>Load</div>

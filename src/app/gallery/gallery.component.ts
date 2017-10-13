@@ -16,6 +16,7 @@ export class GalleryComponent implements OnInit{
     gallery: Gallery;
     thumbs: Photo[];
     thumbs_loaded: boolean;
+    current_page: number;
     next_page_size: number;
 
     @HostBinding('class')
@@ -27,6 +28,7 @@ export class GalleryComponent implements OnInit{
         private store: Store<any>,
         private ThumbCalculator: ThumbCalculator
     ) {
+        this.current_page = 0;
         this.thumbs_loaded = false;
         this.next_page_size = this.ThumbCalculator.getPageSize();
     }
@@ -42,6 +44,14 @@ export class GalleryComponent implements OnInit{
         this.store.dispatch({
             type: PRELOAD_COMPLETE
         });
+
+    }
+
+
+    public loadNextBatch() {
+
+        this.current_page++;
+        this.ThumbCalculator.fetchPageRange(0, this.current_page);
 
     }
 
