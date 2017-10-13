@@ -4,6 +4,7 @@ import { currentGallery, loadComplete, thumbsState } from "../store/app.state";
 import { Photo } from "../../phogra/photos/photo";
 import { Gallery } from "../../phogra/galleries/gallery";
 import { PRELOAD_COMPLETE } from '../store/app.actions';
+import { ThumbCalculator } from './thumb/ThumbCalculator';
 
 @Component({
     selector: 'app-gallery',
@@ -15,6 +16,7 @@ export class GalleryComponent implements OnInit{
     gallery: Gallery;
     thumbs: Photo[];
     thumbs_loaded: boolean;
+    next_page_size: number;
 
     @HostBinding('class')
     public get getClass() {
@@ -22,9 +24,11 @@ export class GalleryComponent implements OnInit{
     }
 
     constructor(
-        private store: Store<any>
+        private store: Store<any>,
+        private ThumbCalculator: ThumbCalculator
     ) {
         this.thumbs_loaded = false;
+        this.next_page_size = this.ThumbCalculator.getPageSize();
     }
 
     public ngOnInit() {
