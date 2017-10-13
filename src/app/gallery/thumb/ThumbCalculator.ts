@@ -15,6 +15,11 @@ export class ThumbCalculator {
     }
 
 
+    public getPageSize(): number {
+        return this.calcPageSize();
+    }
+
+
     public fetchSinglePage(page_num: number): Photo[] {
 
         const page_size = this.calcPageSize();
@@ -55,7 +60,7 @@ export class ThumbCalculator {
         }
 
         return page_size;
-        
+
     }
 
 }
