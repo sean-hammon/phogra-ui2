@@ -23,7 +23,7 @@ export class ThumbCalculator {
     public fetchSinglePage(page_num: number): Photo[] {
 
         const page_size = this.calcPageSize();
-        let start = page_size * page_num - 1;
+        let start = (page_size * page_num) - 1;
         if (start < 0) {
             start = 0;
         }
@@ -36,7 +36,7 @@ export class ThumbCalculator {
     public fetchPageRange(start_page: number, end_page: number): Photo[] {
 
         const page_size = this.calcPageSize();
-        let start = page_size * start_page - 1;
+        let start = (page_size * start_page) - 1;
         if (start < 0) {
             start = 0;
         }
