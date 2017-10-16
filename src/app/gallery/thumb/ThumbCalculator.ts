@@ -27,7 +27,10 @@ export class ThumbCalculator {
         if (start < 0) {
             start = 0;
         }
-        const end = start + page_size - 1;
+        let end = start + page_size;
+        if (start === 0) {
+            end -= 1;
+        }
 
         return this.photos.fetchThumbs(start, end);
     }
