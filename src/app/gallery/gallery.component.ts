@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
 import { currentGallery, loadComplete, thumbsState } from "../store/app.state";
 import { Photo } from "../../phogra/photos/photo";
@@ -11,13 +11,14 @@ import { ThumbCalculator } from './thumb/ThumbCalculator';
     templateUrl: './gallery.component.html',
     styleUrls: ['./gallery.component.sass']
 })
-export class GalleryComponent implements OnInit{
+export class GalleryComponent implements OnInit, OnDestroy{
 
     gallery: Gallery;
     thumbs: Photo[];
     thumbs_loaded: boolean;
     current_page: number;
     next_page_size: number;
+    subscriptions: any;
 
     @HostBinding('class')
     public get getClass() {
@@ -31,20 +32,32 @@ export class GalleryComponent implements OnInit{
         this.current_page = 0;
         this.thumbs_loaded = false;
         this.next_page_size = this.ThumbCalculator.getPageSize();
+        this.subscriptions = {
+            thumbState: null,
+            loadComplete: null,
+            currentGallery: null
+        };
     }
 
     public ngOnInit() {
-        this.store.select(thumbsState)
+        this.subscriptions.thumbState = this.store.select(thumbsState)
             .subscribe(thumbs => this.thumbs = thumbs);
-        this.store.select(loadComplete)
+        this.subscriptions.loadComplete = this.store.select(loadComplete)
             .subscribe(() => this.thumbs_loaded = true);
-        this.store.select(currentGallery)
+        this.subscriptions.currentGallery = this.store.select(currentGallery)
             .subscribe((gallery) => this.gallery = gallery);
 
         this.store.dispatch({
             type: PRELOAD_COMPLETE
         });
 
+    }
+
+
+    public ngOnDestroy() {
+        this.subscriptions.thumbState.unsubscribe();
+        this.subscriptions.loadComplete.unsubscribe();
+        this.subscriptions.currentGallery.unsubscribe();
     }
 
 
