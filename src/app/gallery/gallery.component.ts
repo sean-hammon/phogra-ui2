@@ -51,7 +51,7 @@ export class GalleryComponent implements OnInit{
     public loadNextBatch() {
 
         this.current_page++;
-        this.ThumbCalculator.fetchPageRange(0, this.current_page);
+        this.ThumbCalculator.fetchSinglePage(this.current_page);
 
     }
 
