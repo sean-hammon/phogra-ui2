@@ -56,7 +56,7 @@ export function appReducer(
 
         case Actions.APPEND_THUMBS:
             return Object.assign({}, state, {
-                thumbs: [...state.thumbs, action.payload]
+                thumbs: [...state.thumbs, ...action.payload]
             });
 
         case Actions.SET_CURRENT_GALLERY:
