@@ -13,6 +13,7 @@ export interface AppState {
     galleries: Gallery[];
     photos: Photo[];
     thumbs: Photo[];
+    thumbPages: any;
 }
 
 export const initialState: AppState = {
@@ -26,7 +27,8 @@ export const initialState: AppState = {
     current_gallery: {},
     galleries: [],
     photos: [],
-    thumbs: []
+    thumbs: [],
+    thumbPages: {}
 };
 
 export const initialStats = {
@@ -46,6 +48,7 @@ export const menuState = (state: AppStore) => state.appState.menuOpen;
 export const loadingState = (state: AppStore) => state.appState.loading;
 export const loadComplete = (state: AppStore) => state.appState.load_complete;
 export const thumbsState = (state: AppStore) => state.appState.thumbs;
+export const thumbPages = (state: AppStore) => state.appState.thumbPages;
 export const zoomState = (state: AppStore) => state.appState.zoom_state;
 export const topBarStats = (state: AppStore) => {
     return {
