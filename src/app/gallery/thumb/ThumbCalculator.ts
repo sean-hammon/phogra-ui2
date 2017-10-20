@@ -38,12 +38,17 @@ export class ThumbCalculator {
 
     public fetchPageRange(start_page: number, end_page: number): Photo[] {
 
+        if (start_page === end_page) {
+            return this.fetchSinglePage(start_page);
+        }
+
         const page_size = this.calcPageSize();
         let start = (page_size * start_page) - 1;
         if (start < 0) {
             start = 0;
         }
-        const end = start + (end_page * page_size) - 1;
+        //  Increment end_page before hand to account for zero index
+        const end = start + (++end_page * page_size) - 1;
 
         return this.photos.fetchThumbs(start, end);
 
