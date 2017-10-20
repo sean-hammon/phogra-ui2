@@ -1,9 +1,9 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { currentGallery, loadComplete, thumbsState } from "../store/app.state";
+import { currentGallery, loadComplete, thumbPages, thumbsState } from "../store/app.state";
 import { Photo } from "../../phogra/photos/photo";
 import { Gallery } from "../../phogra/galleries/gallery";
-import { PRELOAD_COMPLETE } from '../store/app.actions';
+import { PRELOAD_COMPLETE, ThumbsIncrementPage } from '../store/app.actions';
 import { ThumbCalculator } from './thumb/ThumbCalculator';
 
 @Component({
@@ -16,7 +16,6 @@ export class GalleryComponent implements OnInit, OnDestroy{
     gallery: Gallery;
     thumbs: Photo[];
     thumbs_loaded: boolean;
-    current_page: number;
     next_page_size: number;
     subscriptions: any;
 
@@ -29,23 +28,31 @@ export class GalleryComponent implements OnInit, OnDestroy{
         private store: Store<any>,
         private ThumbCalculator: ThumbCalculator
     ) {
-        this.current_page = 0;
+
         this.thumbs_loaded = false;
         this.next_page_size = this.ThumbCalculator.getPageSize();
         this.subscriptions = {
             thumbState: null,
             loadComplete: null,
-            currentGallery: null
+            currentGallery: null,
+            thumbPages: null
         };
+
     }
 
     public ngOnInit() {
+
         this.subscriptions.thumbState = this.store.select(thumbsState)
             .subscribe(thumbs => this.thumbs = thumbs);
         this.subscriptions.loadComplete = this.store.select(loadComplete)
             .subscribe(() => this.thumbs_loaded = true);
         this.subscriptions.currentGallery = this.store.select(currentGallery)
             .subscribe((gallery) => this.gallery = gallery);
+        this.subscriptions.thumbPages = this.store.select(thumbPages)
+            .subscribe((thumb_pages) => {
+                const current_page = thumb_pages[this.gallery.id];
+                this.ThumbCalculator.fetchSinglePage(current_page);
+            });
 
         this.store.dispatch({
             type: PRELOAD_COMPLETE
@@ -58,13 +65,13 @@ export class GalleryComponent implements OnInit, OnDestroy{
         this.subscriptions.thumbState.unsubscribe();
         this.subscriptions.loadComplete.unsubscribe();
         this.subscriptions.currentGallery.unsubscribe();
+        this.subscriptions.thumbPages.unsubscribe();
     }
 
 
     public loadNextBatch() {
 
-        this.current_page++;
-        this.ThumbCalculator.fetchSinglePage(this.current_page);
+        this.store.dispatch(new ThumbsIncrementPage(this.gallery.id));
 
     }
 
