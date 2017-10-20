@@ -59,6 +59,22 @@ export function appReducer(
                 thumbs: [...state.thumbs, ...action.payload]
             });
 
+        case Actions.INITIALIZE_THUMB_PAGE:
+            let init_state = Object.assign({}, state.thumbPages);
+            init_state[action.payload] = 0;
+
+            return Object.assign({}, state, {
+                thumbPages: init_state
+            });
+
+        case Actions.INCREMENT_THUMB_PAGE:
+            let inc_state = Object.assign({}, state.thumbPages);
+            inc_state[action.payload]++;
+
+            return Object.assign({}, state, {
+                thumbPages: inc_state
+            });
+
         case Actions.SET_CURRENT_GALLERY:
             return Object.assign({}, state, {
                 current_gallery: action.payload

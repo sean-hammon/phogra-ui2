@@ -1,3 +1,5 @@
+import { Action } from '@ngrx/store';
+
 export interface ReducerAction {
     type: string;
     payload?: any;
@@ -11,6 +13,8 @@ export const SET_GALLERIES = 'SET_GALLERIES';
 export const SET_PHOTOS = 'SET_PHOTOS';
 export const RESET_THUMBS = 'RESET_THUMBS';
 export const APPEND_THUMBS = 'APPEND_THUMBS';
+export const INITIALIZE_THUMB_PAGE = 'INITIALIZE_THUMB_PAGE';
+export const INCREMENT_THUMB_PAGE = 'INCREMENT_THUMB_PAGE';
 
 export const SET_CURRENT_GALLERY = 'SET_CURRENT_GALLERY';
 export const SET_CURRENT_PHOTO = 'SET_CURRENT_PHOTO';
@@ -23,3 +27,13 @@ export const FETCH_GALLERIES_ERROR = 'FETCH_GALLERIES_ERROR';
 export const FETCH_GALLERY_PHOTOS = 'FETCH_GALLERY_PHOTOS';
 export const FETCH_GALLERY_PHOTOS_SUCCESS = 'FETCH_GALLERY_PHOTOS_SUCCESS';
 export const FETCH_GALLERY_PHOTOS_ERROR = 'FETCH_GALLERY_PHOTOS_ERROR';
+
+export class ThumbsIncrementPage implements Action{
+    readonly type = INCREMENT_THUMB_PAGE;
+    constructor(public payload: string){}
+}
+
+export class ThumbsInitializePage implements Action {
+    readonly type = INITIALIZE_THUMB_PAGE;
+    constructor(public payload: string) {}
+}
