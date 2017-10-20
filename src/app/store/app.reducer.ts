@@ -88,15 +88,8 @@ export function appReducer(
 
         case Actions.TOGGLE_ZOOM:
 
-            let new_state = '';
-            if (state.zoom_state === 'cover') {
-                new_state = 'fit';
-            } else {
-                new_state = 'cover';
-            }
-
             return Object.assign({}, state, {
-                zoom_state: new_state
+                zoom_state: state.zoom_state === 'cover' ? 'fit' : 'cover'
             });
 
         default:
