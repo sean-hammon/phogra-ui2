@@ -19,7 +19,7 @@ export class GalleryResolver implements Resolve<Photo[]> {
         private galleryApi: GalleryService,
         private photos: PhotoProvider,
         private photoApi: PhotoService,
-        private ThumbCalulator: ThumbCalculator
+        private ThumbCalculator: ThumbCalculator
     ) { }
 
 
