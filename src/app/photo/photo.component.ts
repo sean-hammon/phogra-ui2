@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { currentPhoto, loadComplete, zoomState } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
@@ -14,7 +14,7 @@ import { ConstrainedDrag } from 'app/photo/ConstrainedDrag';
     templateUrl: './photo.component.html',
     styleUrls: ['./photo.component.sass']
 })
-export class PhotoComponent implements OnInit {
+export class PhotoComponent implements OnInit, OnDestroy {
 
     @HostBinding('class')
     public get getClass() {
@@ -30,6 +30,7 @@ export class PhotoComponent implements OnInit {
     private winW: number;
     private viewH: number;
     private file: File;
+    private subscriptions: any;
 
     constructor(
         private store: Store<any>,
@@ -38,13 +39,20 @@ export class PhotoComponent implements OnInit {
         private DragManager: ConstrainedDrag
     ) {
         this.visible = false;
+        this.subscriptions = {
+            current_photo: null,
+            load_complete: null,
+            zoom_state: null,
+            nav_start: null,
+            nav_end: null
+        };
     }
 
     ngOnInit() {
         this.winH = document.documentElement.clientHeight;
         this.winW = document.documentElement.clientWidth;
 
-        this.store.select(currentPhoto)
+        this.subscriptions.current_photo = this.store.select(currentPhoto)
             .subscribe(photo => {
                 this.photo = photo;
                 //  File size will be dynamic later
@@ -53,14 +61,14 @@ export class PhotoComponent implements OnInit {
                 }
             });
 
-        this.store.select(loadComplete)
+        this.subscriptions.load_complete = this.store.select(loadComplete)
             .subscribe((completeIsTrue) => {
                 if (completeIsTrue) {
                     this.coverScreen()
                 }
             });
 
-        this.store.select(zoomState)
+        this.subscriptions.zoom_state = this.store.select(zoomState)
             .skip(1)
             .subscribe(zoom_state => {
                 if (zoom_state === 'cover') {
@@ -70,7 +78,7 @@ export class PhotoComponent implements OnInit {
                 }
             });
 
-        this.router.events
+        this.subscriptions.nav_end = this.router.events
             .filter(event => event instanceof NavigationEnd)
             .subscribe((event: NavigationEnd) => {
 
@@ -80,7 +88,7 @@ export class PhotoComponent implements OnInit {
 
             });
 
-        this.router.events
+        this.subscriptions.nav_start = this.router.events
             .filter(event => event instanceof NavigationStart)
             .subscribe((event: NavigationStart) => {
 
@@ -91,6 +99,17 @@ export class PhotoComponent implements OnInit {
         this.store.dispatch({
             type: PRELOAD_COMPLETE
         });
+    }
+
+
+    ngOnDestroy () {
+
+        this.subscriptions.current_photo.unsubscribe();
+        this.subscriptions.load_complete.unsubscribe();
+        this.subscriptions.zoom_state.unsubscribe();
+        this.subscriptions.nav_start.unsubscribe();
+        this.subscriptions.nav_end.unsubscribe();
+
     }
 
 
