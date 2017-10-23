@@ -82,7 +82,7 @@ export class Photo implements IPhoto {
             file_types: data.relationships.files.data,
             links: {
                 self: data.links.self,
-                ui: '/photo/' + data.attributes.slug + "/" + data.id
+                ui: '/photo/' + data.attributes.slug
             },
             created_at: new Date(data.attributes.created_at),
             updated_at: new Date(data.attributes.updated_at)
