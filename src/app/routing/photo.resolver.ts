@@ -50,7 +50,7 @@ export class PhotoResolver implements Resolve<boolean> {
         }
 
         return this.galleryApi.fetchGalleryPhotos(gallery)
-            .switchMap((photos): Observable<Photo> => {
+            .flatMap((photos): Observable<Photo> => {
                 this.photos.setPhotos(photos);
 
                 let photo: Photo;
