@@ -6,6 +6,9 @@ import { Gallery } from '../../phogra/galleries/gallery';
 import { currentGallery, currentPhoto, initialStats, topBarStats, zoomState } from '../store/app.state';
 import { TOGGLE_ZOOM } from '../store/app.actions';
 import 'rxjs/add/operator/filter';
+import { Location } from '@angular/common';
+import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
+import { PhotoProvider } from '../../phogra/photos/photo.provider';
 
 interface IZoomIcons {
     cover: string,
@@ -31,7 +34,10 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
     constructor(
         private store: Store<any>,
-        private router: Router
+        private router: Router,
+        private location: Location,
+        private galleries: GalleryProvider,
+        private photos: PhotoProvider
     ) {
         this.current_view = 'photo';
         this.gallery_stats = initialStats;
@@ -52,6 +58,32 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
+
+        //  Handle the back button and make sure state is updated.
+        this.location.subscribe(evt => {
+            if (evt.pop) {
+                const obj_id = evt.url.split('/').pop();
+                if (evt.url.indexOf('gallery') === 1) {
+
+                    this.current_view = 'gallery';
+
+                    //  If the gallery hasn't actually changed app state
+                    //  won't emit a new value. Do some manual work for
+                    //  the moment...
+
+                    const gallery = this.galleries.fetchById(obj_id);
+                    this.updateWithGalleryInfo(gallery);
+                    this.galleries.setCurrent(gallery);
+
+                } else {
+
+                    this.current_view = 'photo';
+                    this.photos.fetchById(obj_id);
+
+                }
+            }
+        });
+
         this.subscriptions.nav_start = this.router.events
             .filter(event => event instanceof NavigationStart)
             .subscribe((event: NavigationStart) => {
