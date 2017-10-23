@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { currentGallery, loadComplete, thumbPages, thumbsState } from "../store/app.state";
+import { currentGallery, loadComplete, thumbPages, thumbsState, topBarStats } from "../store/app.state";
 import { Photo } from "../../phogra/photos/photo";
 import { Gallery } from "../../phogra/galleries/gallery";
 import { PRELOAD_COMPLETE, ThumbsIncrementPage } from '../store/app.actions';
@@ -16,6 +16,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
     gallery: Gallery;
     thumbs: Photo[];
     thumbs_loaded: boolean;
+    current_page_size: number;
     next_page_size: number;
     subscriptions: any;
 
@@ -30,12 +31,13 @@ export class GalleryComponent implements OnInit, OnDestroy{
     ) {
 
         this.thumbs_loaded = false;
-        this.next_page_size = this.ThumbCalculator.getPageSize();
+        this.current_page_size = this.ThumbCalculator.getPageSize();
         this.subscriptions = {
             thumbState: null,
             loadComplete: null,
             currentGallery: null,
-            thumbPages: null
+            thumbPages: null,
+            thumbStats: null,
         };
 
     }
@@ -52,6 +54,11 @@ export class GalleryComponent implements OnInit, OnDestroy{
             .subscribe((thumb_pages) => {
                 const current_page = thumb_pages[this.gallery.id];
                 this.ThumbCalculator.fetchSinglePage(current_page);
+            });
+        this.subscriptions.thumbStats = this.store.select(topBarStats)
+            .subscribe(thumb_stats => {
+                const remain_to_load = thumb_stats.photo_count - thumb_stats.thumb_count;
+                this.next_page_size = this.current_page_size > remain_to_load ? remain_to_load : this.current_page_size;
             });
 
         this.store.dispatch({
