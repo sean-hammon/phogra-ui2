@@ -58,19 +58,19 @@ export class TopBarComponent implements OnInit, OnDestroy {
                 this.description = '';
             });
 
-        this.subscriptions.current_photo = this.store.select(currentPhoto)
-            .subscribe(photo => {
-                if (typeof photo.slug !== 'undefined') {
-                    this.current_view = 'photo';
-                    this.updateWithPhotoInfo(photo);
-                }
-            });
-
         this.subscriptions.current_gallery = this.store.select(currentGallery)
             .subscribe(gallery => {
                 if (typeof gallery.slug !== 'undefined') {
                     this.current_view = 'gallery';
                     this.updateWithGalleryInfo(gallery);
+                }
+            });
+
+        this.subscriptions.current_photo = this.store.select(currentPhoto)
+            .subscribe(photo => {
+                if (typeof photo.slug !== 'undefined') {
+                    this.current_view = 'photo';
+                    this.updateWithPhotoInfo(photo);
                 }
             });
 
