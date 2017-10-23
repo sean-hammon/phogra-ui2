@@ -16,6 +16,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
     gallery: Gallery;
     thumbs: Photo[];
     thumbs_loaded: boolean;
+    show_load_more: boolean;
     current_page_size: number;
     next_page_size: number;
     subscriptions: any;
@@ -57,6 +58,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
             });
         this.subscriptions.thumbStats = this.store.select(topBarStats)
             .subscribe(thumb_stats => {
+                this.show_load_more = thumb_stats.thumb_count !== thumb_stats.photo_count;
                 const remain_to_load = thumb_stats.photo_count - thumb_stats.thumb_count;
                 this.next_page_size = this.current_page_size > remain_to_load ? remain_to_load : this.current_page_size;
             });
