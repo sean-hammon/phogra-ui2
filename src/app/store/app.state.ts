@@ -50,9 +50,5 @@ export const loadComplete = (state: AppStore) => state.appState.load_complete;
 export const thumbsState = (state: AppStore) => state.appState.thumbs;
 export const thumbPages = (state: AppStore) => state.appState.thumbPages;
 export const zoomState = (state: AppStore) => state.appState.zoom_state;
-export const topBarStats = (state: AppStore) => {
-    return {
-        'photo_count': state.appState.photos.length,
-        'thumb_count': state.appState.thumbs.length,
-    }
-};
+export const photoCount = (state: AppStore) => state.appState.photos.length;
+export const thumbCount = (state: AppStore) => state.appState.thumbs.length;
