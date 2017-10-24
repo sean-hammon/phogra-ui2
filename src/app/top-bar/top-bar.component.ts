@@ -3,12 +3,16 @@ import { Router, NavigationStart } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Photo } from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
-import { currentGallery, currentPhoto, initialStats, topBarStats, zoomState } from '../store/app.state';
+import {
+    currentGallery, currentPhoto, initialStats, photoCount,
+    thumbCount, zoomState
+} from '../store/app.state';
 import { TOGGLE_ZOOM } from '../store/app.actions';
 import 'rxjs/add/operator/filter';
 import { Location } from '@angular/common';
 import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 interface IZoomIcons {
     cover: string,
@@ -50,8 +54,9 @@ export class TopBarComponent implements OnInit, OnDestroy {
             nav_start: null,
             current_photo: null,
             current_gallery: null,
-            top_bar_stats: null,
-            zoom_state: null
+            zoom_state: null,
+            photo_count: null,
+            thumb_count: null
         };
 
     }
@@ -106,11 +111,16 @@ export class TopBarComponent implements OnInit, OnDestroy {
                 }
             });
 
-        this.subscriptions.top_bar_stats = this.store.select(topBarStats)
-            .subscribe(stats => {
-                if (this.current_view === 'gallery' && stats.photo_count > 0 && stats.thumb_count > 0) {
-                    this.description = `${stats.thumb_count} of ${stats.photo_count} photos displayed.`;
-                }
+        this.subscriptions.photo_count = this.store.select(photoCount)
+            .subscribe(count => {
+                this.gallery_stats.photo_count = count;
+                this.updateGalleryDescription();
+            });
+
+        this.subscriptions.thumb_count = this.store.select(thumbCount)
+            .subscribe(count => {
+                this.gallery_stats.thumb_count = count;
+                this.updateGalleryDescription();
             });
 
         this.subscriptions.zoom_state = this.store.select(zoomState)
@@ -123,7 +133,8 @@ export class TopBarComponent implements OnInit, OnDestroy {
         this.subscriptions.nav_start.unsubscribe();
         this.subscriptions.current_photo.unsubscribe();
         this.subscriptions.current_gallery.unsubscribe();
-        this.subscriptions.top_bar_stats.unsubscribe();
+        this.subscriptions.photo_count.unsubscribe();
+        this.subscriptions.thumb_count.unsubscribe();
         this.subscriptions.zoom_state.unsubscribe();
 
     }
@@ -141,6 +152,19 @@ export class TopBarComponent implements OnInit, OnDestroy {
         this.previous_link = null;
         this.next_link = null;
         this.page_title = gallery.title;
+    }
+
+
+    updateGalleryDescription() {
+
+        if (
+            this.current_view === 'gallery'
+            && this.gallery_stats.photo_count > 0
+            && this.gallery_stats.thumb_count > 0
+        ) {
+            this.description = `${this.gallery_stats.thumb_count} of ${this.gallery_stats.photo_count} photos displayed.`;
+        }
+
     }
 
 

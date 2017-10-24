@@ -1,6 +1,9 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Store } from "@ngrx/store";
-import { currentGallery, loadComplete, thumbPages, thumbsState, topBarStats } from "../store/app.state";
+import {
+    currentGallery, initialStats, loadComplete, photoCount, thumbCount, thumbPages,
+    thumbsState
+} from "../store/app.state";
 import { Photo } from "../../phogra/photos/photo";
 import { Gallery } from "../../phogra/galleries/gallery";
 import { PRELOAD_COMPLETE, ThumbsIncrementPage } from '../store/app.actions';
@@ -20,6 +23,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
     current_page_size: number;
     next_page_size: number;
     subscriptions: any;
+    gallery_stats: any;
 
     @HostBinding('class')
     public get getClass() {
@@ -33,12 +37,14 @@ export class GalleryComponent implements OnInit, OnDestroy{
 
         this.thumbs_loaded = false;
         this.current_page_size = this.ThumbCalculator.getPageSize();
+        this.gallery_stats = initialStats;
         this.subscriptions = {
             thumbState: null,
             loadComplete: null,
             currentGallery: null,
             thumbPages: null,
-            thumbStats: null,
+            photo_count: null,
+            thumb_count: null
         };
 
     }
@@ -52,15 +58,25 @@ export class GalleryComponent implements OnInit, OnDestroy{
         this.subscriptions.currentGallery = this.store.select(currentGallery)
             .subscribe((gallery) => this.gallery = gallery);
         this.subscriptions.thumbPages = this.store.select(thumbPages)
+            //  Skip initial load of thumbs. We only care about
+            // interactions on this page.
+            .skip(1)
             .subscribe((thumb_pages) => {
+                console.log('thumb_pages', thumb_pages);
                 const current_page = thumb_pages[this.gallery.id];
                 this.ThumbCalculator.fetchSinglePage(current_page);
             });
-        this.subscriptions.thumbStats = this.store.select(topBarStats)
-            .subscribe(thumb_stats => {
-                this.show_load_more = thumb_stats.thumb_count !== thumb_stats.photo_count;
-                const remain_to_load = thumb_stats.photo_count - thumb_stats.thumb_count;
-                this.next_page_size = this.current_page_size > remain_to_load ? remain_to_load : this.current_page_size;
+        this.subscriptions.photo_count = this.store.select(photoCount)
+            .subscribe(count => {
+                console.log("photo_count", count);
+                this.gallery_stats.photo_count = count;
+                this.updateLoadMore();
+            });
+        this.subscriptions.thumb_count = this.store.select(thumbCount)
+            .subscribe(count => {
+                console.log("thumb_count", count);
+                this.gallery_stats.thumb_count = count;
+                this.updateLoadMore();
             });
 
         this.store.dispatch({
@@ -75,12 +91,25 @@ export class GalleryComponent implements OnInit, OnDestroy{
         this.subscriptions.loadComplete.unsubscribe();
         this.subscriptions.currentGallery.unsubscribe();
         this.subscriptions.thumbPages.unsubscribe();
+        this.subscriptions.photo_count.unsubscribe();
+        this.subscriptions.thumb_count.unsubscribe();
     }
 
 
     public loadNextBatch() {
 
         this.store.dispatch(new ThumbsIncrementPage(this.gallery.id));
+
+    }
+
+
+    public updateLoadMore() {
+
+        this.show_load_more = this.gallery_stats.thumb_count !== this.gallery_stats.photo_count;
+        const remain_to_load = this.gallery_stats.photo_count - this.gallery_stats.thumb_count;
+        this.next_page_size = this.current_page_size > remain_to_load
+            ? remain_to_load
+            : this.current_page_size;
 
     }
 
