@@ -62,19 +62,16 @@ export class GalleryComponent implements OnInit, OnDestroy{
             // interactions on this page.
             .skip(1)
             .subscribe((thumb_pages) => {
-                console.log('thumb_pages', thumb_pages);
                 const current_page = thumb_pages[this.gallery.id];
                 this.ThumbCalculator.fetchSinglePage(current_page);
             });
         this.subscriptions.photo_count = this.store.select(photoCount)
             .subscribe(count => {
-                console.log("photo_count", count);
                 this.gallery_stats.photo_count = count;
                 this.updateLoadMore();
             });
         this.subscriptions.thumb_count = this.store.select(thumbCount)
             .subscribe(count => {
-                console.log("thumb_count", count);
                 this.gallery_stats.thumb_count = count;
                 this.updateLoadMore();
             });
