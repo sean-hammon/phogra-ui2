@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "pub-start": "ng serve --app public",
-    "pub-build": "ng build --app public",
+    "pub-build": "ng build --app public --prod",
     "pub-test": "ng test --app public",
     "pub-lint": "ng lint --app public",
     "pub-e2e": "ng e2e --app public",
