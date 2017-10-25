@@ -6,6 +6,6 @@
 export const environment = {
     production: false,
     license: 'Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)',
-    apiBase: 'http://papi.dev',
-    jwtCookie: 'X-PHOGRA-JWT'
+    apiBase: 'http://phogra.sean-hammon.com',
+    jwtStorageKey: 'X-PHOGRA-TOKEN'
 };
