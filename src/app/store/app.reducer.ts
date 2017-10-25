@@ -50,7 +50,7 @@ export function appReducer(
 
         case ActionNames.RESET_THUMBS:
             return Object.assign({}, state, {
-                thumbs: action.payload
+                thumbs: []
             });
 
         case ActionNames.APPEND_THUMBS:

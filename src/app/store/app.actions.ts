@@ -70,7 +70,6 @@ export class PhotosToggleZoom implements ReducerAction {
 
 export class ThumbsResetAction implements ReducerAction {
     readonly type = ActionNames.RESET_THUMBS;
-    constructor (public payload: Photo[]) {}
 }
 
 export class ThumbsAppendAction implements ReducerAction {
