@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
 import { GalleryService } from '../../phogra/galleries/gallery.service';
 import { Store } from '@ngrx/store';
-import { PRELOAD_BEGIN, PRELOAD_COMPLETE, ThumbsInitializePage } from '../store/app.actions';
+import { AppPreloadBeginAction, ThumbsInitializePageAction } from '../store/app.actions';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
 import { PhotoService } from '../../phogra/photos/photo.service';
 import { Photo } from '../../phogra/photos/photo';
@@ -28,9 +28,7 @@ export class GalleryResolver implements Resolve<Photo[]> {
     resolve(route: ActivatedRouteSnapshot): Observable<Photo[]> {
 
         //  Make sure the spinner starts with each route change.
-        this.store.dispatch({
-            type: PRELOAD_BEGIN
-        });
+        this.store.dispatch(new AppPreloadBeginAction());
 
         const gallery_id = route.url.pop().path;
         const gallery = this.galleries.setById(gallery_id);
@@ -50,7 +48,7 @@ export class GalleryResolver implements Resolve<Photo[]> {
                     current_page = thumbPages[gallery_id];
                 } else {
                     current_page = 0;
-                    this.store.dispatch(new ThumbsInitializePage(gallery_id));
+                    this.store.dispatch(new ThumbsInitializePageAction(gallery_id));
                 }
 
                 const thumbs = this.ThumbCalculator.fetchPageRange(0, current_page);

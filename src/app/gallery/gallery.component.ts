@@ -6,7 +6,7 @@ import {
 } from "../store/app.state";
 import { Photo } from "../../phogra/photos/photo";
 import { Gallery } from "../../phogra/galleries/gallery";
-import { PRELOAD_COMPLETE, ThumbsIncrementPage } from '../store/app.actions';
+import { AppPreloadCompleteAction, ThumbsIncrementPageAction } from '../store/app.actions';
 import { ThumbCalculator } from './thumb/ThumbCalculator';
 
 @Component({
@@ -76,9 +76,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
                 this.updateLoadMore();
             });
 
-        this.store.dispatch({
-            type: PRELOAD_COMPLETE
-        });
+        this.store.dispatch(new AppPreloadCompleteAction());
 
     }
 
@@ -95,7 +93,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
 
     public loadNextBatch() {
 
-        this.store.dispatch(new ThumbsIncrementPage(this.gallery.id));
+        this.store.dispatch(new ThumbsIncrementPageAction(this.gallery.id));
 
     }
 

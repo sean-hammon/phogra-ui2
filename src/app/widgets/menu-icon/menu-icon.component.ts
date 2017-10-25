@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {Store} from '@ngrx/store';
-import {TOGGLE_MENU} from '../../store/app.actions';
+import { AppToogleMenuAction } from '../../store/app.actions';
 import { menuState } from '../../store/app.state';
 
 @Component({
@@ -31,9 +31,7 @@ export class MenuIconComponent implements OnInit, OnDestroy{
 
 
     toggleMenu() {
-        this.store.dispatch({
-            type: TOGGLE_MENU
-        });
+        this.store.dispatch(new AppToogleMenuAction());
     }
 
 }

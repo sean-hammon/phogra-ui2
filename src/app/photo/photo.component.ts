@@ -4,7 +4,7 @@ import { currentPhoto, loadComplete, zoomState } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
 import { File } from '../../phogra/photos/file';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { PRELOAD_COMPLETE } from '../store/app.actions';
+import { AppPreloadCompleteAction } from '../store/app.actions';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import 'rxjs/add/operator/skip';
 import { ConstrainedDrag } from 'app/photo/ConstrainedDrag';
@@ -82,9 +82,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
             .filter(event => event instanceof NavigationEnd)
             .subscribe((event: NavigationEnd) => {
 
-                this.store.dispatch({
-                    type: PRELOAD_COMPLETE
-                });
+                this.store.dispatch(new AppPreloadCompleteAction());
 
             });
 
@@ -96,9 +94,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
 
             });
 
-        this.store.dispatch({
-            type: PRELOAD_COMPLETE
-        });
+        this.store.dispatch(new AppPreloadCompleteAction());
     }
 
 

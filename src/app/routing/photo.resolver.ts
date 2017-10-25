@@ -9,7 +9,7 @@ import { Gallery } from '../../phogra/galleries/gallery';
 import { PhotoService } from '../../phogra/photos/photo.service';
 import { PhotoProvider } from '../../phogra/photos/photo.provider';
 import { Photo } from '../../phogra/photos/photo';
-import { PRELOAD_BEGIN, PRELOAD_COMPLETE } from '../store/app.actions';
+import { AppPreloadBeginAction } from '../store/app.actions';
 
 @Injectable()
 export class PhotoResolver implements Resolve<boolean> {
@@ -30,9 +30,7 @@ export class PhotoResolver implements Resolve<boolean> {
             gallery_slug = '';
 
         //  Make sure the spinner starts with each route change.
-        this.store.dispatch({
-            type: PRELOAD_BEGIN
-        });
+        this.store.dispatch(new AppPreloadBeginAction());
 
         let gallery: Gallery;
         if (home_route) {

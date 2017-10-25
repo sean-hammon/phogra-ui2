@@ -7,7 +7,7 @@ import {
     currentGallery, currentPhoto, initialStats, photoCount,
     thumbCount, zoomState
 } from '../store/app.state';
-import { TOGGLE_ZOOM } from '../store/app.actions';
+import { PhotosToggleZoom } from '../store/app.actions';
 import 'rxjs/add/operator/filter';
 import { Location } from '@angular/common';
 import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
@@ -169,9 +169,7 @@ export class TopBarComponent implements OnInit, OnDestroy {
 
 
     toggleZoom() {
-        this.store.dispatch({
-            type: TOGGLE_ZOOM
-        });
+        this.store.dispatch(new PhotosToggleZoom());
     }
 
 }

@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import {Photo} from './photo';
 import { Gallery } from '../galleries/gallery';
-import { APPEND_THUMBS, RESET_THUMBS, SET_CURRENT_PHOTO, SET_PHOTOS } from '../../app/store/app.actions';
+import { ThumbsAppendAction, ThumbsResetAction, PhotosSetAction, PhotosSetCurrentAction } from '../../app/store/app.actions';
 import { currentGallery } from '../../app/store/app.state';
 
 @Injectable()
@@ -25,10 +25,7 @@ export class PhotoProvider {
     setPhotos (photos: Photo[]): void {
 
             this.photos = photos;
-            this.store.dispatch({
-                type: SET_PHOTOS,
-                payload: photos
-            });
+            this.store.dispatch(new PhotosSetAction(photos));
 
     }
 
@@ -50,10 +47,7 @@ export class PhotoProvider {
 
         this.updateLinks(photo);
 
-        this.store.dispatch({
-            type: SET_CURRENT_PHOTO,
-            payload: this.photos[index]
-        });
+        this.store.dispatch(new PhotosSetCurrentAction(this.photos[index]));
 
         return this.photos[index];
 
@@ -79,12 +73,11 @@ export class PhotoProvider {
     fetchThumbs(start, end): Photo[] {
 
         const batch = this.photos.slice(start, end);
-        const action = start === 0 ? RESET_THUMBS : APPEND_THUMBS;
+        const action = start === 0
+            ? new ThumbsResetAction(batch)
+            : new ThumbsAppendAction(batch);
 
-        this.store.dispatch({
-            type: action,
-            payload: batch
-        });
+        this.store.dispatch(action);
 
         return batch;
 

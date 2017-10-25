@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { galleryState, menuState } from '../store/app.state';
 import { Gallery } from '../../phogra/galleries/gallery';
 import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
-import { TOGGLE_MENU } from '../store/app.actions';
+import { AppToogleMenuAction } from '../store/app.actions';
 
 @Component({
     selector: 'app-menu',
@@ -52,9 +52,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         this.subscriptions.nav_start = this.router.events
             .filter(event => event instanceof NavigationStart && this.menuOpen)
             .subscribe(() => {
-                this.store.dispatch({
-                    type: TOGGLE_MENU
-                });
+                this.store.dispatch(new AppToogleMenuAction());
             });
     }
 
