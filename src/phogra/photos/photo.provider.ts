@@ -72,14 +72,7 @@ export class PhotoProvider {
 
     fetchThumbs(start, end): Photo[] {
 
-        const batch = this.photos.slice(start, end);
-        const action = start === 0
-            ? new ThumbsResetAction(batch)
-            : new ThumbsAppendAction(batch);
-
-        this.store.dispatch(action);
-
-        return batch;
+        return this.photos.slice(start, end);
 
     }
 
