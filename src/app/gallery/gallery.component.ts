@@ -6,7 +6,10 @@ import {
 } from "../store/app.state";
 import { Photo } from "../../phogra/photos/photo";
 import { Gallery } from "../../phogra/galleries/gallery";
-import { AppPreloadCompleteAction, ThumbsIncrementPageAction } from '../store/app.actions';
+import {
+    AppPreloadBeginAction, AppPreloadCompleteAction, ThumbsAppendAction,
+    ThumbsIncrementPageAction
+} from '../store/app.actions';
 import { ThumbCalculator } from './thumb/ThumbCalculator';
 
 @Component({
@@ -44,7 +47,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
             currentGallery: null,
             thumbPages: null,
             photo_count: null,
-            thumb_count: null
+            thumbs: null
         };
 
     }
@@ -58,21 +61,25 @@ export class GalleryComponent implements OnInit, OnDestroy{
         this.subscriptions.currentGallery = this.store.select(currentGallery)
             .subscribe((gallery) => this.gallery = gallery);
         this.subscriptions.thumbPages = this.store.select(thumbPages)
-            //  Skip initial load of thumbs. We only care about
-            // interactions on this page.
+            //  skip events triggered in the resolver.
             .skip(1)
-            .subscribe((thumb_pages) => {
+            .flatMap((thumb_pages) => {
                 const current_page = thumb_pages[this.gallery.id];
-                this.ThumbCalculator.fetchSinglePage(current_page);
+                return this.ThumbCalculator.fetchSinglePage(current_page);
+            })
+            .subscribe((photos: Photo[]) => {
+                this.store.dispatch(new ThumbsAppendAction(photos));
+                this.store.dispatch(new AppPreloadCompleteAction());
             });
         this.subscriptions.photo_count = this.store.select(photoCount)
             .subscribe(count => {
                 this.gallery_stats.photo_count = count;
                 this.updateLoadMore();
             });
-        this.subscriptions.thumb_count = this.store.select(thumbCount)
-            .subscribe(count => {
-                this.gallery_stats.thumb_count = count;
+        this.subscriptions.thumbs = this.store.select(thumbsState)
+            .subscribe(thumbs => {
+                this.thumbs = thumbs;
+                this.gallery_stats.thumb_count = thumbs.length;
                 this.updateLoadMore();
             });
 
@@ -93,6 +100,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
 
     public loadNextBatch() {
 
+        this.store.dispatch(new AppPreloadBeginAction());
         this.store.dispatch(new ThumbsIncrementPageAction(this.gallery.id));
 
     }
