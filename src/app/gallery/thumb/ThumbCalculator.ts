@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { PhotoProvider } from '../../../phogra/photos/photo.provider';
 import { Photo } from '../../../phogra/photos/photo';
+import { PhotoService } from '../../../phogra/photos/photo.service';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ThumbCalculator {
@@ -8,7 +10,8 @@ export class ThumbCalculator {
     private thumb_size: number;
 
     constructor (
-        private photos: PhotoProvider
+        private photos: PhotoProvider,
+        private photoApi: PhotoService
     ) {
         // img_width + borders + padding + right_margin
         this.thumb_size = 320 + 4 + 14 + 16;
@@ -20,7 +23,7 @@ export class ThumbCalculator {
     }
 
 
-    public fetchSinglePage(page_num: number): Photo[] {
+    public fetchSinglePage(page_num: number): Observable<Photo[]> {
 
         const page_size = this.calcPageSize();
         let start = (page_size * page_num) - 1;
@@ -32,11 +35,12 @@ export class ThumbCalculator {
             end -= 1;
         }
 
-        return this.photos.fetchThumbs(start, end);
+        const batch = this.photos.fetchThumbs(start, end);
+        return this.photoApi.preloadThumbs(batch);
     }
 
 
-    public fetchPageRange(start_page: number, end_page: number): Photo[] {
+    public fetchPageRange(start_page: number, end_page: number): Observable<Photo[]> {
 
         if (start_page === end_page) {
             return this.fetchSinglePage(start_page);
@@ -50,7 +54,8 @@ export class ThumbCalculator {
         //  Increment end_page before hand to account for zero index
         const end = start + (++end_page * page_size) - 1;
 
-        return this.photos.fetchThumbs(start, end);
+        const batch = this.photos.fetchThumbs(start, end);
+        return this.photoApi.preloadThumbs(batch);
 
     }
 
