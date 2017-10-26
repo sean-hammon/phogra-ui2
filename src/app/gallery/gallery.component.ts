@@ -94,7 +94,7 @@ export class GalleryComponent implements OnInit, OnDestroy{
         this.subscriptions.currentGallery.unsubscribe();
         this.subscriptions.thumbPages.unsubscribe();
         this.subscriptions.photo_count.unsubscribe();
-        this.subscriptions.thumb_count.unsubscribe();
+        this.subscriptions.thumbs.unsubscribe();
     }
 
 
