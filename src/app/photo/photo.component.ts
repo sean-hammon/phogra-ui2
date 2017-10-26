@@ -4,7 +4,7 @@ import { currentPhoto, loadComplete, zoomState } from '../store/app.state';
 import { Photo } from '../../phogra/photos/photo';
 import { File } from '../../phogra/photos/file';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { AppPreloadCompleteAction } from '../store/app.actions';
+import { AppPreloadCompleteAction, PhotosToggleZoom } from '../store/app.actions';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import 'rxjs/add/operator/skip';
 import { ConstrainedDrag } from 'app/photo/ConstrainedDrag';
@@ -24,8 +24,9 @@ export class PhotoComponent implements OnInit, OnDestroy {
     photo: Photo;
     visible: boolean;
     inlineStyles: SafeStyle;
-    zoomState: string;
 
+    private mouseTimeout: any;
+    private isDragging: boolean;
     private winH: number;
     private winW: number;
     private viewH: number;
@@ -39,6 +40,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
         private DragManager: ConstrainedDrag
     ) {
         this.visible = false;
+        this.isDragging = false;
         this.subscriptions = {
             current_photo: null,
             load_complete: null,
@@ -109,17 +111,32 @@ export class PhotoComponent implements OnInit, OnDestroy {
     }
 
 
-    dragPhoto(evt: MouseEvent): void {
+    onMouseUp() {
 
-        //  Make vertical motion the default. ns is north/south,
-        //  like the cursor properties.
-        let direction = 'ns';
-        if ( this.file.width > this.file.height ) {
-            direction = 'ew';
+        if (!this.isDragging) {
+            this.store.dispatch(new PhotosToggleZoom());
+            clearTimeout(this.mouseTimeout);
+        } else {
+            this.isDragging = false;
         }
 
-        this.DragManager.startDrag(direction, evt);
+    }
 
+    dragPhoto(evt: MouseEvent): void {
+
+        this.mouseTimeout = setTimeout(() => {
+
+            //  Make vertical motion the default. ns is north/south,
+            //  like the cursor properties.
+            let direction = 'ns';
+            if ( this.file.width > this.file.height ) {
+                direction = 'ew';
+            }
+
+            this.DragManager.startDrag(direction, evt);
+            this.isDragging = true;
+
+        }, 85);
     }
 
 
