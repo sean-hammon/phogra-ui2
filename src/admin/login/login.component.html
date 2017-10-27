@@ -20,8 +20,8 @@
 
                 <div class="form-item">
                     <label>Password
-                        <span class="error" *ngIf="formPwd?.required && formPwd.touched">Password cannot be blank.</span>
-                        <span class="error" *ngIf="formPwd?.minlength && formPwd.touched">Password is too short. Did you mistype?</span>
+                        <span class="error" *ngIf="formPwd.errors?.required && formPwd.touched">Password cannot be blank.</span>
+                        <span class="error" *ngIf="formPwd.errors?.minlength && formPwd.touched">Password is too short. Did you mistype?</span>
                     </label>
                     <input type="password"
                            name="password"
