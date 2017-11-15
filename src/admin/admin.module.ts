@@ -6,7 +6,7 @@ import { PhograModule } from '../phogra/phogra.module';
 
 import { adminReducer } from './store/admin.reducer';
 import { AdminComponent } from './admin.component';
-import { LoginComponent } from '../admin/login/login.component';
+import { LoginComponent } from './login/login.component';
 import {AdminRoutingModule} from "./routing/routing.module";
 import { FormsModule } from '@angular/forms';
 import { LoginEffects } from './store/login.effects';
