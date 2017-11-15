@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { IUserLogin, User } from '../user/user.model';
@@ -22,10 +22,14 @@ export class AuthService {
         return this.http.post<IRestUserResponse>(
             environment.apiBase + this.loginEndpoint,
             login
-        )
-            .map((response: IRestUserResponse) => {
+        ).map(
+            (response: IRestUserResponse) => {
                 return User.transformRest(response.data);
-            });
+            },
+            (error: HttpErrorResponse) => {
+                return error;
+            }
+        );
 
     }
 
