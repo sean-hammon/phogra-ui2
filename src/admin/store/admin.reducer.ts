@@ -4,18 +4,21 @@ import { AdminActions, ReducerAction } from './admin.actions';
 export function adminReducer(
     state: AdminState = initialState,
     action: ReducerAction
-) {
+): AdminState {
 
     switch (action.type) {
 
-        case AdminActions.LOGIN:
-            return Object.assign({}, state, {});
-
         case AdminActions.LOGIN_SUCCESS:
-            return Object.assign({}, state, {});
+            console.log('reducer', action.payload);
+            return {...state, user: action.payload };
 
         case AdminActions.LOGIN_ERROR:
-            return Object.assign({}, state, {});
+            console.log('reducer', action.payload);
+            console.log(state);
+            return {...state, apiError: action.payload };
+
+        default:
+            return state;
     }
 
 }
