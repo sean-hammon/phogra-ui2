@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import {AdminRoutingModule} from "./routing/routing.module";
 import { FormsModule } from '@angular/forms';
 import { LoginEffects } from './store/login.effects';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { LoginEffects } from './store/login.effects';
     declarations: [
         AdminComponent,
         LoginComponent,
+        DashboardComponent,
     ],
     bootstrap: [AdminComponent]
 })
