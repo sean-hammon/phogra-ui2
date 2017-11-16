@@ -42,6 +42,7 @@
                         [disabled]="f.invalid"
                 >Login</button>
             </div>
+            <div class="login-error" *ngIf="loginError">{{ loginError }}</div>
         </form>
     </div>
 </div>
