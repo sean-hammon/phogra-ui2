@@ -4,6 +4,7 @@ import { LoginAction } from '../store/admin.actions';
 import { Store } from '@ngrx/store';
 import { AdminState, apiErrorState, userState } from '../store/admin.state';
 import 'rxjs/add/operator/skip';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     errorMessages: any;
 
     constructor(
-        private store: Store<AdminState>
+        private store: Store<AdminState>,
+        private router: Router
     ) {
         this.busy = false;
         this.loginError = null;
@@ -37,8 +39,18 @@ export class LoginComponent implements OnInit, OnDestroy {
             .subscribe(error => {
                 this.loginError = this.errorMessages[error.statusText];
             });
+        this.subscriptions.loginSuccess = this.store.select(userState)
+            .skip(1)
+            .subscribe(user => {
+                this.router.navigateByUrl('/dashboard');
+
+            });
+    }
+
+
     ngOnDestroy() {
         this.subscriptions.loginError.unsubscribe();
+        this.subscriptions.loginSuccess.unsubscribe();
     }
 
     onSubmit({value, valid}: {value: IUserLogin, valid: boolean}) {
