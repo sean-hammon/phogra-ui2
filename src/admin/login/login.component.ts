@@ -14,15 +14,31 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     busy: boolean;
     loginError: string;
+    subscriptions: any;
+    errorMessages: any;
 
     constructor(
         private store: Store<AdminState>
     ) {
         this.busy = false;
+        this.loginError = null;
+        this.subscriptions = {
+            loginSuccess: null,
+            loginError: null
+        };
+        this.errorMessages = {
+            'Unauthorized': "Login failed"
+        }
     }
 
     ngOnInit() {
+        this.subscriptions.loginError = this.store.select(apiErrorState)
+            .skip(1)
+            .subscribe(error => {
+                this.loginError = this.errorMessages[error.statusText];
+            });
     ngOnDestroy() {
+        this.subscriptions.loginError.unsubscribe();
     }
 
     onSubmit({value, valid}: {value: IUserLogin, valid: boolean}) {
