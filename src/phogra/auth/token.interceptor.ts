@@ -3,9 +3,11 @@ import {
     HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
     HttpResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import { TokenStorage } from './token.storage';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -15,13 +17,27 @@ export class TokenRequestInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        const token = this.storage.getToken();
-        if (token) {
+        if (request.url.indexOf('authenticate') >= 0) {
+
+            const base64 = btoa(request.body.email + ":" + request.body.password);
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer: ${token}`
-                }
+                    Authorization: `Basic ${base64}`
+                },
+                body: ''
             });
+
+        } else {
+
+            const token = this.storage.getToken();
+            if (token) {
+                request = request.clone({
+                    setHeaders: {
+                        Authorization: `Bearer: ${token}`
+                    }
+                });
+            }
+
         }
 
         return next.handle(request);

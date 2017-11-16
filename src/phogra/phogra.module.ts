@@ -6,6 +6,7 @@ import { PhotoService } from './photos/photo.service';
 import { PhotoProvider } from './photos/photo.provider';
 import { TokenRequestInterceptor, TokenResponseInterceptor } from './auth/token.interceptor';
 import { TokenStorage } from './auth/token.storage';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { TokenStorage } from './auth/token.storage';
         GalleryProvider,
         PhotoService,
         PhotoProvider,
+        AuthService,
         TokenStorage,
         {
             provide: HTTP_INTERCEPTORS,

@@ -1,0 +1,47 @@
+<div class="full-frame login-frame">
+    <div class="panel login-panel">
+        <form novalidate (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="panel-title">Login</div>
+            <div class="panel-content form">
+                <div class=""></div>
+                <div class="form-item">
+                    <label>Email <span class="error" *ngIf="formEmail.errors?.required && formEmail.touched">Email cannot be blank.</span></label>
+                    <input type="email"
+                           name="email"
+                           required
+                           ngModel
+                           #formEmail="ngModel"
+                           [ngClass]="{
+                               'success': (!formEmail.errors?.required && formEmail.touched),
+                               'error': (formEmail.errors?.required && formEmail.touched)
+                           }"
+                    >
+                </div>
+
+                <div class="form-item">
+                    <label>Password
+                        <span class="error" *ngIf="formPwd.errors?.required && formPwd.touched">Password cannot be blank.</span>
+                        <span class="error" *ngIf="formPwd.errors?.minlength && formPwd.touched">Password is too short. Did you mistype?</span>
+                    </label>
+                    <input type="password"
+                           name="password"
+                           required
+                           minlength="10"
+                           ngModel
+                           #formPwd="ngModel"
+                           [ngClass]="{
+                               'success': (!formPwd.errors?.required && formPwd.touched),
+                               'error': (formPwd.errors?.required && formPwd.touched)
+                           }"
+                    >
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button type="submit"
+                        class="button primary"
+                        [disabled]="f.invalid"
+                >Login</button>
+            </div>
+        </form>
+    </div>
+</div>

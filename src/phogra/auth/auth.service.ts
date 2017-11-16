@@ -1,0 +1,41 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+
+import { IUserLogin, User } from '../user/user.model';
+import { environment } from '../../environments/environment';
+import { IRestUserResponse } from '../rest/rest.user';
+
+@Injectable()
+export class AuthService {
+
+    private loginEndpoint = "/authenticate";
+    private validateEndpoint = "/validate-token";
+
+    constructor (
+        private http: HttpClient
+    ) {}
+
+
+    login (login: IUserLogin): Observable<User> {
+
+        return this.http.post<IRestUserResponse>(
+            environment.apiBase + this.loginEndpoint,
+            login
+        )
+            .map((response: IRestUserResponse) => {
+                return User.transformRest(response.data);
+            });
+
+    }
+
+
+    logout () {
+
+    }
+
+
+    validate () {
+
+    }
+}

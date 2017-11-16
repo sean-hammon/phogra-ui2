@@ -1,0 +1,23 @@
+@import "../../sass/kube/_scss/variables"
+@import "../../sass/kube/_scss/mixins"
+@import "../../sass/kube/_scss/components/buttons"
+@import "../../sass/kube/_scss/components/forms"
+@import "../../sass/kube/_scss/components/messages"
+
+@import "../../sass/variables"
+@import "../../sass/components/panel"
+
+.login-frame
+    display: flex
+    align-items: center
+    justify-content: center
+
+.login-panel
+    @include flex-item-width(325px)
+    margin-top: -15%
+
+//  Kube overrides
+form
+    margin-bottom: 0
+.form-item
+    margin-bottom: 1rem
