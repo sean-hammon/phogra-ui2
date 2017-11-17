@@ -71,7 +71,7 @@ export class Photo implements IPhoto {
     links: IPhotoLinks;
     files: IPhotoFiles;
 
-    static transformRest(data: IRestPhotoData): IPhoto {
+    static transformRest(data: IRestPhotoData): Photo {
         let xform: IPhoto;
         xform = {
             id: data.id,

@@ -1,0 +1,24 @@
+@import "../../sass/kube/_scss/variables"
+@import "../../sass/kube/_scss/mixins"
+@import "../../sass/kube/_scss/components/_grid"
+
+@import "../../sass/_variables"
+
+.top-bar
+    height: $top-bar-height
+    background-color: $color-darkgray
+    color: $color-aluminum
+
+.container
+    display: flex
+    position: absolute
+    top: $top-bar-height
+    bottom: 0
+
+.side-bar
+    @include flex-item-width(275px)
+    background-color: $color-aluminum
+
+.content
+    @include flex-item-auto
+    padding: 15px
