@@ -3,7 +3,7 @@ import {
     HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
     HttpResponse
 } from '@angular/common/http';
-import { TokenStorage } from './token.storage';
+import { JwtService } from './jwt.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
@@ -13,7 +13,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class TokenRequestInterceptor implements HttpInterceptor {
 
-    constructor(private storage: TokenStorage) {}
+    constructor(private jwt: JwtService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -29,7 +29,7 @@ export class TokenRequestInterceptor implements HttpInterceptor {
 
         } else {
 
-            const token = this.storage.getToken();
+            const token = this.jwt.getToken();
             if (token) {
                 request = request.clone({
                     setHeaders: {
@@ -49,7 +49,7 @@ export class TokenRequestInterceptor implements HttpInterceptor {
 @Injectable()
 export class TokenResponseInterceptor implements HttpInterceptor {
 
-    constructor(private storage: TokenStorage) {}
+    constructor(private jwt: JwtService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler) {
 
@@ -59,7 +59,7 @@ export class TokenResponseInterceptor implements HttpInterceptor {
                 if (event instanceof HttpResponse) {
                     const jot = event.headers.get(environment.jwtStorageKey);
                     if (jot) {
-                        this.storage.setToken(jot);
+                        this.jwt.setToken(jot);
                     }
                 }
 

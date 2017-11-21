@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class TokenStorage {
+export class JwtService {
 
     public getToken(): string {
         return localStorage.getItem(environment.jwtStorageKey);
