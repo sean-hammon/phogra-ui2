@@ -5,8 +5,8 @@ import { GalleryProvider } from './galleries/gallery.provider';
 import { PhotoService } from './photos/photo.service';
 import { PhotoProvider } from './photos/photo.provider';
 import { TokenRequestInterceptor, TokenResponseInterceptor } from './auth/token.interceptor';
-import { JwtService } from './auth/jwt.service';
 import { AuthService } from './auth/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @NgModule({
     declarations: [
@@ -20,7 +20,7 @@ import { AuthService } from './auth/auth.service';
         PhotoService,
         PhotoProvider,
         AuthService,
-        JwtService,
+        JwtHelperService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenRequestInterceptor,
