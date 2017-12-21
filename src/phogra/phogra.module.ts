@@ -7,6 +7,7 @@ import { PhotoProvider } from './photos/photo.provider';
 import { TokenRequestInterceptor, TokenResponseInterceptor } from './auth/token.interceptor';
 import { AuthService } from './auth/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserStorage } from 'phogra/user/user.storage';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
         PhotoProvider,
         AuthService,
         JwtHelperService,
+        UserStorage,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenRequestInterceptor,
@@ -31,6 +33,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
             useClass: TokenResponseInterceptor,
             multi: true
         }
+    ],
+    exports: [
+        UserStorage
     ]
 })
 export class PhograModule {}
