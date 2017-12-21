@@ -53,5 +53,21 @@ export class User {
         // this.relationships = (data && data.relationships) || new GalleryRelationships();
     }
 
+   /**
+     * Returns an instance of User populated with the data in a
+     * JSON string. Used when retrieving a serialized User from
+     * SessionStorage.
+     *
+     * @param {string} json
+     * @returns {User}
+     */
+    static parse(json: string): User {
+        if (json) {
+            const pojo = JSON.parse(json);
+            return Object.assign(new User(), pojo);
+        } else {
+            return null;
+        }
+    }
 
 }
