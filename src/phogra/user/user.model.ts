@@ -19,6 +19,7 @@ export class User {
     admin: boolean;
     created_at: object;
     updated_at: object;
+    token?: string;
     galleries?: Gallery[];
     links: any;
 
