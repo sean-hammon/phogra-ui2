@@ -9,7 +9,8 @@ export interface ReducerAction extends Action{
 export const AdminActions = {
     LOGIN: 'LOGIN',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
-    LOGIN_ERROR: 'LOGIN_ERROR'
+    LOGIN_ERROR: 'LOGIN_ERROR',
+    NO_OP: 'NO_OP'
 };
 
 
@@ -28,4 +29,9 @@ export class LoginSuccessAction implements ReducerAction {
 export class LoginErrorAction implements ReducerAction {
     readonly type = AdminActions.LOGIN_ERROR;
     constructor (public payload: any) {}
+}
+
+export class NoOpAction implements ReducerAction {
+    readonly type = AdminActions.NO_OP;
+    constructor () {}
 }
