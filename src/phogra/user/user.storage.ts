@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { JwtHelperService } from '@auth0/angular-jwt'
 import { environment } from '../../environments/environment';
 import { User } from './user.model';
+import { JwtHelperService } from '../auth/jwt-helper.service';
 
 @Injectable()
 export class UserStorage {
