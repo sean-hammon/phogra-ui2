@@ -3,17 +3,19 @@ import {
     HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
     HttpResponse
 } from '@angular/common/http';
-import { JwtService } from './jwt.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { environment } from '../../environments/environment';
+import { UserStorage } from 'phogra/user/user.storage';
+import { JwtHelperService } from './jwt-helper.service';
+import { User } from 'phogra/user/user.model';
 
 @Injectable()
 export class TokenRequestInterceptor implements HttpInterceptor {
 
-    constructor(private jwt: JwtService) {}
+    constructor(private userStorage: UserStorage) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -29,11 +31,11 @@ export class TokenRequestInterceptor implements HttpInterceptor {
 
         } else {
 
-            const token = this.jwt.getToken();
-            if (token) {
+            const user = this.userStorage.fetchUser();
+            if (user.token) {
                 request = request.clone({
                     setHeaders: {
-                        Authorization: `Bearer: ${token}`
+                        Authorization: `Bearer: ${user.token}`
                     }
                 });
             }
@@ -49,7 +51,10 @@ export class TokenRequestInterceptor implements HttpInterceptor {
 @Injectable()
 export class TokenResponseInterceptor implements HttpInterceptor {
 
-    constructor(private jwt: JwtService) {}
+    constructor(
+        private userStorage: UserStorage,
+        private jwtHelper: JwtHelperService
+    ) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler) {
 
@@ -59,7 +64,19 @@ export class TokenResponseInterceptor implements HttpInterceptor {
                 if (event instanceof HttpResponse) {
                     const jot = event.headers.get(environment.jwtStorageKey);
                     if (jot) {
-                        this.jwt.setToken(jot);
+                        let user = this.userStorage.fetchUser();
+                        const decoded = this.jwtHelper.decodeToken(jot);
+                        if (user) {
+                            if (user.id == decoded.sub) {
+                                user.token = jot;
+                                this.userStorage.storeUser(user);
+                            } else {
+                                throw new Error('Token and stored user do not match.');
+                            }
+                        } else {
+                            user = User.transformRest(event.body.data);
+                            this.userStorage.storeUser(user);
+                        }
                     }
                 }
 
