@@ -16,7 +16,7 @@ import { AdminGuard } from 'admin/routing/admin.guard';
 @NgModule({
     imports: [
         BrowserModule,
-        PhograModule,
+        PhograModule.forRoot(),
         AdminRoutingModule,
         FormsModule,
         StoreModule.forRoot({
