@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GalleryService } from './galleries/gallery.service';
 import { GalleryProvider } from './galleries/gallery.provider';
@@ -33,9 +33,13 @@ import { UserStorage } from 'phogra/user/user.storage';
             useClass: TokenResponseInterceptor,
             multi: true
         }
-    ],
-    exports: [
-        UserStorage
     ]
 })
-export class PhograModule {}
+export class PhograModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: PhograModule,
+            providers: [UserStorage]
+        }
+    }
+}
