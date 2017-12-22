@@ -67,12 +67,15 @@ export class TokenResponseInterceptor implements HttpInterceptor {
                         let user = this.userStorage.fetchUser();
                         const decoded = this.jwtHelper.decodeToken(jot);
                         if (user) {
-                            if (user.id == decoded.sub) {
-                                user.token = jot;
-                                this.userStorage.storeUser(user);
-                            } else {
-                                throw new Error('Token and stored user do not match.');
-                            }
+                            // TODO: This won't work until the API is returning the
+                            // hashed ID in the token sub.
+                            //
+                            // if (user.id == decoded.sub) {
+                            //     user.token = jot;
+                            //     this.userStorage.storeUser(user);
+                            // } else {
+                            //     throw new Error('Token and stored user do not match.');
+                            // }
                         } else {
                             user = User.transformRest(event.body.data);
                             this.userStorage.storeUser(user);
