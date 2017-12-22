@@ -9,12 +9,9 @@ export function adminReducer(
     switch (action.type) {
 
         case AdminActions.LOGIN_SUCCESS:
-            console.log('reducer', action.payload);
             return {...state, user: action.payload };
 
         case AdminActions.LOGIN_ERROR:
-            console.log('reducer', action.payload);
-            console.log(state);
             return {...state, apiError: action.payload };
 
         default:
