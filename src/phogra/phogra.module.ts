@@ -6,7 +6,7 @@ import { PhotoService } from './photos/photo.service';
 import { PhotoProvider } from './photos/photo.provider';
 import { TokenRequestInterceptor, TokenResponseInterceptor } from './auth/token.interceptor';
 import { AuthService } from './auth/auth.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from './auth/jwt-helper.service';
 import { UserStorage } from 'phogra/user/user.storage';
 
 @NgModule({
