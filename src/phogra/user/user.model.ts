@@ -25,8 +25,8 @@ export class User {
 
 
     static transformRest(data: IRestUserData): User {
-        let xform: User;
-        xform = <User>{
+
+        const xform = {
             id: data.id,
             name: data.attributes.name,
             email: data.attributes.email,
@@ -38,7 +38,7 @@ export class User {
             }
         };
 
-        return xform;
+        return Object.assign(new User(), xform);
     }
 
 
