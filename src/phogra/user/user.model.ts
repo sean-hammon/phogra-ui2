@@ -31,6 +31,7 @@ export class User {
             name: data.attributes.name,
             email: data.attributes.email,
             admin: !!data.attributes.admin,
+            token: data.attributes.token,
             created_at: new Date(data.attributes.created_at),
             updated_at: new Date(data.attributes.updated_at),
             links: {
