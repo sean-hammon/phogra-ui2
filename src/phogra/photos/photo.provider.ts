@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import {Photo} from './photo';
 import { Gallery } from '../galleries/gallery';
 import { ThumbsAppendAction, ThumbsResetAction, PhotosSetAction, PhotosSetCurrentAction } from '../../app/store/app.actions';
-import { currentGallery } from '../../app/store/app.state';
+// import { currentGallery } from '../../app/store/app.state';
 
 @Injectable()
 export class PhotoProvider {
@@ -17,8 +17,8 @@ export class PhotoProvider {
     constructor(
         private store: Store<any>
     ) {
-        store.select(currentGallery)
-            .subscribe((gallery:Gallery) => this.currentGallery = gallery);
+        //store.select(currentGallery)
+            //.subscribe((gallery:Gallery) => this.currentGallery = gallery);
     }
 
 

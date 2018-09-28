@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Gallery } from './gallery';
-import { GalleriesSetAction, GalleriesSetCurrentAction } from '../../app/store/app.actions';
+//import { GalleriesSetAction, GalleriesSetCurrentAction } from '../../app/store/app.actions';
 
 @Injectable()
 export class GalleryProvider {
@@ -17,14 +17,14 @@ export class GalleryProvider {
 
         this.galleries = galleries;
         this.generateGalleryPaths();
-        this.store.dispatch(new GalleriesSetAction(this.galleries));
+        // this.store.dispatch(new GalleriesSetAction(this.galleries));
 
     }
 
 
     setCurrent (gallery: Gallery): void {
 
-        this.store.dispatch(new GalleriesSetCurrentAction(gallery));
+        // this.store.dispatch(new GalleriesSetCurrentAction(gallery));
 
     }
 

@@ -1,8 +1,8 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from "@angular/animations";
 import { Store } from "@ngrx/store";
-import { loadingState } from "../../store/app.state";
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+// import { loadingState } from "../../store/app.state";
 
 @Component({
     selector: 'app-spinner',
@@ -36,11 +36,11 @@ export class SpinnerComponent implements OnInit, OnDestroy {
 
     ngOnInit () {
 
-        this.subscription = this.store.select(loadingState)
-            .subscribe(loading => {
-                this.loading = loading ? 'visible' : 'hidden';
-                this.display = true;
-            });
+        // this.subscription = this.store.select(loadingState)
+        //     .subscribe(loading => {
+        //         this.loading = loading ? 'visible' : 'hidden';
+        //         this.display = true;
+        //     });
 
     }
 
