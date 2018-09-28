@@ -1,5 +1,6 @@
-<div class="spinner-container"
+<div class="full-frame"
      [ngClass]="{'display-block': display, 'display-none': !display}" >
+    <div class="spinner-bg full-frame"></div>
     <div class='spinner'
          [@spinnerState]="loading"
          (@spinnerState.done)="animationDone($event)">
