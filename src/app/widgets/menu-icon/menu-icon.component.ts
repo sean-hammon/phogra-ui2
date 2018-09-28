@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {Store} from '@ngrx/store';
 import { AppToogleMenuAction } from '../../store/app.actions';
-import { menuState } from '../../store/app.state';
+// import { menuState } from '../../store/app.state';
 
 @Component({
     selector: 'app-menu-icon',
@@ -18,10 +18,10 @@ export class MenuIconComponent implements OnInit, OnDestroy{
     ) {}
 
     ngOnInit() {
-        this.subscription = this.store.select(menuState)
-            .subscribe(open => {
-                this.menuOpen = open;
-            });
+        // this.subscription = this.store.select(menuState)
+        //     .subscribe(open => {
+        //         this.menuOpen = open;
+        //     });
     }
 
 

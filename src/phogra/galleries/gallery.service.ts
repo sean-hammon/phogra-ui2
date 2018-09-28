@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map, publishReplay, refCount } from 'rxjs/operators';
 import { Gallery } from './gallery';
 import { Photo } from '../photos/photo';
 import { environment } from '../../environments/environment';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishReplay';
 import { IRestGalleryResponse } from '../rest/rest.galleries';
 import { IRestPhotosResponse } from '../rest/rest.photos';
 
@@ -24,11 +23,13 @@ export class GalleryService {
         if (!this.galleryResults) {
 
             this.galleryResults = this.http.get<IRestGalleryResponse>(environment.apiBase + this.apiEndpoint)
-                .map((galleries: IRestGalleryResponse) => {
-                    return galleries.data.map(item => Gallery.transformRest(item));
-                })
-                .publishReplay(1)
-                .refCount();
+                .pipe(
+                    map((galleries: IRestGalleryResponse) => {
+                        return galleries.data.map(item => Gallery.transformRest(item));
+                    }),
+                    publishReplay(1),
+                    refCount()
+                );
 
         }
 
@@ -46,8 +47,10 @@ export class GalleryService {
     fetchGalleryPhotos(gallery: Gallery): Observable<Photo[]> {
 
         return this.http.get<IRestPhotosResponse>(gallery.links.photos + '?include=files')
-            .map((response: IRestPhotosResponse) => {
-                return response.data.map(item => Photo.transformRest(item));
-            });
+            .pipe(
+                map((response: IRestPhotosResponse) => {
+                    return response.data.map(item => Photo.transformRest(item));
+                })
+            );
     }
 }

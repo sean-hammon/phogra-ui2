@@ -1,11 +1,10 @@
+import { first } from 'rxjs/operators';
 import { Photo } from "./photo";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+import { forkJoin, Observable } from "rxjs";
 import { FileException } from "../exceptions/file.exception";
 
 import isEmpty from 'lodash/isEmpty';
-
-import "rxjs/add/observable/forkJoin";
 
 @Injectable()
 export class PhotoService {
@@ -55,10 +54,14 @@ export class PhotoService {
 
         collection = [];
         photos.forEach((photo: Photo) => {
-            collection.push(this.preloadFile(photo, 'thumb').first());
+            collection.push(this.preloadFile(photo, 'thumb')
+                .pipe(
+                    first()
+                )
+            );
         });
 
-        return Observable.forkJoin(collection);
+        return forkJoin(collection);
 
     }
 }

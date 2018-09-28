@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { skip } from 'rxjs/operators';
 import { IUserLogin, User } from '../../phogra/user/user.model';
 import { LoginAction } from '../store/admin.actions';
 import { Store } from '@ngrx/store';
@@ -35,12 +36,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscriptions.loginError = this.store.select(apiErrorState)
-            .skip(1)
+            .pipe(
+                skip(1)
+            )
             .subscribe(error => {
                 this.loginError = this.errorMessages[error.statusText];
             });
         this.subscriptions.loginSuccess = this.store.select(userState)
-            .skip(1)
+            .pipe(
+                skip(1)
+            )
             .subscribe(user => {
                 this.router.navigateByUrl('/dashboard');
 
