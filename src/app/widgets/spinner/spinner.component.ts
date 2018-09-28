@@ -1,6 +1,6 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from "@angular/animations";
-import { Store } from "@ngrx/store";
+// import { Store } from "@ngrx/store";
 import { Subscription } from 'rxjs';
 // import { loadingState } from "../../store/app.state";
 
@@ -29,7 +29,7 @@ export class SpinnerComponent implements OnInit, OnDestroy {
     subscription: Subscription;
 
     constructor(
-        private store: Store<any>
+        // private store: Store<any>
     ){
         this.display = true;
     }
