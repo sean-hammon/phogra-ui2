@@ -43,7 +43,7 @@ export class GalleryComponent implements OnInit {
                 node: '',
                 slug: '__root',
                 featured: 0,
-                thumb: 'http://phogra.sean-hammon.com/photos/mBAMoB',
+                thumb: 'http://phogra.sean-hammon.com/photos/mBAMoB/image/thumb',
                 restricted: false,
                 links: {
                     self: '',
@@ -64,7 +64,7 @@ export class GalleryComponent implements OnInit {
                 node: '',
                 slug: '__root',
                 featured: 0,
-                thumb: 'http://phogra.sean-hammon.com/photos/Vpv2Wp',
+                thumb: 'http://phogra.sean-hammon.com/photos/Vpv2Wp/image/thumb',
                 restricted: false,
                 links: {
                     self: '',
