@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Gallery } from '../../../phogra/galleries/gallery';
+import { Photo } from '../../../phogra/photos/photo';
 
 @Component({
     selector: 'app-thumb',
@@ -6,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./thumb.component.sass']
 })
 export class ThumbComponent implements OnInit {
+
+    @Input('type')
+    type: string;
+
+    @Input('obj')
+    obj: Gallery|Photo;
 
     constructor() {}
 
