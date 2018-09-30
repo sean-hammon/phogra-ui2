@@ -1,3 +1,5 @@
-<p>
-  gallery works!
-</p>
+<app-thumb
+    *ngFor="let gallery of children"
+    [type]="'gallery'"
+    [obj]="gallery">
+</app-thumb>
