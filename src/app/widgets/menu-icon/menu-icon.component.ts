@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {Store} from '@ngrx/store';
-import { AppToogleMenuAction } from '../../store/app.actions';
+// import {Store} from '@ngrx/store';
+// import { AppToogleMenuAction } from '../../store/app.actions';
 // import { menuState } from '../../store/app.state';
 
 @Component({
@@ -14,7 +14,7 @@ export class MenuIconComponent implements OnInit, OnDestroy{
     subscription: any;
 
     constructor(
-        private store: Store<any>
+        // private store: Store<any>
     ) {}
 
     ngOnInit() {
@@ -31,7 +31,7 @@ export class MenuIconComponent implements OnInit, OnDestroy{
 
 
     toggleMenu() {
-        this.store.dispatch(new AppToogleMenuAction());
+        // this.store.dispatch(new AppToogleMenuAction());
     }
 
 }

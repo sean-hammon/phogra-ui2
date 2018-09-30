@@ -2,7 +2,7 @@ import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import {Photo} from './photo';
 import { Gallery } from '../galleries/gallery';
-import { ThumbsAppendAction, ThumbsResetAction, PhotosSetAction, PhotosSetCurrentAction } from '../../app/store/app.actions';
+// import { ThumbsAppendAction, ThumbsResetAction, PhotosSetAction, PhotosSetCurrentAction } from '../../app/store/app.actions';
 // import { currentGallery } from '../../app/store/app.state';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class PhotoProvider {
     setPhotos (photos: Photo[]): void {
 
             this.photos = photos;
-            this.store.dispatch(new PhotosSetAction(photos));
+            // this.store.dispatch(new PhotosSetAction(photos));
 
     }
 
@@ -47,7 +47,7 @@ export class PhotoProvider {
 
         this.updateLinks(photo);
 
-        this.store.dispatch(new PhotosSetCurrentAction(this.photos[index]));
+        // this.store.dispatch(new PhotosSetCurrentAction(this.photos[index]));
 
         return this.photos[index];
 
