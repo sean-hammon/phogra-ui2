@@ -51,7 +51,8 @@ export class SpinnerComponent implements OnInit, OnDestroy {
 
 
     animationDone($event) {
-        this.display = this.loading !== 'hidden';
+        // this.display = this.loading !== 'hidden';
+        this.display = false;
     }
 
 }
