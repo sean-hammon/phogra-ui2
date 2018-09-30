@@ -63,6 +63,7 @@ export class Photo implements IPhoto {
     id: string;
     title: string;
     slug: string;
+    thumb: string;
     short_desc: string;
     long_desc: string;
     file_types: string[];
