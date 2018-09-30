@@ -28,8 +28,9 @@ export class Gallery {
     title: string;
     node: string;
     slug: string;
-    path: string;
-    description: string;
+    thumb?: string;
+    path?: string;
+    description?: string;
     featured: number;
     restricted: boolean;
     links: IGalleryLinks;
