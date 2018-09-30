@@ -60,23 +60,26 @@ export class Gallery {
             updated_at: new Date(data.attributes.updated_at)
         };
 
-        return new Gallery(xform);
+        return Gallery.factory(xform);
     }
 
 
-    constructor(data?: Gallery) {
-        this.id = (data && data.id) || '';
-        this.parent_id = (data && data.parent_id) || null;
-        this.title = (data && data.title) || null;
-        this.slug = (data && data.slug) || null;
-        this.node = (data && data.node) || null;
-        this.description = (data && data.description) || null;
-        this.restricted = (data && data.restricted) || false;
-        this.featured = (data && data.featured) || 0;
-        this.created_at = (data && data.created_at) || null;
-        this.updated_at = (data && data.updated_at) || null;
-        this.links = (data && data.links) || new GalleryLinks();
-        this.relationships = (data && data.relationships) || new GalleryRelationships();
+    static factory(data?: Gallery) {
+        return {
+            id: (data && data.id) || '',
+            parent_id: (data && data.parent_id) || null,
+            title: (data && data.title) || null,
+            slug: (data && data.slug) || null,
+            path: null,
+            node: (data && data.node) || null,
+            description: (data && data.description) || null,
+            restricted: (data && data.restricted) || false,
+            featured: (data && data.featured) || 0,
+            created_at: (data && data.created_at) || null,
+            updated_at: (data && data.updated_at) || null,
+            links: (data && data.links) || new GalleryLinks(),
+            relationships: (data && data.relationships) || new GalleryRelationships()
+        };
     }
 
 }
