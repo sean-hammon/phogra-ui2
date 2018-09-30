@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { Gallery } from '../../../phogra/galleries/gallery';
 
 @Component({
@@ -10,6 +10,8 @@ export class GalleryComponent implements OnInit {
 
     gallery: Gallery;
     children: Gallery[];
+
+    @HostBinding('class.full-frame') true;
 
     constructor() {}
 
