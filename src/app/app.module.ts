@@ -9,6 +9,7 @@ import { SpinnerComponent } from './widgets/spinner/spinner.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { GalleryComponent } from './gallery/gallery/gallery.component';
+import { ThumbComponent } from './gallery/thumb/thumb.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { GalleryComponent } from './gallery/gallery/gallery.component';
         TopbarComponent,
         BreadcrumbsComponent,
         GalleryComponent,
+        ThumbComponent
     ],
     imports: [
         BrowserModule,
