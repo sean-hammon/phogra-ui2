@@ -1,23 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Gallery } from './gallery';
+import { map } from 'rxjs/operators';
+import { Gallery } from '../../phogra/galleries/gallery';
+import { GalleryService } from '../../phogra/galleries/gallery.service';
 //import { GalleriesSetAction, GalleriesSetCurrentAction } from '../../app/store/app.actions';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class GalleryProvider {
 
     private galleries = null;
 
     constructor (
-        private store: Store<any>
+        private store: Store<any>,
+        private galleryApi: GalleryService
     ) { }
 
+    loadGalleries() {
+       return this.galleryApi.fetchGalleries()
+           .pipe(
+               map((galleries) => {
+                   this.setGalleries(galleries);
+                })
+           );
+    }
 
     setGalleries (galleries) {
 
         this.galleries = galleries;
         this.generateGalleryPaths();
-        // this.store.dispatch(new GalleriesSetAction(this.galleries));
 
     }
 
