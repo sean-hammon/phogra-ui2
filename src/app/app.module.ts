@@ -1,6 +1,7 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 
 import { PhograModule } from '../phogra/phogra.module';
 
@@ -23,6 +24,7 @@ import { ThumbComponent } from './gallery/thumb/thumb.component';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        StoreModule.forRoot({}),
         PhograModule
     ],
     providers: [
