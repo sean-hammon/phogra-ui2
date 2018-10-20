@@ -30,7 +30,8 @@ export function reducer(
             return {
                 ...state,
                 loading: false,
-                loaded: true
+                loaded: true,
+                galleries: action.payload
             };
 
         case galleryState.LOAD_GALLERIES_FAIL:
