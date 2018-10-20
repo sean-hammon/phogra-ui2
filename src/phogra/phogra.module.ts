@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 import { GalleryService } from './galleries/gallery.service';
 import { GalleryProvider } from '../app/gallery/gallery.provider';
 import { PhotoService } from './photos/photo.service';
@@ -7,12 +8,14 @@ import { PhotoProvider } from './photos/photo.provider';
 import { TokenRequestInterceptor, TokenResponseInterceptor } from './auth/token.interceptor';
 import { TokenStorage } from './auth/token.storage';
 import { AuthService } from './auth/auth.service';
+import { reducers } from './store';
 
 @NgModule({
     declarations: [
     ],
     imports: [
-        HttpClientModule
+        HttpClientModule,
+        StoreModule.forFeature('phogra', reducers )
     ],
     providers: [
         GalleryService,
