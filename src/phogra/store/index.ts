@@ -1,5 +1,5 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import * as galleryStore from './galleries/gallery.reducers';
+import * as galleryStore from './galleries';
 
 export interface PhograState {
     galleries: galleryStore.GalleryState
@@ -8,6 +8,10 @@ export interface PhograState {
 export const reducers: ActionReducerMap<PhograState> = {
     galleries: galleryStore.reducer
 };
+
+export const effects: any[] = [
+    galleryStore.GalleryEffects
+];
 
 export const getPhograState = createFeatureSelector<PhograState>('phogra');
 export const getGalleriesState = createSelector(
