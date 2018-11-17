@@ -7,6 +7,7 @@ export interface Breadcrumbs {
 }
 
 export interface AppState {
+    loading: boolean,
     galleries: Gallery[];
     current: {
         gallery: Gallery,
@@ -16,6 +17,7 @@ export interface AppState {
 }
 
 export const initialState: AppState = {
+    loading: true,
     galleries: [],
     current: {
         gallery: null,
