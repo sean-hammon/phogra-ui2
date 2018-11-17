@@ -1,5 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Gallery } from '../../../phogra/galleries/gallery';
+import { AppState } from '../../store/app.state';
 
 @Component({
     selector: 'app-gallery',
@@ -13,7 +15,9 @@ export class GalleryComponent implements OnInit {
 
     @HostBinding('class.full-frame') true;
 
-    constructor() {}
+    constructor(
+        private store: Store<AppState>
+    ) {}
 
     ngOnInit() {
         this.gallery = {
