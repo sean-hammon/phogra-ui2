@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Gallery } from '../../phogra/galleries/gallery';
-//import { GalleriesSetAction, GalleriesSetCurrentAction } from '../../app/store/app.actions';
 
 @Injectable()
 export class GalleryProvider {
@@ -9,7 +7,6 @@ export class GalleryProvider {
     private galleries = null;
 
     constructor (
-        private store: Store<any>
     ) { }
 
 
@@ -17,14 +14,11 @@ export class GalleryProvider {
 
         this.galleries = galleries;
         this.generateGalleryPaths();
-        // this.store.dispatch(new GalleriesSetAction(this.galleries));
 
     }
 
 
     setCurrent (gallery: Gallery): void {
-
-        // this.store.dispatch(new GalleriesSetCurrentAction(gallery));
 
     }
 
@@ -126,5 +120,6 @@ export class GalleryProvider {
                 this.walkTree(child, gallery);
             })
         }
+
     }
 }
