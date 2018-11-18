@@ -1,25 +1,32 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Gallery } from '../../phogra/galleries/gallery';
+import { GalleryService } from '../../phogra/galleries/gallery.service';
 
 @Injectable()
 export class GalleryProvider {
 
     private galleries = null;
+    private _currentGallery$ = new BehaviorSubject<Gallery>(null);
 
     constructor (
-    ) { }
+        private galleryApi: GalleryService
+    ) {
+        this.galleryApi.fetchGalleries()
+            .subscribe((galleries) => {
+                this.galleries = galleries;
+                this.generateGalleryPaths();
+                this.setDefaultGallery();
+            });
+    }
 
-
-    setGalleries (galleries) {
-
-        this.galleries = galleries;
-        this.generateGalleryPaths();
-
+    currentGallery() {
+        return this._currentGallery$;
     }
 
 
     setCurrent (gallery: Gallery): void {
-
+        this._currentGallery$.next(gallery);
     }
 
 
