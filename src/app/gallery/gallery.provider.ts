@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Gallery } from './gallery';
+import { Gallery } from '../../phogra/galleries/gallery';
 //import { GalleriesSetAction, GalleriesSetCurrentAction } from '../../app/store/app.actions';
 
 @Injectable()
