@@ -3,7 +3,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { GalleryService } from './galleries/gallery.service';
 import { GalleryProvider } from '../app/gallery/gallery.provider';
 import { PhotoService } from './photos/photo.service';
-import { PhotoProvider } from './photos/photo.provider';
+import { PhotoProvider } from '../app/photo/photo.provider';
 import { TokenRequestInterceptor, TokenResponseInterceptor } from './auth/token.interceptor';
 import { TokenStorage } from './auth/token.storage';
 import { AuthService } from './auth/auth.service';
