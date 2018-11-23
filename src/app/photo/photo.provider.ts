@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
-import {Photo} from './photo';
-import { Gallery } from '../galleries/gallery';
+import {Photo} from '../../phogra/photos/photo';
+import { Gallery } from '../../phogra/galleries/gallery';
 // import { ThumbsAppendAction, ThumbsResetAction, PhotosSetAction, PhotosSetCurrentAction } from '../../app/store/app.actions';
 // import { currentGallery } from '../../app/store/app.state';
 
