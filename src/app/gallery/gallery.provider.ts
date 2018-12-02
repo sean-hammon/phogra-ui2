@@ -40,14 +40,27 @@ export class GalleryProvider {
 
 
     setDefaultGallery(): Gallery {
-        const result =  this.galleries.filter((item: Gallery) => {
+        const featured =  this.galleries.filter((item: Gallery) => {
             return item.featured === 1;
         });
 
-        this.setCurrent(result[0]);
-        return result[0];
+        if (featured.length > 0) {
+            this.setCurrent(featured[0]);
+            return featured[0];
+        } else {
+            const random = this.randomGallery();
+            this.setCurrent(random);
+            return random;
+        }
+
     }
 
+    randomGallery(): Gallery {
+
+        const rnd = Math.floor(Math.random() * this.galleries.length);
+        return this.fetchByIndex(rnd);
+
+    }
 
     setById(id: string): Gallery {
 
@@ -75,6 +88,13 @@ export class GalleryProvider {
         });
 
         return result[0];
+
+    }
+
+
+    fetchByIndex(idx: number): Gallery {
+
+        return this.galleries[idx];
 
     }
 
