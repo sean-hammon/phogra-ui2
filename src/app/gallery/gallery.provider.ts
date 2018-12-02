@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Gallery } from '../../phogra/galleries/gallery';
 import { GalleryService } from '../../phogra/galleries/gallery.service';
+import { PhotoProvider } from '../photo/photo.provider';
 
 @Injectable()
 export class GalleryProvider {
@@ -10,7 +11,8 @@ export class GalleryProvider {
     private _currentGallery$ = new BehaviorSubject<Gallery>(null);
 
     constructor (
-        private galleryApi: GalleryService
+        private galleryApi: GalleryService,
+        private photoProvider: PhotoProvider
     ) {
         this.galleryApi.fetchGalleries()
             .subscribe((galleries) => {
@@ -27,6 +29,7 @@ export class GalleryProvider {
 
     setCurrent (gallery: Gallery): void {
         this._currentGallery$.next(gallery);
+        this.photoProvider.fetchGalleryPhotos(gallery);
     }
 
 
