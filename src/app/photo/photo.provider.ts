@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import {Photo} from '../../phogra/photos/photo';
 import { Gallery } from '../../phogra/galleries/gallery';
 
@@ -10,10 +11,19 @@ export class PhotoProvider {
     private currentGallery: Gallery;
 
     private photos: Photo[];
+    private _galleryPhotos$ = new BehaviorSubject<Photo[]>([]);
+    private _currentPhoto$ = new BehaviorSubject<Photo>(null);
 
     constructor(
     ) {}
 
+    galleryPhotos(): BehaviorSubject<Photo[]> {
+        return this._galleryPhotos$;
+    }
+
+    currentPhoto(): BehaviorSubject<Photo> {
+        return this._currentPhoto$;
+    }
 
     setPhotos (photos: Photo[]): void {
 
