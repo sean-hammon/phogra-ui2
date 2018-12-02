@@ -1,4 +1,7 @@
-import { first } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { first, map } from 'rxjs/operators';
+import { Gallery } from '../galleries/gallery';
+import { IRestPhotosResponse } from '../rest/rest.photos';
 import { Photo } from "./photo";
 import { Injectable } from "@angular/core";
 import { forkJoin, Observable } from "rxjs";
@@ -8,6 +11,28 @@ import isEmpty from 'lodash/isEmpty';
 
 @Injectable()
 export class PhotoService {
+
+    constructor(
+        private http: HttpClient
+    ) {}
+
+    /**
+     * Fetch the complete photo data for a given gallery.
+     *
+     * @param {Gallery} gallery
+     *
+     * @returns Photo[]
+     */
+    fetchGalleryPhotos(gallery: Gallery): Observable<Photo[]> {
+
+        return this.http.get<IRestPhotosResponse>(gallery.links.photos + '?include=files')
+            .pipe(
+                map((response: IRestPhotosResponse) => {
+                    return response.data.map(item => Photo.transformRest(item));
+                })
+            );
+    }
+
 
     /**
      * Pre-load the photos so the animations work smoothly. I tried to use the
