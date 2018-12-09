@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Gallery } from '../../phogra/galleries/gallery';
 import { Photo } from '../../phogra/photos/photo';
 import { GalleryProvider } from '../gallery/gallery.provider';
@@ -13,7 +13,7 @@ import { PhotoProvider } from '../photo/photo.provider';
 })
 export class TopbarComponent implements OnInit {
 
-    public onDisplay$: Observable<Gallery|Photo>;
+    public onDisplay$: BehaviorSubject<Gallery|Photo>;
 
     constructor(
         private galleries: GalleryProvider,
