@@ -12,7 +12,6 @@ export class GalleryProvider {
 
     constructor (
         private galleryApi: GalleryService,
-        private photoProvider: PhotoProvider
     ) {
         this.galleryApi.fetchGalleries()
             .subscribe((galleries) => {
@@ -29,7 +28,6 @@ export class GalleryProvider {
 
     setCurrent (gallery: Gallery): void {
         this._currentGallery$.next(gallery);
-        this.photoProvider.fetchGalleryPhotos(gallery);
     }
 
 
