@@ -1,6 +1,6 @@
-<div class="site-title">Sean Hammon Photography</div>
-<div class="photo">
-    <span class="title">{{(onDisplay$ | async)?.title}}</span>
-    <span></span>
-</div>
 <app-breadcrumbs></app-breadcrumbs>
+<div class="photo">
+    <div class="title">{{(onDisplay$ | async)?.title}}</div>
+    <div class="description">{{(onDisplay$ | async)?.short_desc}}</div>
+</div>
+<div class="site-title">Sean Hammon Photography</div>
