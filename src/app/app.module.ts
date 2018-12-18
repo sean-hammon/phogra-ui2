@@ -11,6 +11,7 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { GalleryComponent } from './gallery/gallery/gallery.component';
 import { ThumbComponent } from './gallery/thumb/thumb.component';
+import { PhotoComponent } from './photo/photo/photo.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,8 @@ import { ThumbComponent } from './gallery/thumb/thumb.component';
         TopbarComponent,
         BreadcrumbsComponent,
         GalleryComponent,
-        ThumbComponent
+        ThumbComponent,
+        PhotoComponent
     ],
     imports: [
         BrowserModule,
