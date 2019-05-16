@@ -1,12 +1,9 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { currentPhoto, loadComplete, zoomState } from '../store/app.state';
-import { Photo } from '../../phogra/photos/photo';
-import { File } from '../../phogra/photos/file';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { AppPreloadCompleteAction, PhotosToggleZoom } from '../store/app.actions';
+
+import { Photo } from 'phogra/photos/photo';
+import { File } from 'phogra/photos/file';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import 'rxjs/add/operator/skip';
 import { ConstrainedDrag } from 'app/photo/ConstrainedDrag';
 
 @Component({
@@ -34,7 +31,6 @@ export class PhotoComponent implements OnInit, OnDestroy {
     private subscriptions: any;
 
     constructor(
-        private store: Store<any>,
         private sanitzer: DomSanitizer,
         private router: Router,
         private DragManager: ConstrainedDrag
@@ -53,68 +49,16 @@ export class PhotoComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.winH = document.documentElement.clientHeight;
         this.winW = document.documentElement.clientWidth;
-
-        this.subscriptions.current_photo = this.store.select(currentPhoto)
-            .subscribe(photo => {
-                this.photo = photo;
-                //  File size will be dynamic later
-                if (typeof this.photo.files['hifi'] !== 'undefined') {
-                    this.file = this.photo.files['hifi'];
-                }
-            });
-
-        this.subscriptions.load_complete = this.store.select(loadComplete)
-            .subscribe((completeIsTrue) => {
-                if (completeIsTrue) {
-                    this.coverScreen()
-                }
-            });
-
-        this.subscriptions.zoom_state = this.store.select(zoomState)
-            .skip(1)
-            .subscribe(zoom_state => {
-                if (zoom_state === 'cover') {
-                    this.coverScreen();
-                } else {
-                    this.fitOnScreen();
-                }
-            });
-
-        this.subscriptions.nav_end = this.router.events
-            .filter(event => event instanceof NavigationEnd)
-            .subscribe((event: NavigationEnd) => {
-
-                this.store.dispatch(new AppPreloadCompleteAction());
-
-            });
-
-        this.subscriptions.nav_start = this.router.events
-            .filter(event => event instanceof NavigationStart)
-            .subscribe((event: NavigationStart) => {
-
-                this.visible = false;
-
-            });
-
-        this.store.dispatch(new AppPreloadCompleteAction());
     }
 
 
     ngOnDestroy () {
-
-        this.subscriptions.current_photo.unsubscribe();
-        this.subscriptions.load_complete.unsubscribe();
-        this.subscriptions.zoom_state.unsubscribe();
-        this.subscriptions.nav_start.unsubscribe();
-        this.subscriptions.nav_end.unsubscribe();
-
     }
 
 
     onMouseUp() {
 
         if (!this.isDragging) {
-            this.store.dispatch(new PhotosToggleZoom());
             clearTimeout(this.mouseTimeout);
         } else {
             this.isDragging = false;
@@ -160,7 +104,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
 
         }
 
-        let styles = [
+        const styles = [
             'background-image:' + this.file.cssUrl(),
             `height:${imgH}px`,
             `width:${imgW}px`,
@@ -219,8 +163,8 @@ export class PhotoComponent implements OnInit, OnDestroy {
         let top, left,
             imgH, imgW,
             viewH, menuH,
-            imgRatio, viewRatio,
-            gutter = 15;
+            imgRatio, viewRatio;
+        const gutter = 15;
 
         if (typeof this.file === 'undefined') {
             this.inlineStyles =  '';
@@ -231,7 +175,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
         imgW = this.file.width;
         menuH = document.getElementsByTagName('app-topbar').item(0).getBoundingClientRect().height;
 
-        top = menuH + gutter;;
+        top = menuH + gutter;
         left = gutter;
 
         viewH = this.winH - menuH - (gutter * 2);
@@ -253,7 +197,7 @@ export class PhotoComponent implements OnInit, OnDestroy {
 
         }
 
-        var styles = [];
+        const styles = [];
         styles.push('background-image:' + this.file.cssUrl());
         styles.push(`height:${imgH}px`);
         styles.push(`width:${imgW}px`);

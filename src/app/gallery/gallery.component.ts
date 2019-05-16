@@ -1,23 +1,15 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { Store } from "@ngrx/store";
-import {
-    currentGallery, initialStats, loadComplete, photoCount, thumbCount, thumbPages,
-    thumbsState
-} from "../store/app.state";
-import { Photo } from "../../phogra/photos/photo";
-import { Gallery } from "../../phogra/galleries/gallery";
-import {
-    AppPreloadBeginAction, AppPreloadCompleteAction, ThumbsAppendAction,
-    ThumbsIncrementPageAction
-} from '../store/app.actions';
+import { Photo } from 'phogra/photos/photo';
+import { Gallery } from 'phogra/galleries/gallery';
 import { ThumbCalculator } from './thumb/ThumbCalculator';
+import {Store} from '@datorama/akita';
 
 @Component({
     selector: 'app-gallery',
     templateUrl: './gallery.component.html',
     styleUrls: ['./gallery.component.sass']
 })
-export class GalleryComponent implements OnInit, OnDestroy{
+export class GalleryComponent implements OnInit, OnDestroy {
 
     gallery: Gallery;
     thumbs: Photo[];
@@ -35,12 +27,12 @@ export class GalleryComponent implements OnInit, OnDestroy{
 
     constructor(
         private store: Store<any>,
-        private ThumbCalculator: ThumbCalculator
+        private calculator: ThumbCalculator
     ) {
 
         this.thumbs_loaded = false;
-        this.current_page_size = this.ThumbCalculator.getPageSize();
-        this.gallery_stats = initialStats;
+        this.current_page_size = this.calculator.getPageSize();
+        this.gallery_stats = null;
         this.subscriptions = {
             thumbState: null,
             loadComplete: null,
@@ -53,56 +45,14 @@ export class GalleryComponent implements OnInit, OnDestroy{
     }
 
     public ngOnInit() {
-
-        this.subscriptions.thumbState = this.store.select(thumbsState)
-            .subscribe(thumbs => this.thumbs = thumbs);
-        this.subscriptions.loadComplete = this.store.select(loadComplete)
-            .subscribe(() => this.thumbs_loaded = true);
-        this.subscriptions.currentGallery = this.store.select(currentGallery)
-            .subscribe((gallery) => this.gallery = gallery);
-        this.subscriptions.thumbPages = this.store.select(thumbPages)
-            //  skip events triggered in the resolver.
-            .skip(1)
-            .flatMap((thumb_pages) => {
-                const current_page = thumb_pages[this.gallery.id];
-                return this.ThumbCalculator.fetchSinglePage(current_page);
-            })
-            .subscribe((photos: Photo[]) => {
-                this.store.dispatch(new ThumbsAppendAction(photos));
-                this.store.dispatch(new AppPreloadCompleteAction());
-            });
-        this.subscriptions.photo_count = this.store.select(photoCount)
-            .subscribe(count => {
-                this.gallery_stats.photo_count = count;
-                this.updateLoadMore();
-            });
-        this.subscriptions.thumbs = this.store.select(thumbsState)
-            .subscribe(thumbs => {
-                this.thumbs = thumbs;
-                this.gallery_stats.thumb_count = thumbs.length;
-                this.updateLoadMore();
-            });
-
-        this.store.dispatch(new AppPreloadCompleteAction());
-
     }
 
 
     public ngOnDestroy() {
-        this.subscriptions.thumbState.unsubscribe();
-        this.subscriptions.loadComplete.unsubscribe();
-        this.subscriptions.currentGallery.unsubscribe();
-        this.subscriptions.thumbPages.unsubscribe();
-        this.subscriptions.photo_count.unsubscribe();
-        this.subscriptions.thumbs.unsubscribe();
     }
 
 
     public loadNextBatch() {
-
-        this.store.dispatch(new AppPreloadBeginAction());
-        this.store.dispatch(new ThumbsIncrementPageAction(this.gallery.id));
-
     }
 
 

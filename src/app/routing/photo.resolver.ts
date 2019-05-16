@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import { GalleryService } from '../../phogra/galleries/gallery.service';
-import { GalleryProvider } from '../../phogra/galleries/gallery.provider';
-import { Gallery } from '../../phogra/galleries/gallery';
-import { PhotoService } from '../../phogra/photos/photo.service';
-import { PhotoProvider } from '../../phogra/photos/photo.provider';
-import { Photo } from '../../phogra/photos/photo';
-import { AppPreloadBeginAction } from '../store/app.actions';
+import { GalleryService } from 'phogra/galleries/gallery.service';
+import { GalleryProvider } from 'phogra/galleries/gallery.provider';
+import { Gallery } from 'phogra/galleries/gallery';
+import { PhotoService } from 'phogra/photos/photo.service';
+import { PhotoProvider } from 'phogra/photos/photo.provider';
+import { Photo } from 'phogra/photos/photo';
 
 @Injectable()
 export class PhotoResolver implements Resolve<boolean> {
 
     constructor(
-        private store: Store<any>,
         private galleries: GalleryProvider,
         private galleryApi: GalleryService,
         private photoApi: PhotoService,
@@ -28,9 +25,6 @@ export class PhotoResolver implements Resolve<boolean> {
         const home_route =  route.url.length === 0;
         let photo_id = '',
             gallery_slug = '';
-
-        //  Make sure the spinner starts with each route change.
-        this.store.dispatch(new AppPreloadBeginAction());
 
         let gallery: Gallery;
         if (home_route) {
