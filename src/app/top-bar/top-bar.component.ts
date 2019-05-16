@@ -7,9 +7,9 @@ import { Gallery } from 'phogra/galleries/gallery';
 import { GalleryProvider } from 'phogra/galleries/gallery.provider';
 import { PhotoProvider } from 'phogra/photos/photo.provider';
 
-import {Store} from '@datorama/akita';
 import {filter, takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
+import {SessionQuery} from 'app/store/session.query';
 
 interface IZoomIcons {
     cover: string;
@@ -36,7 +36,7 @@ export class TopBarComponent implements OnInit, OnDestroy {
     subscriptions: any;
 
     constructor(
-        private store: Store<any>,
+        private session: SessionQuery,
         private router: Router,
         private location: Location,
         private galleries: GalleryProvider,
@@ -98,6 +98,36 @@ export class TopBarComponent implements OnInit, OnDestroy {
                 this.description = '';
             });
 
+        this.session.currentGallery$
+            .subscribe(gallery => {
+                if (typeof gallery.slug !== 'undefined') {
+                    this.current_view = 'gallery';
+                    this.updateWithGalleryInfo(gallery);
+                }
+            });
+
+        this.session.currentPhoto$
+            .subscribe(photo => {
+                if (typeof photo.slug !== 'undefined') {
+                    this.current_view = 'photo';
+                    this.updateWithPhotoInfo(photo);
+                }
+            });
+
+        this.session.photoCount$
+            .subscribe(count => {
+                this.gallery_stats.photo_count = count;
+                this.updateGalleryDescription();
+            });
+
+        this.session.thumbCount$
+            .subscribe(count => {
+                this.gallery_stats.thumb_count = count;
+                this.updateGalleryDescription();
+            });
+
+        this.session.zoomState$
+            .subscribe(zoom_state => this.zoom_state = zoom_state);
     }
 
 
