@@ -1,9 +1,6 @@
-import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
 import {Photo} from './photo';
-import { Gallery } from '../galleries/gallery';
-import { ThumbsAppendAction, ThumbsResetAction, PhotosSetAction, PhotosSetCurrentAction } from '../../app/store/app.actions';
-import { currentGallery } from '../../app/store/app.state';
+import { Gallery } from 'phogra/galleries/gallery';
 
 @Injectable()
 export class PhotoProvider {
@@ -14,19 +11,11 @@ export class PhotoProvider {
 
     private photos: Photo[];
 
-    constructor(
-        private store: Store<any>
-    ) {
-        store.select(currentGallery)
-            .subscribe((gallery:Gallery) => this.currentGallery = gallery);
-    }
+    constructor() {}
 
 
     setPhotos (photos: Photo[]): void {
-
             this.photos = photos;
-            this.store.dispatch(new PhotosSetAction(photos));
-
     }
 
 
@@ -46,8 +35,6 @@ export class PhotoProvider {
         }
 
         this.updateLinks(photo);
-
-        this.store.dispatch(new PhotosSetCurrentAction(this.photos[index]));
 
         return this.photos[index];
 
@@ -97,8 +84,8 @@ export class PhotoProvider {
             return url;
         }
 
-        let parts = url.split('/');
-        parts.splice(parts.length - 1, 0, "in");
+        const parts = url.split('/');
+        parts.splice(parts.length - 1, 0, 'in');
         parts.splice(parts.length - 1, 0, gallery_path.substr(1));
 
         return parts.join('/');

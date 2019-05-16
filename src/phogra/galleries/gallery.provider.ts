@@ -1,30 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Gallery } from './gallery';
-import { GalleriesSetAction, GalleriesSetCurrentAction } from '../../app/store/app.actions';
 
 @Injectable()
 export class GalleryProvider {
 
     private galleries = null;
 
-    constructor (
-        private store: Store<any>
-    ) { }
+    constructor ( ) { }
 
 
     setGalleries (galleries) {
 
         this.galleries = galleries;
         this.generateGalleryPaths();
-        this.store.dispatch(new GalleriesSetAction(this.galleries));
 
     }
 
 
     setCurrent (gallery: Gallery): void {
-
-        this.store.dispatch(new GalleriesSetCurrentAction(gallery));
 
     }
 
@@ -109,7 +102,7 @@ export class GalleryProvider {
     }
 
 
-    private walkTree(gallery: Gallery, parent: Gallery){
+    private walkTree(gallery: Gallery, parent: Gallery) {
 
         gallery.links.ui = '/gallery/' + gallery.slug;
         gallery.path = '';
@@ -121,10 +114,10 @@ export class GalleryProvider {
         gallery.links.ui += '/' + gallery.id;
 
         if (gallery.relationships.children) {
-            let children = this.fetchByParentId(gallery.id);
+            const children = this.fetchByParentId(gallery.id);
             children.forEach((child: Gallery) => {
                 this.walkTree(child, gallery);
-            })
+            });
         }
     }
 }
