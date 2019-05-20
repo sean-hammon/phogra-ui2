@@ -1,11 +1,9 @@
-import { Photo } from "./photo";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { FileException } from "../exceptions/file.exception";
+import { Photo } from './photo';
+import { Injectable } from '@angular/core';
+import {forkJoin, Observable} from 'rxjs';
+import { FileException } from 'phogra/exceptions/file.exception';
 
 import isEmpty from 'lodash/isEmpty';
-
-import "rxjs/add/observable/forkJoin";
 
 @Injectable()
 export class PhotoService {
@@ -25,10 +23,10 @@ export class PhotoService {
 
         return Observable.create(observer => {
 
-            let image = new Image();
-            if (isEmpty(photo.files[type])){
+            const image = new Image();
+            if (isEmpty(photo.files[type])) {
 
-                let exception = new FileException(`Photo ${photo.id} does not have a file with type '${type}'`);
+                const exception = new FileException(`Photo ${photo.id} does not have a file with type '${type}'`);
                 observer.error(exception);
 
             } else {
@@ -37,7 +35,7 @@ export class PhotoService {
                     observer.next(photo);
                 };
                 image.onerror = function imageError() {
-                    let exception = new FileException(photo.files[type].links.image + " did not load.");
+                    const exception = new FileException(photo.files[type].links.image + ' did not load.');
                     observer.error(exception);
                 };
 
@@ -58,7 +56,7 @@ export class PhotoService {
             collection.push(this.preloadFile(photo, 'thumb').first());
         });
 
-        return Observable.forkJoin(collection);
+        return forkJoin(collection);
 
     }
 }
