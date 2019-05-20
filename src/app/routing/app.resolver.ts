@@ -4,10 +4,7 @@ import { Observable } from 'rxjs';
 
 import { GalleryService } from 'phogra/galleries/gallery.service';
 import { GalleryProvider } from 'phogra/galleries/gallery.provider';
-
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/first';
-
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AppResolver implements Resolve<boolean> {
@@ -21,13 +18,12 @@ export class AppResolver implements Resolve<boolean> {
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
 
         return this.galleryApi.fetchGalleries()
-            .map(galleries => {
-
-                this.galleries.setGalleries(galleries);
-                return true;
-
-            });
-
+            .pipe(
+                map(galleries => {
+                    this.galleries.setGalleries(galleries);
+                    return true;
+                })
+            );
 
     }
 }
