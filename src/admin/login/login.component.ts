@@ -1,10 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IUserLogin, User } from '../../phogra/user/user.model';
-import { LoginAction } from '../store/admin.actions';
-import { Store } from '@ngrx/store';
-import { AdminState, apiErrorState, userState } from '../store/admin.state';
-import 'rxjs/add/operator/skip';
+import { IUserLogin, User } from 'phogra/user/user.model';
 import { Router } from '@angular/router';
+import { apiErrorState, userState } from 'admin/store/admin.state';
 
 @Component({
     selector: 'app-login',
@@ -19,7 +16,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     errorMessages: any;
 
     constructor(
-        private store: Store<AdminState>,
         private router: Router
     ) {
         this.busy = false;
@@ -29,35 +25,21 @@ export class LoginComponent implements OnInit, OnDestroy {
             loginError: null
         };
         this.errorMessages = {
-            'Unauthorized': "Login failed"
-        }
+            'Unauthorized': 'Login failed'
+        };
     }
 
     ngOnInit() {
-        this.subscriptions.loginError = this.store.select(apiErrorState)
-            .skip(1)
-            .subscribe(error => {
-                this.loginError = this.errorMessages[error.statusText];
-            });
-        this.subscriptions.loginSuccess = this.store.select(userState)
-            .skip(1)
-            .subscribe(user => {
-                this.router.navigateByUrl('/dashboard');
-
-            });
     }
 
 
     ngOnDestroy() {
-        this.subscriptions.loginError.unsubscribe();
-        this.subscriptions.loginSuccess.unsubscribe();
     }
 
     onSubmit({value, valid}: {value: IUserLogin, valid: boolean}) {
 
         if (valid) {
             this.busy = true;
-            this.store.dispatch(new LoginAction(value));
         }
 
     }
