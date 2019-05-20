@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { PhotoProvider } from '../../../phogra/photos/photo.provider';
-import { Photo } from '../../../phogra/photos/photo';
-import { PhotoService } from '../../../phogra/photos/photo.service';
-import { Observable } from 'rxjs/Observable';
+import { PhotoProvider } from 'phogra/photos/photo.provider';
+import { Photo } from 'phogra/photos/photo';
+import { PhotoService } from 'phogra/photos/photo.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class ThumbCalculator {
