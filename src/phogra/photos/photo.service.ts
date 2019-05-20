@@ -4,6 +4,7 @@ import {forkJoin, Observable} from 'rxjs';
 import { FileException } from 'phogra/exceptions/file.exception';
 
 import isEmpty from 'lodash/isEmpty';
+import { first } from 'rxjs/operators';
 
 @Injectable()
 export class PhotoService {
@@ -53,7 +54,9 @@ export class PhotoService {
 
         collection = [];
         photos.forEach((photo: Photo) => {
-            collection.push(this.preloadFile(photo, 'thumb').first());
+            collection.push(this.preloadFile(photo, 'thumb')
+                .pipe( first() )
+            );
         });
 
         return forkJoin(collection);
